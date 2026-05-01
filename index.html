@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herage Store</title>
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body {
+  background:#111;
+  color:#fff;
+}
+
+/* HEADER */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:#fff;
+  color:#000;
+}
+
+.logo-img {
+  height:50px;
+}
+
+.menu-icon {
+  font-size:26px;
+  cursor:pointer;
+}
+
+.icons img {
+  width:35px;
+  margin-left:15px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.icons img:hover {
+  transform:scale(1.2);
+}
+
+/* HERO */
+.hero {
+  height:70vh;
+  background:url('foto1.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.hero::after {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.hero button {
+  position:relative;
+  padding:15px 30px;
+  border:2px solid #fff;
+  background:transparent;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* CONTENT */
+.container {
+  padding:20px;
+}
+
+.filter-sort {
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.btn {
+  flex:1;
+  padding:10px;
+  border:1px solid #ccc;
+  background:#fff;
+  color:#000;
+  cursor:pointer;
+}
+
+/* EMPTY */
+.empty {
+  text-align:center;
+  margin:40px 0;
+  color:#aaa;
+}
+
+/* ACCORDION */
+.accordion-item {
+  border-top:1px solid #444;
+}
+
+.accordion-header {
+  padding:15px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+}
+
+.accordion-content {
+  display:none;
+  padding:15px;
+  background:#222;
+}
+
+/* DRAWER */
+#menuDrawer, #cartDrawer, #accountDrawer {
+  position:fixed;
+  top:0;
+  width:300px;
+  height:100%;
+  background:#fff;
+  color:#000;
+  padding:20px;
+  transition:0.3s;
+  z-index:1002;
+}
+
+#menuDrawer { left:-300px; }
+#accountDrawer { left:-300px; }
+#cartDrawer { right:-300px; }
+
+#overlay {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(2px);
+  display:none;
+  z-index:1000;
+}
+#authModal {
+  z-index: 2000;
+}
+
+.auth-box {
+  position: relative;
+  z-index: 2001;
+}
+
+/* MENU */
+.search-box {
+  width:100%;
+  padding:10px;
+  margin-bottom:20px;
+  border:1px solid #ccc;
+}
+
+.menu-list p {
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+  cursor:pointer;
+}
+
+.menu-list p:hover {
+  color:#888;
+}
+
+/* AUTH */
+#authModal {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.auth-box {
+  background:#fff;
+  color:#000;
+  padding:25px;
+  border-radius:12px;
+  width:300px;
+}
+
+.auth-box input {
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+#accountDrawer {
+  z-index: 1001;
+}
+
+#authModal {
+  z-index: 2000;
+}
+/* BOTTOM SHEET */
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 80%;
+  background: #fff;
+  color: #000;
+  border-radius: 20px 20px 0 0;
+  transition: 0.3s;
+  z-index: 2000;
+}
+
+.sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sheet-header span {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.sheet-content p {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.sheet-content h4 {
+  margin-top: 15px;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.hero button:hover {
+  background:#fff;
+  color:#000;
+  transition:0.3s;
+}
+.hero button {
+  position: relative;
+  z-index: 2;
+}
+
+.hero::after {
+  pointer-events: none;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.product {
+  background: #fff;
+  color: #000;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.product h4 {
+  margin: 10px 0 5px;
+  font-size: 14px;
+}
+
+.product p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product button {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.product button:hover {
+  background: #333;
+}
+.section {
+  padding: 80px 20px;
+  border-top: 1px solid #333;
+}
+
+.section h2 {
+  margin-bottom: 10px;
+}
+html {
+  scroll-behavior: smooth;
+}
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+.page {
+  display: none;
+  animation: fade 0.3s;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fade {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+#backBtn img {
+  transition: 0.2s;
+}
+
+#backBtn img:hover {
+  transform: scale(1.2);
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menuDrawer">
+  <input type="text" placeholder="Search..." class="search-box">
+  <div class="menu-list">
+    <p onclick="showPage('catalog')">Catalog</p>
+    <p onclick="showPage('community')">Community</p>
+    <p onclick="showPage('archives')">Archives</p>
+    <p onclick="showPage('about')">About</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div style="display:flex;align-items:center;gap:15px;">
+
+<!-- BACK BUTTON -->
+<div id="backBtn" onclick="goHome()" style="display:none;cursor:pointer;">
+  <img src="back.png" style="width:24px;">
+</div>
+
+<div class="menu-icon" onclick="openMenu()">☰</div>
+<img src="logo.png" class="logo-img">
+</div>
+
+  <div class="icons">
+    <img src="cart.png" onclick="openCart()">
+    <img src="user.png" onclick="openAccount()">
+  </div>
+</header>
+
+<!-- HERO -->
+<div id="home" class="page active">
+  <section class="hero">
+    <button onclick="showPage('catalog')">SHOP NOW</button>
+  </section>
+</div>
+
+<!-- CONTENT -->
+<div class="container" id="shop">
+  <!-- CATALOG -->
+  <div id="catalog" class="page">
+    <div class="filter-sort">
+      <button class="btn" onclick="openFilter()">Filter</button>
+      <button class="btn" onclick="openSort()">Sort</button>
+    </div>
+
+    <div class="empty">
+      <p><strong>No Products Yet</strong></p>
+      <p>Coming soon.</p>
+    </div>
+  </div>
+  <!-- COMMUNITY -->
+  <div id="community" class="page">
+    <h2>Community</h2>
+    <p>Coming Soon</p>
+  </div>
+
+  <!-- ARCHIVES -->
+  <div id="archives" class="page">
+    <h2>Archives</h2>
+    <p>Coming Soon</p>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about" class="page">
+    <h2>About</h2>
+    <p>Herage is a streetwear brand...</p>
+  </div>
+  
+</div>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggle(this)">
+        Payment Method <span>+</span>
+      </div>
+      <div class="accordion-content">
+        Transfer Bank, E-Wallet, COD
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggle(this)">
+        Shipment Method <span>+</span>
+      </div>
+      <div class="accordion-content">
+        JNE, J&T, SiCepat
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DRAWER -->
+<div id="cartDrawer">
+  <h3>Keranjang</h3>
+  <p>Belum ada produk</p>
+</div>
+
+<div id="accountDrawer">
+  <h3>Akun</h3>
+  <p id="accountInfo">Belum login</p>
+  <button onclick="openAuth()">Login / Register</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div id="overlay" onclick="closeAll()"></div>
+
+<!-- AUTH -->
+<div id="authModal">
+  <div class="auth-box">
+    <h2>Login</h2>
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+    <p onclick="closeAuth()" style="cursor:pointer;font-size:12px;">Close</p>
+  </div>
+</div>
+<div id="comingModal" style="
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:3000;
+">
+  <div style="background:#fff;color:#000;padding:30px;border-radius:10px;text-align:center;">
+    <h3 id="comingText">Coming Soon</h3>
+    <button onclick="closeComing()">Close</button>
+  </div>
+</div>
+<script>
+function toggle(el){
+  const content = el.nextElementSibling;
+  content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+
+/* DRAWER */
+function openMenu(){
+  document.getElementById('menuDrawer').style.left = '0';
+  document.getElementById('overlay').style.display = 'block';
+}
+
+function openCart(){
+  document.getElementById('cartDrawer').style.right = '0';
+  document.getElementById('overlay').style.display = 'block';
+}
+
+function openAccount(){
+  document.getElementById('accountDrawer').style.left = '0';
+  document.getElementById('overlay').style.display = 'block';
+  loadUser();
+}
+
+function closeAll(){
+  document.getElementById('menuDrawer').style.left = '-300px';
+  document.getElementById('cartDrawer').style.right = '-300px';
+  document.getElementById('accountDrawer').style.left = '-300px';
+  document.getElementById('overlay').style.display = 'none';
+}
+
+/* AUTH */
+function openAuth(){
+  closeAll(); // ⬅️ INI PENTING BANGET
+
+  document.getElementById('authModal').style.display = 'flex';
+}
+
+function closeAuth(){
+  document.getElementById('authModal').style.display = 'none';
+}
+
+function register(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if(!email || !password){
+    alert('Isi semua data');
+    return;
+  }
+
+  localStorage.setItem('user', JSON.stringify({email, password}));
+  alert('Register berhasil');
+}
+
+function login(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if(user && user.email === email && user.password === password){
+    alert('Login berhasil');
+    closeAuth();
+    loadUser();
+  } else {
+    alert('Email atau password salah');
+  }
+}
+
+function logout(){
+  localStorage.removeItem('user');
+  alert('Logout berhasil');
+  loadUser();
+}
+
+function loadUser(){
+  const user = JSON.parse(localStorage.getItem('user'));
+  const text = document.getElementById('accountInfo');
+
+  if(user){
+    text.innerHTML = 'Login: ' + user.email;
+  } else {
+    text.innerHTML = 'Belum login';
+  }
+}
+function openSort(){
+  document.getElementById('sortModal').style.bottom = '0';
+  document.getElementById('overlay').style.display = 'block';
+}
+
+function openFilter(){
+  document.getElementById('filterModal').style.bottom = '0';
+  document.getElementById('overlay').style.display = 'block';
+}
+
+function closeSheet(){
+  document.getElementById('sortModal').style.bottom = '-100%';
+  document.getElementById('filterModal').style.bottom = '-100%';
+  document.getElementById('overlay').style.display = 'none';
+}
+function addToCart(name){
+  alert(name + ' ditambahkan ke keranjang');
+}
+function comingSoon(menu){
+  document.getElementById('comingModal').style.display = 'flex';
+  document.getElementById('comingText').innerText = menu + ' - Coming Soon';
+}
+
+function closeComing(){
+  document.getElementById('comingModal').style.display = 'none';
+}
+function scrollToSection(id){
+  closeAll(); // biar drawer nutup
+
+  document.getElementById(id).scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+function showPage(pageId){
+  closeAll();
+
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  const backBtn = document.getElementById('backBtn');
+
+  if(pageId === 'home'){
+    backBtn.style.display = 'none';
+  } else {
+    backBtn.style.display = 'block';
+  }
+}
+function goHome(){
+  closeAll();
+
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  document.getElementById('home').classList.add('active');
+
+  document.getElementById('backBtn').style.display = 'none';
+}
+</script>
+
+</body>
+<!-- SORT MODAL -->
+<div id="sortModal" class="bottom-sheet">
+  <div class="sheet-content">
+    <div class="sheet-header">
+      <h3>Sort products by</h3>
+      <span onclick="closeSheet()">✕</span>
+    </div>
+
+    <p class="active">Featured ✔</p>
+    <p>Recent</p>
+    <p>Oldest</p>
+    <p>Most Popular</p>
+    <p>Lowest Price</p>
+    <p>Highest Price</p>
+    <p>Product Name (A-Z)</p>
+    <p>Product Name (Z-A)</p>
+  </div>
+</div>
+
+<!-- FILTER MODAL -->
+<div id="filterModal" class="bottom-sheet">
+  <div class="sheet-content">
+
+    <div class="sheet-header">
+      <h3>Filter</h3>
+      <span onclick="closeSheet()">✕</span>
+    </div>
+
+    <h4>Availability</h4>
+    <p>● All</p>
+    <p>○ In Stock</p>
+
+    <h4>Price</h4>
+    <p>○ Under Rp 620.000</p>
+    <p>○ Rp 620.000 - Rp 1.200.000</p>
+    <p>○ Rp 1.200.000 - Rp 1.800.000</p>
+    <p>○ Rp 1.800.000+</p>
+
+    <button class="apply-btn">Apply</button>
+
+  </div>
+</div>
+</html>
