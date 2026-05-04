@@ -477,6 +477,49 @@ html {
 .filter-size.active {
   font-weight:bold;
 }
+.payment-logos,
+.shipment-logos {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.payment-logos img,
+.shipment-logos img {
+  height: 35px;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.payment-logos img:hover,
+.shipment-logos img:hover {
+  transform: scale(1.05);
+}
+.payment-logos img,
+.shipment-logos img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: #222;
+  padding: 6px;
+  border-radius: 8px;
+}
+.payment-logos img,
+.shipment-logos img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+.payment-logos,
+.shipment-logos {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 </style>
 </head>
 
@@ -558,8 +601,12 @@ html {
       <div class="accordion-header" onclick="toggle(this)">
         Payment Method <span>+</span>
       </div>
-      <div class="accordion-content">
-        Transfer Bank, E-Wallet, COD
+      <div class="accordion-content payment-logos">
+       <img src="bca.png">
+       <img src="qris.png">
+       <img src="gopay.png">
+       <img src="spay.png">
+       <img src="dana.png">
       </div>
     </div>
 
@@ -567,19 +614,18 @@ html {
       <div class="accordion-header" onclick="toggle(this)">
         Shipment Method <span>+</span>
       </div>
-      <div class="accordion-content">
-        JNE, J&T, SiCepat
+      <div class="accordion-content shipment-logos">
+       <img src="jne.png">
+       <img src="jnt.png">
+       <img src="sicepat.png">
       </div>
     </div>
-  </div>
-
-</div>
 
 <!-- DRAWER -->
 <div id="cartDrawer">
-  <div class="cart-header">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
     <h2>Cart</h2>
-    <span onclick="closeAll()">✕</span>
+    <span onclick="closeAll()" style="cursor:pointer; font-size:18px;">✕</span>
   </div>
 
   <div class="cart-empty">
@@ -597,24 +643,14 @@ html {
 
   <div class="recent">
     <h4>Recently Ordered</h4>
-
-    <div class="recent-items">
-      <div class="recent-item">
-        <img src="foto1.jpg">
-        <span onclick="addToCart('Item 1')">＋</span>
-      </div>
-
-      <div class="recent-item">
-        <img src="foto2.jpg">
-        <span onclick="addToCart('Item 2')">＋</span>
-      </div>
-    </div>
   </div>
 </div>
 
 <div id="accountDrawer">
-  <h2>My Account</h2>
-
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>My Account</h2>
+    <span onclick="closeAll()" style="cursor:pointer; font-size:18px;">✕</span>
+  </div>
   <div class="account-box">
     <h3>Enjoy Special Discounts and Stay Connected</h3>
     <p>
@@ -746,6 +782,10 @@ function closeAll(){
   document.getElementById('menuDrawer').style.left = '-300px';
   document.getElementById('cartDrawer').style.right = '-300px';
   document.getElementById('accountDrawer').style.left = '-300px';
+
+  document.getElementById('sortModal').style.bottom = '-100%';
+  document.getElementById('filterModal').style.bottom = '-100%';
+
   document.getElementById('overlay').style.display = 'none';
 }
 
@@ -975,6 +1015,5 @@ function applyFilter(){
 }
 </script>
 
-</body>
-</div>
+</body>                                                                                                                                                                                                iju
 </html>
