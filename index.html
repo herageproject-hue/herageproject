@@ -520,6 +520,242 @@ html {
   gap: 12px;
   flex-wrap: wrap;
 }
+.slide{
+  width:100%;
+  display:none;
+}
+
+.slide.active{
+  display:block;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  background:#ccc;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#111;
+}
+/* PRODUCT DETAIL */
+.product-detail{
+  background:#f5f5f5;
+  color:#000;
+  min-height:100vh;
+  padding-bottom:120px;
+}
+
+/* SLIDER */
+.slider{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  background:#f5f5f5;
+}
+
+#slidesContainer{
+  width:100%;
+}
+
+.slide{
+  width:100%;
+  display:none;
+  object-fit:cover;
+}
+
+.slide.active{
+  display:block;
+}
+
+/* DOTS */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:15px 0;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ccc;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#111;
+}
+
+/* INFO */
+.detail-info{
+  padding:20px;
+}
+
+.coming-detail{
+  display:inline-block;
+  background:#999;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:4px;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.detail-info h1{
+  font-size:42px;
+  line-height:1.1;
+  margin-bottom:15px;
+  font-weight:700;
+}
+
+.detail-info h2{
+  font-size:24px;
+  margin-bottom:20px;
+}
+
+/* QUANTITY */
+.quantity-box{
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:25px;
+  background:#fff;
+}
+
+.quantity-box p{
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+/* SIZE */
+.size-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.size-header h3{
+  font-size:28px;
+}
+
+.size-header span{
+  font-weight:bold;
+}
+
+.sizes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:25px;
+}
+
+.sizes button{
+  height:55px;
+  border:1px solid #ddd;
+  background:#fff;
+  font-size:22px;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.sizes button:hover{
+  border:2px solid #000;
+}
+
+/* NOTIFY */
+.notify-btn{
+  width:100%;
+  height:60px;
+  border:none;
+  border-radius:18px;
+  background:#bdbdbd;
+  color:#fff;
+  font-size:28px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-bottom:25px;
+}
+
+/* DESCRIPTION */
+.product-desc{
+  padding:0 20px;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:30px;
+}
+
+/* DELIVERY */
+.delivery-box{
+  padding:0 20px;
+}
+
+.delivery-box h3{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.delivery-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-size:18px;
+}
+
+.delivery-note{
+  margin-top:20px;
+  line-height:1.6;
+}
+
+/* PRODUCT CARD */
+.product{
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.product-image{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.product-image img{
+  width:100%;
+  display:block;
+}
+
+.coming-label{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#888;
+  color:#fff;
+  padding:5px 8px;
+  border-radius:4px;
+  font-size:11px;
+  z-index:2;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .detail-info h1{
+    font-size:28px;
+  }
+
+  .sizes{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .notify-btn{
+    font-size:22px;
+  }
+
+}
 </style>
 </head>
 
@@ -566,16 +802,212 @@ html {
 <div class="container" id="shop">
   <!-- CATALOG -->
   <div id="catalog" class="page">
+
     <div class="filter-sort">
       <button class="btn" onclick="openFilter()">Filter</button>
       <button class="btn" onclick="openSort()">Sort</button>
     </div>
 
-    <div class="empty">
-      <p><strong>No Products Yet</strong></p>
-      <p>Coming soon.</p>
-    </div>
+    <div class="products">
+
+      <div class="product"
+        onclick="openProduct(
+          'ZIP UP HOODIE AMERICANS - BLACK',
+          'Rp 649,000',
+          ['black1.png','black2.png','black3.png']
+        )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="black1.png">
+         </div>
+
+         <h4>ZIP UP HOODIE AMERICANS - BLACK</h4>
+         <p>Rp 649,000</p>
+       </div> 
+
+
+       <div class="product"
+         onclick="openProduct(
+           'ZIP UP HOODIE AMERICANS - GREY',
+           'Rp 649,000',
+           ['grey1.png','grey2.png','grey3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="grey1.png">
+         </div>
+
+         <h4>ZIP UP HOODIE AMERICANS - GREY</h4>
+         <p>Rp 649,000</p>
+       </div>
+
+
+       <div class="product"
+         onclick="openProduct(
+           'ZIP UP HOODIE AMERICANS - WHITE',
+           'Rp 649,000',
+           ['white1.png','white2.png','white3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="white1.png">
+         </div>
+
+         <h4>ZIP UP HOODIE AMERICANS - WHITE</h4>
+         <p>Rp 649,000</p>
+       </div>
+
+
+       <div class="product"
+         onclick="openProduct(
+           'KNITWEAR - BLACK ON BLACK',
+           'Rp 349,000',
+           ['knitblk1.png','knitblk2.png','knitblk3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="knitblk1.png">
+         </div>
+
+         <h4>KNITWEAR - BLACK ON BLACK</h4>
+         <p>Rp 349,000</p>
+       </div>
+
+
+       <div class="product"
+         onclick="openProduct(
+           'KNITWEAR - WHITE ON WHITE',
+           'Rp 349,000',
+           ['knitwht1.png','knitwht2.png','knitwht3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="knitwht1.png">
+         </div>
+
+         <h4>KNITWEAR - WHITE ON WHITE</h4>
+         <p>Rp 349,000</p>
+       </div>
+
+
+       <div class="product"
+         onclick="openProduct(
+           'KNITWEAR - BLACK ON WHITE',
+           'Rp 349,000',
+           ['knitblknwht1.png','knitblknwht2.png','knitblknwht3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="knitblknwht1.png">
+         </div>
+
+         <h4>KNITWEAR - BLACK ON WHITE</h4>
+         <p>Rp 349,000</p>
+       </div>
+
+
+       <div class="product"
+         onclick="openProduct(
+           'LONGSLEEVE - LIPS',
+           'Rp 149,000',
+           ['longsleeve1.png','longsleeve2.png','longsleeve3.png']
+         )">
+
+         <div class="product-image">
+           <span class="coming-label">COMING SOON</span>
+           <img src="longsleeve1.png">
+         </div>
+
+         <h4>LONGSLEEVE - LIPS</h4>
+         <p>Rp 149,000</p>
+       </div>
+
+     </div>
   </div>
+  <!-- PRODUCT DETAIL PAGE -->
+  <div id="productPage" class="page">
+
+    <div class="product-detail">
+
+      <!-- SLIDER -->
+      <div class="slider">
+
+        <div id="slidesContainer"></div>
+
+        <div class="dots" id="dotsContainer"></div>
+
+      </div>
+
+      <!-- INFO -->
+      <div class="detail-info">
+
+        <span class="coming-detail">COMING SOON</span>
+
+        <h1 id="productTitle"></h1>
+
+        <h2 id="productPrice"></h2>
+
+        <div class="quantity-box">
+          <p><strong>Quantity Information</strong></p>
+          <span>Maximum Quantity: 1</span>
+        </div>
+
+        <div class="size-header">
+          <h3>Size</h3>
+          <span>Size Guide</span>
+        </div>
+
+        <div class="sizes">
+          <button>S</button>
+          <button>M</button>
+          <button>L</button>
+          <button>XL</button>
+          <button>XXL</button>
+        </div>
+
+        <button class="notify-btn">
+          Notify Me
+        </button>
+
+      </div>
+
+      <!-- DESC -->
+      <div class="product-desc">
+        LOCKED ZIP, LOCKED IN. ONE PIECE, WHOLE STATEMENT
+      </div>
+
+      <!-- DELIVERY -->
+      <div class="delivery-box">
+
+        <h3>Delivery</h3>
+
+        <div class="delivery-row">
+          <span>Deliver to:</span>
+          <span>Pick Area ▼</span>
+        </div>
+
+        <div class="delivery-row">
+          <span>Weight:</span>
+          <span>1000g</span>
+        </div>
+
+        <p class="delivery-note">
+          Shipped within 48 hours,<br>
+          (Upon confirmation of payment)
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <!-- COMMUNITY -->
   <div id="community" class="page">
     <h2>Community</h2>
@@ -620,7 +1052,7 @@ html {
        <img src="sicepat.png">
       </div>
     </div>
-
+  </div>
 <!-- DRAWER -->
 <div id="cartDrawer">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -757,10 +1189,16 @@ html {
 </div>
 <script>
 function toggle(el){
-  const content = el.nextElementSibling;
-  content.style.display = content.style.display === 'block' ? 'none' : 'block';
-}
 
+  const content = el.nextElementSibling;
+
+  if(content.style.display === "block"){
+    content.style.display = "none";
+  } else {
+    content.style.display = "block";
+  }
+
+}
 /* DRAWER */
 function openMenu(){
   document.getElementById('menuDrawer').style.left = '0';
@@ -894,9 +1332,25 @@ function showPage(pageId){
   }
 }
 function goHome(){
+
   closeAll();
 
-  document.querySelectorAll('.page').forEach(p => {
+  // kalau sedang di halaman product detail
+  if(document.getElementById('productPage').classList.contains('active')){
+
+    document.querySelectorAll('.page').forEach(p=>{
+      p.classList.remove('active');
+    });
+
+    document.getElementById('catalog').classList.add('active');
+
+    document.getElementById('backBtn').style.display = 'block';
+
+    return;
+  }
+
+  // selain product detail balik ke home
+  document.querySelectorAll('.page').forEach(p=>{
     p.classList.remove('active');
   });
 
@@ -1013,7 +1467,102 @@ function applyFilter(){
 
   alert("Filter applied!");
 }
+let currentSlide = 0;
+let productImages = [];
+
+/* OPEN PRODUCT */
+function openProduct(title, price, images){
+
+  closeAll();
+
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+
+  document.getElementById('productPage').classList.add('active');
+
+  document.getElementById('backBtn').style.display = 'block';
+
+  // TITLE & PRICE
+  document.getElementById('productTitle').innerText = title;
+  document.getElementById('productPrice').innerText = price;
+
+  // IMAGES
+  productImages = images;
+
+  renderSlides();
+}
+
+/* RENDER SLIDES */
+function renderSlides(){
+
+  const slidesContainer = document.getElementById('slidesContainer');
+  const dotsContainer = document.getElementById('dotsContainer');
+
+  slidesContainer.innerHTML = '';
+  dotsContainer.innerHTML = '';
+
+  productImages.forEach((img, index)=>{
+
+    const image = document.createElement('img');
+
+    image.src = img;
+    image.className = 'slide';
+
+    if(index === 0){
+      image.classList.add('active');
+    }
+
+    slidesContainer.appendChild(image);
+
+    const dot = document.createElement('span');
+
+    dot.className = 'dot';
+
+    if(index === 0){
+      dot.classList.add('active');
+    }
+
+    dot.onclick = () => changeSlide(index);
+
+    dotsContainer.appendChild(dot);
+  });
+
+}
+
+/* CHANGE SLIDE */
+function changeSlide(index){
+
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  slides.forEach(s=>{
+    s.classList.remove('active');
+  });
+
+  dots.forEach(d=>{
+    d.classList.remove('active');
+  });
+
+  slides[index].classList.add('active');
+  dots[index].classList.add('active');
+
+  currentSlide = index;
+}
+setInterval(()=>{
+
+  if(productImages.length === 0) return;
+
+  currentSlide++;
+
+  if(currentSlide >= productImages.length){
+    currentSlide = 0;
+  }
+
+  changeSlide(currentSlide);
+
+},3000);
 </script>
 
-</body>                                                                                                                                                                                                iju
+</body>                                                                                                                                                                                                
 </html>
