@@ -13,9 +13,9 @@
   font-family:Arial, sans-serif;
 }
 
-body {
-  background:#111;
-  color:#fff;
+body{
+  background:#fff;
+  color:#111;
 }
 
 /* HEADER */
@@ -29,7 +29,7 @@ header {
 }
 
 .logo-img {
-  height:50px;
+  height:38px;
 }
 
 .menu-icon {
@@ -49,13 +49,19 @@ header {
 }
 
 /* HERO */
-.hero {
-  height:70vh;
-  background:url('foto1.jpg') center/cover no-repeat;
+.hero{
+  width:100%;
+  height:100vh;
+  min-height:700px;
+
+  background:url('foto1.jpg') center center/cover no-repeat;
+
   display:flex;
   justify-content:center;
   align-items:center;
+
   position:relative;
+  overflow:hidden;
 }
 
 .hero::after {
@@ -77,23 +83,35 @@ header {
 }
 
 /* CONTENT */
-.container {
-  padding:20px;
+.container{
+  width:100%;
+  padding:0 12px 40px;
+  background:#111;
 }
 
-.filter-sort {
+.filter-sort{
   display:flex;
-  gap:10px;
-  margin-bottom:20px;
+  gap:12px;
+  width:100%;
+  margin:20px 0 28px;
 }
 
-.btn {
+.btn{
   flex:1;
-  padding:10px;
-  border:1px solid #ccc;
+  height:54px;
+  border:2px solid #111;
+  border-radius:999px;
   background:#fff;
-  color:#000;
+  color:#111;
+  font-size:20px;
+  font-weight:600;
   cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:0;
 }
 
 /* EMPTY */
@@ -104,21 +122,41 @@ header {
 }
 
 /* ACCORDION */
-.accordion-item {
-  border-top:1px solid #444;
+.accordion{
+  margin-top:60px;
+  background:#111;
 }
 
-.accordion-header {
-  padding:15px;
+.accordion-item{
+  border-top:1px solid rgba(255,255,255,0.15);
+  background:#111;
+}
+
+.accordion-header{
+  height:90px;
+  padding:0 28px;
   cursor:pointer;
+
   display:flex;
+  align-items:center;
   justify-content:space-between;
+
+  background:#111;
+  color:#fff;
+
+  font-size:20px;
+  font-weight:700;
 }
 
-.accordion-content {
+.accordion-header span{
+  font-size:24px;
+  font-weight:300;
+}
+
+.accordion-content{
   display:none;
-  padding:15px;
-  background:#222;
+  padding:0 28px 28px;
+  background:#111;
 }
 
 /* DRAWER */
@@ -279,18 +317,19 @@ header {
 .hero::after {
   pointer-events: none;
 }
-.products {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  width:100%;
 }
 
-.product {
-  background: #fff;
-  color: #000;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+.product{
+  background:transparent;
+  padding:0;
+  border-radius:0;
+  text-align:left;
+  overflow:hidden;
 }
 
 .product img {
@@ -298,14 +337,18 @@ header {
   border-radius: 10px;
 }
 
-.product h4 {
-  margin: 10px 0 5px;
-  font-size: 14px;
+.product h4{
+  margin-top:12px;
+  font-size:14px;
+  line-height:1.3;
+  font-weight:700;
+  letter-spacing:-0.3px;
 }
 
-.product p {
-  font-weight: bold;
-  margin-bottom: 10px;
+.product p{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:600;
 }
 
 .product button {
@@ -478,47 +521,27 @@ html {
   font-weight:bold;
 }
 .payment-logos,
-.shipment-logos {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  align-items: center;
+.shipment-logos{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-bottom:20px;
 }
 
 .payment-logos img,
-.shipment-logos img {
-  height: 35px;
-  background: #fff;
-  padding: 5px 10px;
-  border-radius: 8px;
-  object-fit: contain;
-  transition: 0.2s;
+.shipment-logos img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  background:transparent;
+  padding:0;
+  border-radius:0;
+  transition:.2s;
 }
 
 .payment-logos img:hover,
-.shipment-logos img:hover {
-  transform: scale(1.05);
-}
-.payment-logos img,
-.shipment-logos img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  background: #222;
-  padding: 6px;
-  border-radius: 8px;
-}
-.payment-logos img,
-.shipment-logos img {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-}
-.payment-logos,
-.shipment-logos {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.shipment-logos img:hover{
+  transform:scale(1.05);
 }
 .slide{
   width:100%;
@@ -720,11 +743,20 @@ html {
 .product-image{
   position:relative;
   overflow:hidden;
-  border-radius:12px;
+  border-radius:0;
+}
+
+.product-image{
+  width:100%;
+  aspect-ratio: 3/4;
+  overflow:hidden;
+  background:#f3f3f3;
 }
 
 .product-image img{
   width:100%;
+  height:100%;
+  object-fit:cover;
   display:block;
 }
 
@@ -755,6 +787,56 @@ html {
     font-size:22px;
   }
 
+}
+header{
+  padding:18px 14px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+#catalog{
+  width:100%;
+}
+
+#shop{
+  width:100%;
+  max-width:none;
+}
+#shop,
+#catalog{
+  background:#fff;
+}
+#catalog{
+  width:100%;
+}
+
+.container{
+  width:100%;
+  max-width:none;
+}
+html,body{
+  width:100%;
+  overflow-x:hidden;
+}
+
+.page{
+  width:100%;
+}
+
+.products{
+  width:100%;
+}
+.btn:hover{
+  background:#111;
+  color:#fff;
+  transition:.2s;
+}
+#home{
+  background:#111;
+}
+
+#shop{
+  margin-top:0;
+  padding-top:0;
 }
 </style>
 </head>
@@ -1031,7 +1113,7 @@ html {
   <div class="accordion">
     <div class="accordion-item">
       <div class="accordion-header" onclick="toggle(this)">
-        Payment Method <span>+</span>
+        Payment Method <span>⌄</span>
       </div>
       <div class="accordion-content payment-logos">
        <img src="bca.png">
@@ -1044,7 +1126,7 @@ html {
 
     <div class="accordion-item">
       <div class="accordion-header" onclick="toggle(this)">
-        Shipment Method <span>+</span>
+        Shipment Method <span>⌄</span>
       </div>
       <div class="accordion-content shipment-logos">
        <img src="jne.png">
