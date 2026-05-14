@@ -93,26 +93,29 @@ header {
 
 .filter-sort{
   display:flex;
-  gap:14px;
-  padding:18px 16px 10px;
+  gap:10px;
+  padding:16px;
 }
-  
+
 .btn{
   flex:1;
-  height:58px;
+  height:54px;
 
   border:2px solid #111;
-  border-radius:999px;
+  border-radius:22px;
 
   background:#fff;
   color:#111;
 
-  font-size:20px;
+  font-size:18px;
   font-weight:700;
 
   display:flex;
   align-items:center;
   justify-content:center;
+  gap:10px;
+
+  cursor:pointer;
 }
 
 /* EMPTY */
@@ -899,10 +902,41 @@ html,body{
   <div id="catalog" class="page">
 
     <div class="filter-sort">
-      <button class="btn" onclick="openFilter()">Filter</button>
-      <button class="btn" onclick="openSort()">Sort</button>
-    </div>
 
+      <button class="btn" onclick="openFilter()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round">
+
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <circle cx="9" cy="6" r="2"/>
+
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <circle cx="15" cy="12" r="2"/>
+
+          <line x1="4" y1="18" x2="20" y2="18"/>
+          <circle cx="11" cy="18" r="2"/>
+        </svg>
+
+        Filter
+      </button>
+
+      <button class="btn" onclick="openSort()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round">
+
+          <line x1="8" y1="6" x2="20" y2="6"/>
+          <line x1="8" y1="12" x2="20" y2="12"/>
+          <line x1="8" y1="18" x2="20" y2="18"/>
+
+          <polyline points="4 6 5 5 6 6"/>
+          <polyline points="4 12 5 13 6 12"/>
+          <polyline points="4 18 5 19 6 18"/>
+        </svg>
+
+        Sort
+     </button>
+
+   </div>
     <div class="products">
 
       <div class="product"
