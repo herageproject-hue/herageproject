@@ -689,46 +689,62 @@ html {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
+
+  margin-bottom:14px;
 }
 
 .size-header h3{
-  font-size:18px;
+  font-size:12px;
   font-weight:700;
+
+  letter-spacing:1px;
+  text-transform:uppercase;
 }
 
 .size-header span{
-  font-weight:bold;
+  font-size:12px;
+  font-weight:600;
+  color:#777;
 }
 
+/* SIZE GRID */
 .sizes{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:25px;
+
+  gap:10px;
+
+  margin-bottom:26px;
 }
+
+/* SIZE BUTTON */
 .sizes button{
-  height:52px;
+  height:44px;
 
-  border:1px solid #ddd;
+  border:1px solid #dcdcdc;
+  border-radius:12px;
+
   background:#fff;
-
-  font-size:15px;
-  font-weight:600;
   color:#111;
 
-  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
 
   transition:.2s;
+
+  cursor:pointer;
 }
 
+/* HOVER */
 .sizes button:hover{
-  border:1px solid #000;
+  border:1px solid #111;
 }
 
+/* ACTIVE */
 .sizes button.active{
   background:#111;
   color:#fff;
+  border:1px solid #111;
 }
 
 
@@ -904,8 +920,14 @@ html,body{
 }
 
 .qty-title{
-  font-size:14px;
+  font-size:12px;
   font-weight:700;
+
+  letter-spacing:.8px;
+  text-transform:uppercase;
+
+  color:#111;
+
   margin-bottom:14px;
 }
 
@@ -913,28 +935,36 @@ html,body{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
+  padding-top:2px;
 }
 
 .max-label{
   font-size:13px;
-  color:#999;
+  color:#8d8d8d;
+  font-weight:500;
 }
 
 .max-number{
-  min-width:34px;
-  height:34px;
+  min-width:52px;
+  height:36px;
 
   display:flex;
   justify-content:center;
   align-items:center;
 
-  border:1px solid #ddd;
-  border-radius:8px;
-
-  font-size:14px;
-  font-weight:700;
+  border:1.5px solid #111;
+  border-radius:12px;
 
   background:#fff;
+  color:#111;
+
+  font-size:13px;
+  font-weight:700;
+
+  padding:0 14px;
+
+  letter-spacing:-0.2px;
 }
 .sticky-notify{
   position:fixed;
@@ -1859,6 +1889,19 @@ function decreaseQty(){
 
   document.getElementById("qty").innerText = qty;
 }
+document.querySelectorAll('.sizes button').forEach(btn=>{
+
+  btn.addEventListener('click', ()=>{
+
+    document.querySelectorAll('.sizes button').forEach(b=>{
+      b.classList.remove('active');
+    });
+
+    btn.classList.add('active');
+
+  });
+
+});
 </script>
 
 </body>                                                                                                                                                                                                
