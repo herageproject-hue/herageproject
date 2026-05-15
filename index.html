@@ -663,16 +663,25 @@ html {
 
 /* QUANTITY */
 .quantity-box{
-  border:1px solid #ddd;
-  border-radius:14px;
-  padding:20px;
-  background:#f8f8f8;
-  margin-bottom:28px;
+  border-bottom:1px solid #ddd;
+  padding-bottom:18px;
+  margin-bottom:24px;
 }
 
-.quantity-box p{
-  font-size:16px;
-  margin-bottom:8px;
+.quantity-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.quantity-top p{
+  font-size:14px;
+  font-weight:700;
+}
+
+.quantity-top span{
+  font-size:13px;
+  color:#999;
 }
 
 /* SIZE */
@@ -684,7 +693,8 @@ html {
 }
 
 .size-header h3{
-  font-size:28px;
+  font-size:18px;
+  font-weight:700;
 }
 
 .size-header span{
@@ -697,22 +707,30 @@ html {
   gap:12px;
   margin-bottom:25px;
 }
-
 .sizes button{
-  height:74px;
+  height:52px;
+
   border:1px solid #ddd;
   background:#fff;
 
-  font-size:20px;
+  font-size:15px;
   font-weight:600;
-  color:#999;
+  color:#111;
 
   border-radius:8px;
+
+  transition:.2s;
 }
 
 .sizes button:hover{
-  border:2px solid #000;
+  border:1px solid #000;
 }
+
+.sizes button.active{
+  background:#111;
+  color:#fff;
+}
+
 
 /* NOTIFY */
 .notify-btn{
@@ -878,6 +896,68 @@ html,body{
 #shop{
   margin-top:0;
   padding-top:0;
+}
+.qty-select{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:30px;
+}
+
+.qty-select span{
+  font-size:15px;
+  font-weight:600;
+}
+
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  border:1px solid #ddd;
+  border-radius:10px;
+
+  padding:10px 14px;
+}
+
+.qty-box button{
+  border:none;
+  background:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.qty-box span{
+  min-width:16px;
+  text-align:center;
+}
+.sticky-notify{
+  position:fixed;
+  bottom:0;
+  left:0;
+
+  width:100%;
+
+  padding:14px 18px;
+
+  background:#f3f3f3;
+
+  z-index:998;
+}
+
+.notify-btn{
+  width:100%;
+  height:58px;
+
+  border:none;
+  border-radius:14px;
+
+  background:#111;
+  color:#fff;
+
+  font-size:16px;
+  font-weight:700;
 }
 </style>
 </head>
@@ -1108,8 +1188,12 @@ html,body{
         <h2 id="productPrice"></h2>
 
         <div class="quantity-box">
-          <p><strong>Quantity Information</strong></p>
-          <span>Maximum Quantity: 1</span>
+
+          <div class="quantity-top">
+            <p>Quantity Information</p>
+            <span>Maximum Quantity: 1</span>
+          </div>
+
         </div>
 
         <div class="size-header">
@@ -1124,10 +1208,23 @@ html,body{
           <button>XL</button>
           <button>XXL</button>
         </div>
+        
+        <div class="qty-select">
 
-        <button class="notify-btn">
-          Notify Me
-        </button>
+          <span>Quantity</span>
+
+          <div class="qty-box">
+            <button onclick="decreaseQty()">−</button>
+            <span id="qty">1</span>
+            <button onclick="increaseQty()">+</button>
+          </div>
+
+        </div>
+        <div class="sticky-notify">
+          <button class="notify-btn">
+            Notify Me
+          </button>
+        </div>
 
       </div>
 
@@ -1733,6 +1830,21 @@ setInterval(()=>{
   changeSlide(currentSlide);
 
 },3000);
+let qty = 1;
+
+function increaseQty(){
+  qty++;
+  document.getElementById("qty").innerText = qty;
+}
+
+function decreaseQty(){
+
+  if(qty > 1){
+    qty--;
+  }
+
+  document.getElementById("qty").innerText = qty;
+}
 </script>
 
 </body>                                                                                                                                                                                                
