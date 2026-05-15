@@ -662,52 +662,56 @@ html {
 }
 
 /* QUANTITY */
+/* QUANTITY SELECTOR */
 .qty-select{
   display:flex;
   justify-content:center;
 
-  margin:34px 0;
+  margin:20px 0 28px;
 }
 
+/* BOX */
 .qty-box{
   display:flex;
   align-items:center;
 
-  border:1px solid #ddd;
-  border-radius:10px;
+  border:1px solid #e5e5e5;
+  border-radius:8px;
 
   overflow:hidden;
 
   background:#fff;
 }
 
+/* BUTTON */
 .qty-box button{
-  width:78px;
-  height:74px;
+  width:46px;
+  height:40px;
 
   border:none;
   background:#fff;
 
-  font-size:42px;
+  font-size:24px;
   font-weight:300;
 
-  color:#bbb;
+  color:#b8b8b8;
 
   cursor:pointer;
 }
 
+/* ANGKA */
 .qty-box span{
-  width:90px;
-  height:74px;
+  width:52px;
+  height:40px;
 
   display:flex;
   justify-content:center;
   align-items:center;
 
-  border-left:1px solid #ddd;
-  border-right:1px solid #ddd;
+  border-left:1px solid #e5e5e5;
+  border-right:1px solid #e5e5e5;
 
-  font-size:28px;
+  font-size:15px;
   font-weight:700;
 
   color:#111;
@@ -1305,8 +1309,6 @@ html,body{
         </div>
         
         <div class="qty-select">
-
-          <span>Quantity</span>
 
           <div class="qty-box">
             <button onclick="decreaseQty()">−</button>
