@@ -136,18 +136,24 @@ header {
 }
 
 /* ACCORDION */
+#homeAccordion{
+  background:#111;
+  padding:0 0 30px;
+}
+
 .accordion{
-
-  margin-top:10px;
-
+  margin-top:0;
+  border-top:1px solid #2a2a2a;
 }
 
 .accordion-item{
-  border-top:none;
+  border-bottom:1px solid #2a2a2a;
   background:#111;
 }
+
 .accordion-header{
-  height:64px;
+  height:58px;
+
   padding:0 18px;
 
   display:flex;
@@ -155,23 +161,33 @@ header {
   align-items:center;
 
   color:#fff;
-  font-size:15px;
+
+  font-size:13px;
   font-weight:700;
+  letter-spacing:.5px;
 
   background:#111;
 }
 
 .accordion-header span{
-  font-size:15px;
-  opacity:.8;
+  font-size:13px;
+  opacity:.7;
 }
 
 .accordion-content{
   display:none;
+
   padding:0 18px 18px;
+
   background:#111;
 }
+.accordion-header span{
+  transition:.3s;
+}
 
+.accordion-item.active .accordion-header span{
+  transform:rotate(180deg);
+}
 /* DRAWER */
 #menuDrawer, #cartDrawer, #accountDrawer {
   position:fixed;
@@ -528,9 +544,9 @@ html {
 .payment-logos,
 .shipment-logos{
   display:flex;
-  gap:12px;
+  gap:14px;
   flex-wrap:wrap;
-  padding-bottom:10px;
+  padding-bottom:18px;
 }
 
 .payment-logos img,
@@ -862,18 +878,6 @@ html,body{
 #shop{
   margin-top:0;
   padding-top:0;
-}
-#homeAccordion{
-  background:#111;
-  padding:20px 0 40px;
-}
-
-.accordion{
-  margin-top:0;
-}
-
-.accordion-item{
-  border:none;
 }
 </style>
 </head>
@@ -1341,7 +1345,10 @@ html,body{
 <script>
 function toggle(el){
 
+  const item = el.parentElement;
   const content = el.nextElementSibling;
+
+  item.classList.toggle("active");
 
   if(content.style.display === "block"){
     content.style.display = "none";
