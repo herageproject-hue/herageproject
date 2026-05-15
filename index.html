@@ -570,7 +570,7 @@ html {
 .product-detail{
   background:#f3f3f3;
   min-height:100vh;
-  padding-bottom:140px;
+  padding-bottom:40px;
 }
 
 /* SLIDER */
@@ -858,23 +858,22 @@ html,body{
   background:#111;
   min-height:100vh;
 }
-
-  #homeAccordion{
-  background:#111;
-  padding-bottom:40px;
+  
+#shop{
+  margin-top:0;
+  padding-top:0;
 }
-
-.accordion-item{
-  border-top:none !important;
+#homeAccordion{
+  background:#111;
+  padding:20px 0 40px;
 }
 
 .accordion{
   margin-top:0;
 }
-  
-#shop{
-  margin-top:0;
-  padding-top:0;
+
+.accordion-item{
+  border:none;
 }
 </style>
 </head>
@@ -1477,27 +1476,24 @@ function showPage(pageId){
   document.getElementById(pageId).classList.add('active');
 
   const backBtn = document.getElementById('backBtn');
-  const acc = document.getElementById('homeAccordion');
 
+  // HOME
   if(pageId === 'home'){
 
     backBtn.style.display = 'none';
-
-    acc.style.display = 'block';
 
   } else {
 
     backBtn.style.display = 'block';
 
-    acc.style.display = 'none';
-
   }
 
-  // scroll otomatis ke atas
+  // scroll ke atas
   window.scrollTo({
     top:0,
     behavior:'smooth'
   });
+
 }
 function goHome(){
 
@@ -1525,8 +1521,6 @@ function goHome(){
   document.getElementById('home').classList.add('active');
   
   document.getElementById('backBtn').style.display = 'none';
-  
-  document.getElementById('homeAccordion').style.display = 'block';
 }
 function loadUser(){
   const user = JSON.parse(localStorage.getItem('user'));
