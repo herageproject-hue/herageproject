@@ -897,40 +897,44 @@ html,body{
   margin-top:0;
   padding-top:0;
 }
-.qty-select{
+.quantity-box{
+  border-bottom:1px solid #ddd;
+  padding-bottom:18px;
+  margin-bottom:24px;
+}
+
+.qty-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.max-qty{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
-  margin-bottom:30px;
 }
 
-.qty-select span{
-  font-size:15px;
-  font-weight:600;
+.max-label{
+  font-size:13px;
+  color:#999;
 }
 
-.qty-box{
+.max-number{
+  min-width:34px;
+  height:34px;
+
   display:flex;
+  justify-content:center;
   align-items:center;
-  gap:18px;
 
   border:1px solid #ddd;
-  border-radius:10px;
+  border-radius:8px;
 
-  padding:10px 14px;
-}
+  font-size:14px;
+  font-weight:700;
 
-.qty-box button{
-  border:none;
-  background:none;
-  font-size:20px;
-  cursor:pointer;
-}
-
-.qty-box span{
-  min-width:16px;
-  text-align:center;
+  background:#fff;
 }
 .sticky-notify{
   position:fixed;
@@ -1189,13 +1193,23 @@ html,body{
 
         <div class="quantity-box">
 
-          <div class="quantity-top">
-            <p>Quantity Information</p>
-            <span>Maximum Quantity: 1</span>
+          <p class="qty-title">
+            Quantity Information
+          </p>
+
+          <div class="max-qty">
+
+            <span class="max-label">
+              Maximum Quantity
+            </span>
+
+            <span class="max-number">
+              1
+            </span>
+
           </div>
 
         </div>
-
         <div class="size-header">
           <h3>Size</h3>
           <span>Size Guide</span>
