@@ -89,6 +89,10 @@ header {
   padding:0;
   background:#111;
   margin:0;
+
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
 .filter-sort{
@@ -139,6 +143,7 @@ header {
 #homeAccordion{
   background:#111;
   padding:0 0 30px;
+  margin-top:auto;
 }
 
 .accordion{
@@ -396,16 +401,13 @@ header {
 html {
   scroll-behavior: smooth;
 }
-.page {
-  display: none;
+.page{
+  display:none;
+  flex:1;
 }
 
 .page.active {
   display: block;
-}
-.page {
-  display: none;
-  animation: fade 0.3s;
 }
 
 .page.active {
@@ -1405,33 +1407,8 @@ html,body{
   </div>
   
 </div>
-<div id="homeAccordion">
-  <div class="accordion">
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggle(this)">
-        Payment Method <span>⌄</span>
-      </div>
-      <div class="accordion-content payment-logos">
-       <img src="bca.png">
-       <img src="qris.png">
-       <img src="gopay.png">
-       <img src="spay.png">
-       <img src="dana.png">
-      </div>
-    </div>
 
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggle(this)">
-        Shipment Method <span>⌄</span>
-      </div>
-      <div class="accordion-content shipment-logos">
-       <img src="jne.png">
-       <img src="jnt.png">
-       <img src="sicepat.png">
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- DRAWER -->
 <div id="cartDrawer">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -1986,6 +1963,32 @@ document.querySelectorAll('.sizes button').forEach(btn=>{
 
 });
 </script>
+<div id="homeAccordion">
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggle(this)">
+        Payment Method <span>⌄</span>
+      </div>
+      <div class="accordion-content payment-logos">
+       <img src="bca.png">
+       <img src="qris.png">
+       <img src="gopay.png">
+       <img src="spay.png">
+       <img src="dana.png">
+      </div>
+    </div>
 
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggle(this)">
+        Shipment Method <span>⌄</span>
+      </div>
+      <div class="accordion-content shipment-logos">
+       <img src="jne.png">
+       <img src="jnt.png">
+       <img src="sicepat.png">
+      </div>
+    </div>
+  </div>
+</div>
 </body>                                                                                                                                                                                                
 </html>
