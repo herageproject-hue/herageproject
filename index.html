@@ -1092,6 +1092,40 @@ html,body{
   font-size:22px;
   font-weight:800;
 }
+/* WISHLIST BUTTON */
+.wishlist-btn{
+  position:absolute;
+  right:20px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  width:54px;
+  height:54px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:28px;
+
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+
+  z-index:20;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.wishlist-btn.active{
+  color:red;
+  transform:translateY(-50%) scale(1.08);
+}
 </style>
 </head>
 
@@ -1305,6 +1339,11 @@ html,body{
       <!-- SLIDER -->
       <div class="slider">
 
+        <!-- WISHLIST BUTTON -->
+        <div class="wishlist-btn" onclick="toggleWishlist()">
+          ♡
+        </div>
+
         <div id="slidesContainer"></div>
 
         <div class="dots" id="dotsContainer"></div>
@@ -1468,9 +1507,14 @@ html,body{
     <span>Wishlist</span>
   </div>
 
-  <div class="orders-empty">
+  <div id="ordersContent" class="orders-empty">
     <p>No Orders Found</p>
     <small>Place an order to see it listed here.</small>
+  </div>
+
+  <div id="wishlistContent" class="orders-empty" style="display:none;">
+    <p>No Wishlist Yet</p>
+    <small>Your favorite products will appear here.</small>
   </div>
 </div>
 
@@ -1970,6 +2014,198 @@ document.querySelectorAll('.sizes button').forEach(btn=>{
     });
 
     btn.classList.add('active');
+
+  });
+
+});
+/* =========================
+   WISHLIST SYSTEM
+========================= */
+
+let currentProduct = {
+  title:"",
+  price:"",
+  image:""
+};
+
+/* SAVE CURRENT PRODUCT */
+function openProduct(title, price, images){
+
+  closeAll();
+
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+
+  document.getElementById('productPage').classList.add('active');
+
+  document.getElementById('backBtn').style.display = 'block';
+
+  document.getElementById('productTitle').innerText = title;
+  document.getElementById('productPrice').innerText = price;
+
+  productImages = images;
+
+  currentProduct = {
+    title:title,
+    price:price,
+    image:images[0]
+  };
+
+  checkWishlist();
+
+  renderSlides();
+}
+
+/* TOGGLE WISHLIST */
+function toggleWishlist(){
+
+  let wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  const exist = wishlist.find(
+    item => item.title === currentProduct.title
+  );
+
+  const btn = document.querySelector(".wishlist-btn");
+
+  if(exist){
+
+    wishlist = wishlist.filter(
+      item => item.title !== currentProduct.title
+    );
+
+    btn.classList.remove("active");
+    btn.innerHTML = "♡";
+
+  } else {
+
+    wishlist.push(currentProduct);
+
+    btn.classList.add("active");
+    btn.innerHTML = "♥";
+  }
+
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(wishlist)
+  );
+
+  renderWishlist();
+}
+
+/* CHECK ACTIVE */
+function checkWishlist(){
+
+  const wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  const exist = wishlist.find(
+    item => item.title === currentProduct.title
+  );
+
+  const btn = document.querySelector(".wishlist-btn");
+
+  if(exist){
+    btn.classList.add("active");
+    btn.innerHTML = "♥";
+  } else {
+    btn.classList.remove("active");
+    btn.innerHTML = "♡";
+  }
+}
+
+/* RENDER WISHLIST */
+function renderWishlist(){
+
+  const box =
+    document.getElementById("wishlistContent");
+
+  const wishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  if(wishlist.length === 0){
+
+    box.innerHTML = `
+      <p>No Wishlist Yet</p>
+      <small>Your favorite products will appear here.</small>
+    `;
+
+    return;
+  }
+
+  box.innerHTML = "";
+
+  wishlist.forEach(item=>{
+
+    box.innerHTML += `
+      <div style="
+        display:flex;
+        gap:12px;
+        margin-bottom:18px;
+        align-items:center;
+      ">
+
+        <img src="${item.image}"
+          style="
+            width:80px;
+            height:100px;
+            object-fit:cover;
+            border-radius:10px;
+          ">
+
+        <div>
+          <h4 style="font-size:14px;">
+            ${item.title}
+          </h4>
+
+          <p style="
+            margin-top:6px;
+            font-weight:bold;
+          ">
+            ${item.price}
+          </p>
+        </div>
+
+      </div>
+    `;
+  });
+
+}
+
+/* ACCOUNT TABS */
+document.querySelectorAll(".tabs span")
+.forEach(tab=>{
+
+  tab.addEventListener("click", ()=>{
+
+    document.querySelectorAll(".tabs span")
+    .forEach(t=>t.classList.remove("active"));
+
+    tab.classList.add("active");
+
+    if(tab.innerText === "Wishlist"){
+
+      document.getElementById(
+        "ordersContent"
+      ).style.display = "none";
+
+      document.getElementById(
+        "wishlistContent"
+      ).style.display = "block";
+
+      renderWishlist();
+
+    } else {
+
+      document.getElementById(
+        "ordersContent"
+      ).style.display = "block";
+
+      document.getElementById(
+        "wishlistContent"
+      ).style.display = "none";
+    }
 
   });
 
