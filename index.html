@@ -260,32 +260,154 @@ body{
   color:#888;
 }
 
-/* AUTH */
-#authModal {
+/* AUTH MODAL */
+#authModal{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
+  inset:0;
+
+  background:rgba(0,0,0,.45);
+
   display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+  justify-content:flex-end;
+  align-items:flex-end;
+
+  z-index:5000;
 }
 
-.auth-box {
-  background:#fff;
-  color:#000;
-  padding:25px;
-  border-radius:12px;
-  width:300px;
-}
-
-.auth-box input {
+/* SHEET */
+.auth-sheet{
   width:100%;
-  padding:10px;
-  margin:10px 0;
+  background:#fff;
+
+  border-radius:28px 28px 0 0;
+
+  padding:28px 24px 40px;
+
+  animation:slideUp .25s ease;
+}
+
+/* HEADER */
+.auth-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:28px;
+}
+
+.auth-header h2{
+  font-size:28px;
+  font-weight:800;
+}
+
+.auth-header span{
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* INPUT */
+.auth-input{
+  width:100%;
+  height:72px;
+
+  border:1.5px solid #e5e5e5;
+  border-radius:22px;
+
+  margin-bottom:18px;
+
+  padding:0 20px;
+
+  display:flex;
+  align-items:center;
+}
+
+.auth-input input{
+  width:100%;
+  border:none;
+  outline:none;
+
+  font-size:20px;
+  font-weight:700;
+
+  background:transparent;
+}
+
+/* BUTTON */
+.auth-btn{
+  width:100%;
+  height:72px;
+
+  border:none;
+  border-radius:22px;
+
+  background:#cfcfcf;
+  color:#fff;
+
+  font-size:24px;
+  font-weight:800;
+
+  margin-top:8px;
+
+  cursor:pointer;
+}
+
+/* SWITCH */
+.switch-auth{
+  margin-top:28px;
+
+  text-align:center;
+
+  font-size:15px;
+  font-weight:700;
+}
+
+.switch-auth span{
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+/* REGISTER TEXT */
+.register-text{
+  font-size:16px;
+  line-height:1.6;
+
+  font-weight:700;
+
+  margin-bottom:24px;
+}
+
+/* BIRTHDAY */
+.birthday-row{
+  display:flex;
+  gap:12px;
+
+  margin-bottom:18px;
+}
+
+.birthday-row select{
+  flex:1;
+
+  height:64px;
+
+  border:1.5px solid #e5e5e5;
+  border-radius:18px;
+
+  padding:0 16px;
+
+  font-size:18px;
+  font-weight:700;
+
+  background:#fff;
+}
+
+/* ANIMATION */
+@keyframes slideUp{
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
 }
 #accountDrawer {
   z-index: 1001;
@@ -1628,8 +1750,17 @@ html,body{
     </p>
 
     <div class="account-btns">
-      <button class="btn-outline" onclick="openAuth()">Login</button>
-      <button class="btn-dark" onclick="openAuth()">Signup</button>
+      <button
+        class="btn-outline"
+        onclick="openAuth('login')">
+        Login
+      </button>
+
+      <button
+        class="btn-dark"
+        onclick="openAuth('register')">
+        Signup
+      </button>
     </div>
   </div>
 
@@ -1727,16 +1858,107 @@ html,body{
 
 <div id="overlay" onclick="closeAll()"></div>
 
-<!-- AUTH -->
+<!-- AUTH MODAL -->
 <div id="authModal">
-  <div class="auth-box">
-    <h2>Login</h2>
-    <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <button onclick="register()">Register</button>
-    <p onclick="closeAuth()" style="cursor:pointer;font-size:12px;">Close</p>
+
+  <!-- LOGIN -->
+  <div class="auth-sheet" id="loginSheet">
+
+    <div class="auth-header">
+      <h2>Login</h2>
+      <span onclick="closeAuth()">✕</span>
+    </div>
+
+    <div class="auth-input">
+      <input
+        id="loginEmail"
+        type="text"
+        placeholder="Your email/phone number">
+    </div>
+
+    <div class="auth-input">
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password">
+    </div>
+
+    <button class="auth-btn" onclick="login()">
+      Next
+    </button>
+
+    <p class="switch-auth">
+      Don't have account?
+      <span onclick="showRegister()">
+        Signup here
+      </span>
+    </p>
+
   </div>
+
+  <!-- REGISTER -->
+  <div class="auth-sheet" id="registerSheet" style="display:none;">
+
+    <div class="auth-header">
+      <h2>Register</h2>
+      <span onclick="closeAuth()">✕</span>
+    </div>
+
+    <p class="register-text">
+      Create account to be our member to earn points,
+      get free vouchers, and hear our news earlier.
+    </p>
+
+    <div class="auth-input">
+      <input
+        id="registerName"
+        type="text"
+        placeholder="Your Full Name*">
+    </div>
+
+    <div class="auth-input">
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="Your email">
+    </div>
+
+    <div class="auth-input">
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Password">
+    </div>
+
+    <div class="birthday-row">
+
+      <select>
+        <option>Day</option>
+      </select>
+
+      <select>
+        <option>Month</option>
+      </select>
+
+      <select>
+        <option>Year</option>
+      </select>
+
+    </div>
+
+    <button class="auth-btn" onclick="register()">
+      Create New Account
+    </button>
+
+    <p class="switch-auth">
+      Already have account?
+      <span onclick="showLogin()">
+        Login here
+      </span>
+    </p>
+
+  </div>
+
 </div>
 <div id="comingModal" style="
   position:fixed;
@@ -1849,41 +2071,96 @@ function closeAll(){
   document.getElementById('overlay').style.display = 'none';
 }
 
-/* AUTH */
-function openAuth(){
-  closeAll(); // ⬅️ INI PENTING BANGET
+/* OPEN AUTH */
+function openAuth(type = "login"){
 
-  document.getElementById('authModal').style.display = 'flex';
+  document.getElementById("authModal").style.display = "flex";
+
+  if(type === "register"){
+    showRegister();
+  } else {
+    showLogin();
+  }
 }
 
+/* CLOSE */
 function closeAuth(){
-  document.getElementById('authModal').style.display = 'none';
+  document.getElementById("authModal").style.display = "none";
 }
 
-function register(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+/* SHOW LOGIN */
+function showLogin(){
 
-  if(!email || !password){
-    alert('Isi semua data');
+  document.getElementById("loginSheet").style.display = "block";
+  document.getElementById("registerSheet").style.display = "none";
+}
+
+/* SHOW REGISTER */
+function showRegister(){
+
+  document.getElementById("loginSheet").style.display = "none";
+  document.getElementById("registerSheet").style.display = "block";
+}
+
+/* REGISTER */
+function register(){
+
+  const name =
+    document.getElementById("registerName").value;
+
+  const email =
+    document.getElementById("registerEmail").value;
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+  if(!name || !email || !password){
+
+    alert("Please fill all data");
     return;
   }
 
-  localStorage.setItem('user', JSON.stringify({email, password}));
-  alert('Register berhasil');
+  localStorage.setItem(
+    "user",
+    JSON.stringify({
+      name,
+      email,
+      password
+    })
+  );
+
+  alert("Register success");
+
+  showLogin();
 }
 
+/* LOGIN */
 function login(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const user = JSON.parse(localStorage.getItem('user'));
 
-  if(user && user.email === email && user.password === password){
-    alert('Login berhasil');
+  const email =
+    document.getElementById("loginEmail").value;
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const user =
+    JSON.parse(localStorage.getItem("user"));
+
+  if(
+    user &&
+    user.email === email &&
+    user.password === password
+  ){
+
+    alert("Login success");
+
     closeAuth();
+
     loadUser();
+
   } else {
-    alert('Email atau password salah');
+
+    alert("Wrong email or password");
   }
 }
 
