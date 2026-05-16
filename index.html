@@ -2333,13 +2333,19 @@ function renderWishlist(){
 
   if(wishlist.length === 0){
 
-    box.innerHTML = `
-      <p>No Wishlist Yet</p>
-      <small>Your favorite products will appear here.</small>
-    `;
+  box.innerHTML = `
+    <img src="box.PNG"
+      style="width:90px;opacity:.45;margin-bottom:20px;">
 
-    return;
-  }
+    <p>No Wishlist Yet</p>
+
+    <small>
+      Your favorite products will appear here.
+    </small>
+  `;
+
+  return;
+}
 
   box.innerHTML = "";
 
