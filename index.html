@@ -1092,39 +1092,40 @@ html,body{
   font-size:22px;
   font-weight:800;
 }
-/* WISHLIST BUTTON */
+/* WISHLIST */
 .wishlist-btn{
   position:absolute;
-  right:20px;
-  top:50%;
 
-  transform:translateY(-50%);
+  right:22px;
+  bottom:-82px;
 
-  width:54px;
-  height:54px;
-
-  border-radius:50%;
-
-  background:#fff;
+  width:42px;
+  height:42px;
 
   display:flex;
   justify-content:center;
   align-items:center;
 
-  font-size:28px;
-
-  box-shadow:0 4px 12px rgba(0,0,0,0.12);
-
-  z-index:20;
+  z-index:30;
 
   cursor:pointer;
+}
+
+.wishlist-btn svg{
+  width:30px;
+  height:30px;
+
+  color:#111;
 
   transition:.2s;
 }
 
-.wishlist-btn.active{
-  color:red;
-  transform:translateY(-50%) scale(1.08);
+/* ACTIVE */
+.wishlist-btn.active svg{
+  fill:#111;
+  color:#111;
+
+  transform:scale(1.05);
 }
 </style>
 </head>
@@ -1341,9 +1342,21 @@ html,body{
 
         <!-- WISHLIST BUTTON -->
         <div class="wishlist-btn" onclick="toggleWishlist()">
-          ♡
-        </div>
 
+          <svg id="wishlistIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2">
+
+            <path d="M12 21s-7-4.35-9.5-8A5.5 5.5 0 0 1 12 5.5
+                     A5.5 5.5 0 0 1 21.5 13
+                     C19 16.65 12 21 12 21z"/>
+
+          </svg>
+
+        </div>
         <div id="slidesContainer"></div>
 
         <div class="dots" id="dotsContainer"></div>
@@ -2076,14 +2089,12 @@ function toggleWishlist(){
     );
 
     btn.classList.remove("active");
-    btn.innerHTML = "♡";
 
   } else {
 
     wishlist.push(currentProduct);
 
     btn.classList.add("active");
-    btn.innerHTML = "♥";
   }
 
   localStorage.setItem(
@@ -2107,11 +2118,13 @@ function checkWishlist(){
   const btn = document.querySelector(".wishlist-btn");
 
   if(exist){
+
     btn.classList.add("active");
-    btn.innerHTML = "♥";
+
   } else {
+
     btn.classList.remove("active");
-    btn.innerHTML = "♡";
+
   }
 }
 
