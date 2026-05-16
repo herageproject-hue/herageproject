@@ -1092,15 +1092,22 @@ html,body{
   font-size:22px;
   font-weight:800;
 }
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:24px;
+}
+
+.price-row h2{
+  margin-bottom:0;
+}
+
 /* WISHLIST */
 .wishlist-btn{
-  position:absolute;
-
-  right:20px;
-  top:235px; /* sejajar harga */
-
-  width:42px;
-  height:42px;
+  width:46px;
+  height:46px;
 
   display:flex;
   justify-content:center;
@@ -1110,10 +1117,11 @@ html,body{
   border:1px solid #e5e5e5;
   border-radius:50%;
 
-  z-index:50;
   cursor:pointer;
 
   box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
+  flex-shrink:0;
 }
 
 .wishlist-btn svg{
@@ -1126,7 +1134,6 @@ html,body{
   transition:.2s;
 }
 
-/* ACTIVE */
 .wishlist-btn.active svg{
   fill:#111;
   stroke:#111;
@@ -1343,27 +1350,7 @@ html,body{
 
       <!-- SLIDER -->
       <div class="slider">
-
-        <!-- WISHLIST BUTTON -->
-        <div class="wishlist-btn" onclick="toggleWishlist()">
-
-          <svg id="wishlistIcon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2">
-
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-                     2 5.42 4.42 3 7.5 3
-                     c1.74 0 3.41.81 4.5 2.09
-                     C13.09 3.81 14.76 3 16.5 3
-                     19.58 3 22 5.42 22 8.5
-                     c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-
-          </svg>
-
-        </div>
+        
         <div id="slidesContainer"></div>
 
         <div class="dots" id="dotsContainer"></div>
@@ -1377,7 +1364,29 @@ html,body{
 
         <h1 id="productTitle"></h1>
 
-        <h2 id="productPrice"></h2>
+        <div class="price-row">
+
+          <h2 id="productPrice"></h2>
+
+          <div class="wishlist-btn" onclick="toggleWishlist()">
+
+            <svg id="wishlistIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2">
+
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                       2 5.42 4.42 3 7.5 3
+                       c1.74 0 3.41.81 4.5 2.09
+                       C13.09 3.81 14.76 3 16.5 3
+                       19.58 3 22 5.42 22 8.5
+                       c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+
+            </svg>
+
+          </div>
 
         <div class="quantity-box">
 
