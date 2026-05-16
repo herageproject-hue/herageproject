@@ -1138,6 +1138,101 @@ html,body{
   fill:#111;
   stroke:#111;
 }
+/* ORDERS TOP */
+.orders-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-top:24px;
+  margin-bottom:30px;
+
+  gap:14px;
+}
+
+.orders-top h3{
+  font-size:18px;
+  font-weight:800;
+  color:#111;
+}
+
+/* DROPDOWN */
+.status-dropdown{
+  position:relative;
+}
+
+/* BUTTON */
+.status-btn{
+  min-width:170px;
+  height:58px;
+
+  padding:0 18px;
+
+  border:1px solid #e4e4e4;
+  border-radius:18px;
+
+  background:#fff;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  font-size:15px;
+  font-weight:700;
+
+  color:#111;
+
+  cursor:pointer;
+}
+
+/* MENU */
+.status-menu{
+  position:absolute;
+
+  top:70px;
+  right:0;
+
+  width:240px;
+
+  background:rgba(40,40,40,.92);
+
+  backdrop-filter:blur(12px);
+
+  border-radius:28px;
+
+  padding:16px 0;
+
+  display:none;
+
+  z-index:100;
+}
+
+/* ACTIVE */
+.status-menu.show{
+  display:block;
+}
+
+/* ITEM */
+.status-item{
+  padding:16px 28px;
+
+  color:#fff;
+
+  font-size:18px;
+  font-weight:500;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.status-item:hover{
+  background:rgba(255,255,255,.08);
+}
+
+.status-item.active{
+  font-weight:700;
+}
 </style>
 </head>
 
@@ -1538,10 +1633,82 @@ html,body{
     <span>Wishlist</span>
   </div>
 
-  <div id="ordersContent" class="orders-empty">
-    <p>No Orders Found</p>
-    <small>Place an order to see it listed here.</small>
-  </div>
+  <div id="ordersContent">
+
+    <div class="orders-top">
+
+     <h3>My Orders (0)</h3>
+
+     <div class="status-dropdown">
+
+       <button class="status-btn" onclick="toggleStatusMenu()">
+         <span id="selectedStatus">All status</span>
+
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+
+           <polyline points="6 9 12 15 18 9"/>
+
+         </svg>
+       </button>
+
+       <div class="status-menu" id="statusMenu">
+
+         <div class="status-item active"
+           onclick="selectStatus(this,'All status')">
+           ✓ All status
+         </div>
+
+         <div class="status-item"
+           onclick="selectStatus(this,'Unpaid')">
+           Unpaid
+         </div>
+
+         <div class="status-item"
+           onclick="selectStatus(this,'To Ship')">
+           To Ship
+         </div>
+
+         <div class="status-item"
+           onclick="selectStatus(this,'Shipped')">
+           Shipped
+         </div>
+
+         <div class="status-item"
+           onclick="selectStatus(this,'Completed')">
+           Completed
+         </div>
+
+         <div class="status-item" 
+           onclick="selectStatus(this,'Cancelled')">
+           Cancelled
+         </div>
+
+         <div class="status-item"
+           onclick="selectStatus(this,'Returned')">
+           Returned
+         </div>
+
+       </div>
+
+     </div>
+
+   </div>
+
+   <div class="orders-empty">
+
+     <img src="box.png"
+       style="width:90px;opacity:.45;margin-bottom:20px;">
+
+     <p>No Orders Found</p>
+
+     <small>
+       Place an order to see it listed here.
+     </small>
+
+   </div>
+
+ </div>
 
   <div id="wishlistContent" class="orders-empty" style="display:none;">
     <p>No Wishlist Yet</p>
@@ -2239,6 +2406,53 @@ document.querySelectorAll(".tabs span")
     }
 
   });
+
+});
+/* STATUS DROPDOWN */
+function toggleStatusMenu(){
+
+  document
+    .getElementById("statusMenu")
+    .classList.toggle("show");
+}
+
+/* SELECT STATUS */
+function selectStatus(el,status){
+
+  document
+    .querySelectorAll(".status-item")
+    .forEach(item=>{
+      item.classList.remove("active");
+
+      item.innerHTML =
+        item.innerText.replace("✓ ","");
+    });
+
+  el.classList.add("active");
+
+  el.innerHTML = "✓ " + status;
+
+  document.getElementById(
+    "selectedStatus"
+  ).innerText = status;
+
+  document.getElementById(
+    "statusMenu"
+  ).classList.remove("show");
+}
+
+/* CLOSE IF CLICK OUTSIDE */
+document.addEventListener("click", function(e){
+
+  const dropdown =
+    document.querySelector(".status-dropdown");
+
+  if(!dropdown.contains(e.target)){
+
+    document
+      .getElementById("statusMenu")
+      .classList.remove("show");
+  }
 
 });
 </script>
