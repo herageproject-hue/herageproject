@@ -1380,6 +1380,20 @@ html,body{
 .orders-top h3{
   white-space:nowrap;
 }
+img{
+  max-width:100%;
+}
+
+button,
+input,
+select{
+  -webkit-tap-highlight-color:transparent;
+  font-size:16px;
+}
+
+body{
+  overflow-x:hidden;
+}
 </style>
 </head>
 
@@ -1387,7 +1401,11 @@ html,body{
 
 <!-- MENU -->
 <div id="menuDrawer">
-  <input type="text" placeholder="Search..." class="search-box">
+  <input
+    type="text"
+    placeholder="Search..."
+    class="search-box"
+    id="searchInput">
   <div class="menu-list">
     <p onclick="showPage('catalog')">Catalog</p>
     <p onclick="showPage('community')">Community</p>
@@ -1402,16 +1420,16 @@ html,body{
 
 <!-- BACK BUTTON -->
 <div id="backBtn" onclick="goHome()" style="display:none;cursor:pointer;">
-  <img src="back.png" style="width:24px;">
+  <img src="back.png" loading="lazy" style="width:24px;">
 </div>
 
 <div class="menu-icon" onclick="openMenu()">☰</div>
-<img src="logo.png" class="logo-img">
+<img src="logo.png" loading="lazy" class="logo-img">
 </div>
 
   <div class="icons">
-    <img src="cart.png" onclick="openCart()">
-    <img src="user.png" onclick="openAccount()">
+    <img src="cart.png" loading="lazy" onclick="openCart()">
+    <img src="user.png" loading="lazy" onclick="openAccount()">
   </div>
 </header>
 
@@ -1474,7 +1492,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="black1.png">
+           <img src="black1.png" loading="lazy">
          </div>
 
          <h4>ZIP UP HOODIE AMERICANS - BLACK</h4>
@@ -1491,7 +1509,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="grey1.png">
+           <img src="grey1.png" loading="lazy">
          </div>
 
          <h4>ZIP UP HOODIE AMERICANS - GREY</h4>
@@ -1508,7 +1526,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="white1.png">
+           <img src="white1.png" loading="lazy">
          </div>
 
          <h4>ZIP UP HOODIE AMERICANS - WHITE</h4>
@@ -1525,7 +1543,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="knitblk1.png">
+           <img src="knitblk1.png" loading="lazy">
          </div>
 
          <h4>KNITWEAR - BLACK ON BLACK</h4>
@@ -1542,7 +1560,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="knitwht1.png">
+           <img src="knitwht1.png" loading="lazy">
          </div>
 
          <h4>KNITWEAR - WHITE ON WHITE</h4>
@@ -1559,7 +1577,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="knitblknwht1.png">
+           <img src="knitblknwht1.png" loading="lazy">
          </div>
 
          <h4>KNITWEAR - BLACK ON WHITE</h4>
@@ -1576,7 +1594,7 @@ html,body{
 
          <div class="product-image">
            <span class="coming-label">COMING SOON</span>
-           <img src="longsleeve1.png">
+           <img src="longsleeve1.png" loading="lazy">
          </div>
 
          <h4>LONGSLEEVE - LIPS</h4>
@@ -1674,7 +1692,7 @@ html,body{
 
         </div>
         <div class="sticky-notify">
-          <button class="notify-btn">
+          <button class="notify-btn" onclick="notifyMe()">
             Notify Me
           </button>
         </div>
@@ -1853,7 +1871,7 @@ html,body{
 
    <div class="orders-empty">
 
-     <img src="box.PNG"
+     <img src="box.PNG" loading="lazy"
        style="width:90px;opacity:.45;margin-bottom:20px;">
 
      <p>No Orders Found</p>
@@ -1868,7 +1886,7 @@ html,body{
 
   <div id="wishlistContent" class="orders-empty" style="display:none;">
 
-    <img src="box.PNG"
+    <img src="box.PNG" loading="lazy"
        style="width:90px;opacity:.45;margin-bottom:20px;">
     
     <p>No Wishlist Yet</p>
@@ -2140,19 +2158,37 @@ function register(){
     return;
   }
 
+  // ambil semua users
+  let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+  // cek email sudah ada atau belum
+  const exist = users.find(
+    user => user.email === email
+  );
+
+  if(exist){
+    alert("Email already registered");
+    return;
+  }
+
+  // simpan user baru
+  users.push({
+    name,
+    email,
+    password
+  });
+
   localStorage.setItem(
-    "user",
-    JSON.stringify({
-      name,
-      email,
-      password
-    })
+    "users",
+    JSON.stringify(users)
   );
 
   alert("Register success");
 
   showLogin();
 }
+
 
 /* LOGIN */
 function login(){
@@ -2163,14 +2199,23 @@ function login(){
   const password =
     document.getElementById("loginPassword").value;
 
-  const user =
-    JSON.parse(localStorage.getItem("user"));
+  let users =
+    JSON.parse(localStorage.getItem("users")) || [];
 
-  if(
-    user &&
-    user.email === email &&
-    user.password === password
-  ){
+  // cari user
+  const user = users.find(
+    u =>
+      u.email === email &&
+      u.password === password
+  );
+
+  if(user){
+
+    // simpan session login
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify(user)
+    );
 
     alert("Login success");
 
@@ -2184,21 +2229,81 @@ function login(){
   }
 }
 
+
+/* LOGOUT */
 function logout(){
-  localStorage.removeItem('user');
-  alert('Logout berhasil');
+
+  localStorage.removeItem("currentUser");
+
+  alert("Logout success");
+
   loadUser();
 }
 
+
+/* LOAD USER */
 function loadUser(){
-  const user = JSON.parse(localStorage.getItem('user'));
-  const text = document.getElementById('accountInfo');
+
+  const user =
+    JSON.parse(localStorage.getItem("currentUser"));
+
+  const box =
+    document.querySelector(".account-box");
 
   if(user){
-    text.innerHTML = 'Login: ' + user.email;
+
+    box.innerHTML = `
+      <h3>Welcome, ${user.name}</h3>
+
+      <p style="margin-top:6px;">
+        ${user.email}
+      </p>
+
+      <div style="margin-top:15px;">
+        <button
+          class="btn-dark"
+          onclick="logout()">
+          Logout
+        </button>
+      </div>
+    `;
+
   } else {
-    text.innerHTML = 'Belum login';
+
+    box.innerHTML = `
+      <h3>
+        Enjoy Special Discounts and Stay Connected
+      </h3>
+
+      <p>
+        Get access to exclusive discounts while keeping track of your orders.
+      </p>
+
+      <div class="account-btns">
+
+        <button
+          class="btn-outline"
+          onclick="openAuth('login')">
+          Login
+        </button>
+
+        <button
+          class="btn-dark"
+          onclick="openAuth('register')">
+          Signup
+        </button>
+
+      </div>
+    `;
   }
+}
+
+
+/* AUTO LOAD */
+window.onload = function(){
+
+  loadUser();
+
 }
 function openSort(){
   document.getElementById('sortModal').style.bottom = '0';
@@ -2557,7 +2662,21 @@ function openProduct(title, price, images){
   };
 
   checkWishlist();
+  document.querySelector(".notify-btn")
+  .innerText = "Notify Me";
 
+  document.querySelector(".notify-btn")
+  .style.background = "#bdbdbd";
+
+  document.querySelectorAll('.sizes button')
+  .forEach(btn=>{
+    btn.classList.remove('active');
+  });
+
+  qty = 1;
+
+  document.getElementById("qty")
+  .innerText = qty;
   renderSlides();
 }
 
@@ -2767,6 +2886,87 @@ document.addEventListener("click", function(e){
   }
 
 });
+function notifyMe(){
+
+  const user =
+    JSON.parse(localStorage.getItem("currentUser"));
+
+  if(!user){
+
+    alert("Please login first");
+
+    openAuth("login");
+
+    return;
+  }
+
+  let notifyList =
+    JSON.parse(localStorage.getItem("notifyList")) || [];
+
+  const exist = notifyList.find(
+    item =>
+      item.email === user.email &&
+      item.product === currentProduct.title
+  );
+
+  if(exist){
+
+    alert("You already joined notification");
+
+    return;
+  }
+
+  notifyList.push({
+    name:user.name,
+    email:user.email,
+    product:currentProduct.title,
+    date:new Date().toLocaleString()
+  });
+
+  localStorage.setItem(
+    "notifyList",
+    JSON.stringify(notifyList)
+  );
+
+  document.querySelector(".notify-btn")
+    .innerText = "Notification Active";
+
+  document.querySelector(".notify-btn")
+    .style.background = "#111";
+
+  alert("Notification activated");
+}
+document
+.getElementById("searchInput")
+.addEventListener("input", function(){
+
+  const value =
+    this.value.toLowerCase();
+
+  document.querySelectorAll(".product")
+  .forEach(product=>{
+
+    const text =
+      product.innerText.toLowerCase();
+
+    if(text.includes(value)){
+
+      product.style.display = "block";
+
+    } else {
+
+      product.style.display = "none";
+    }
+
+  });
+
+});
+window.onload = function(){
+
+  loadUser();
+  renderWishlist();
+
+}
 </script>
 <div id="homeAccordion">
   <div class="accordion">
