@@ -2184,6 +2184,27 @@ async function register(){
     return;
   }
 
+  const emailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if(!emailRegex.test(email)){
+    alert("Invalid email");
+    return;
+  }
+
+  if(password.length < 6){
+    alert("Password minimal 6 karakter");
+    return;
+  }
+
+  const btn =
+  document.querySelector("#registerSheet .auth-btn");
+
+  btn.disabled = true;
+  btn.innerText = "Loading...";
+  btn.disabled = false;
+  btn.innerText = "Create New Account";
+
   const { data, error } =
     await supabaseClient.auth.signUp({
       email,
@@ -2215,6 +2236,15 @@ async function login(){
   const password =
     document.getElementById("loginPassword").value;
 
+  if(!email || !password){
+    alert("Please fill all data");
+    return;
+  }
+
+  if(password.length < 6){
+    alert("Password minimal 6 karakter");
+    return;
+  }
   const { data, error } =
     await supabaseClient.auth.signInWithPassword({
       email,
