@@ -2158,7 +2158,7 @@ function showRegister(){
 }
 
 /* REGISTER */
-function register(){
+async function register(){
 
   const name =
     document.getElementById("registerName").value;
@@ -2170,10 +2170,30 @@ function register(){
     document.getElementById("registerPassword").value;
 
   if(!name || !email || !password){
-
     alert("Please fill all data");
     return;
   }
+
+  const { data, error } =
+    await supabaseClient.auth.signUp({
+      email,
+      password,
+      options:{
+        data:{
+          name:name
+        }
+      }
+    });
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  alert("Register success. Check your email!");
+
+  showLogin();
+}
 
   // ambil semua users
   let users =
@@ -2208,7 +2228,7 @@ function register(){
 
 
 /* LOGIN */
-function login(){
+async function login(){
 
   const email =
     document.getElementById("loginEmail").value;
@@ -2216,8 +2236,23 @@ function login(){
   const password =
     document.getElementById("loginPassword").value;
 
-  let users =
-    JSON.parse(localStorage.getItem("users")) || [];
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  alert("Login success");
+
+  closeAuth();
+
+  loadUser();
+}
 
   // cari user
   const user = users.find(
@@ -2248,9 +2283,9 @@ function login(){
 
 
 /* LOGOUT */
-function logout(){
+async function logout(){
 
-  localStorage.removeItem("currentUser");
+  await supabaseClient.auth.signOut();
 
   alert("Logout success");
 
@@ -2259,10 +2294,11 @@ function logout(){
 
 
 /* LOAD USER */
-function loadUser(){
+async function loadUser(){
 
-  const user =
-    JSON.parse(localStorage.getItem("currentUser"));
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
 
   const box =
     document.querySelector(".account-box");
@@ -2270,7 +2306,10 @@ function loadUser(){
   if(user){
 
     box.innerHTML = `
-      <h3>Welcome, ${user.name}</h3>
+      <h3>
+        Welcome,
+        ${user.user_metadata.name || "User"}
+      </h3>
 
       <p style="margin-top:6px;">
         ${user.email}
@@ -2510,28 +2549,6 @@ function applyFilter(){
 let currentSlide = 0;
 let productImages = [];
 
-/* OPEN PRODUCT */
-function openProduct(title, price, images){
-
-  closeAll();
-
-  document.querySelectorAll('.page').forEach(p=>{
-    p.classList.remove('active');
-  });
-
-  document.getElementById('productPage').classList.add('active');
-
-  document.getElementById('backBtn').style.display = 'block';
-
-  // TITLE & PRICE
-  document.getElementById('productTitle').innerText = title;
-  document.getElementById('productPrice').innerText = price;
-
-  // IMAGES
-  productImages = images;
-
-  renderSlides();
-}
 
 /* RENDER SLIDES */
 function renderSlides(){
@@ -2985,6 +3002,7 @@ supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
+</script>
 </script>
 <div id="homeAccordion">
   <div class="accordion">
