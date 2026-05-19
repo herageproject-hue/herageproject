@@ -2191,8 +2191,8 @@ function register(){
 
   // simpan user baru
   users.push({
-    name,
-    email,
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
     password
   });
 
@@ -2222,7 +2222,7 @@ function login(){
   // cari user
   const user = users.find(
     u =>
-      u.email === email &&
+      u.email.toLowerCase() === email.trim().toLowerCase() &&
       u.password === password
   );
 
@@ -2317,11 +2317,7 @@ function loadUser(){
 
 
 /* AUTO LOAD */
-window.onload = function(){
 
-  loadUser();
-
-}
 function openSort(){
   document.getElementById('sortModal').style.bottom = '0';
   document.getElementById('overlay').style.display = 'block';
@@ -2412,17 +2408,7 @@ function goHome(){
   
   document.getElementById('backBtn').style.display = 'none';
 }
-function loadUser(){
-  const user = JSON.parse(localStorage.getItem('user'));
-  const box = document.querySelector('.account-box');
 
-  if(user){
-    box.innerHTML = `
-      <h3>Welcome, ${user.email}</h3>
-      <button class="btn-dark" onclick="logout()">Logout</button>
-    `;
-  }
-}
 // STATE
 let selectedSort = "featured";
 let selectedAvailability = "all";
