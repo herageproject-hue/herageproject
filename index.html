@@ -1394,6 +1394,16 @@ select{
 body{
   overflow-x:hidden;
 }
+header{
+  backdrop-filter:blur(10px);
+}
+.product-image img{
+  transition:.4s;
+}
+
+.product:hover .product-image img{
+  transform:scale(1.03);
+}
 </style>
 </head>
 
@@ -2849,17 +2859,16 @@ document.addEventListener("click", function(e){
   }
 
 });
-function notifyMe(){
+async function notifyMe(){
 
-  const user =
-    JSON.parse(localStorage.getItem("currentUser"));
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
 
   if(!user){
 
     alert("Please login first");
-
     openAuth("login");
-
     return;
   }
 
@@ -2875,12 +2884,11 @@ function notifyMe(){
   if(exist){
 
     alert("You already joined notification");
-
     return;
   }
 
   notifyList.push({
-    name:user.name,
+    name:user.user_metadata.name || "User",
     email:user.email,
     product:currentProduct.title,
     date:new Date().toLocaleString()
@@ -2929,7 +2937,8 @@ window.onload = function(){
   loadUser();
   renderWishlist();
 
-}
+} 
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -2945,7 +2954,6 @@ supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
-</script>
 </script>
 <div id="homeAccordion">
   <div class="accordion">
