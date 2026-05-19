@@ -2195,37 +2195,6 @@ async function register(){
   showLogin();
 }
 
-  // ambil semua users
-  let users =
-    JSON.parse(localStorage.getItem("users")) || [];
-
-  // cek email sudah ada atau belum
-  const exist = users.find(
-    user => user.email === email
-  );
-
-  if(exist){
-    alert("Email already registered");
-    return;
-  }
-
-  // simpan user baru
-  users.push({
-    name: name.trim(),
-    email: email.trim().toLowerCase(),
-    password
-  });
-
-  localStorage.setItem(
-    "users",
-    JSON.stringify(users)
-  );
-
-  alert("Register success");
-
-  showLogin();
-}
-
 
 /* LOGIN */
 async function login(){
@@ -2254,32 +2223,6 @@ async function login(){
   loadUser();
 }
 
-  // cari user
-  const user = users.find(
-    u =>
-      u.email.toLowerCase() === email.trim().toLowerCase() &&
-      u.password === password
-  );
-
-  if(user){
-
-    // simpan session login
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(user)
-    );
-
-    alert("Login success");
-
-    closeAuth();
-
-    loadUser();
-
-  } else {
-
-    alert("Wrong email or password");
-  }
-}
 
 
 /* LOGOUT */
