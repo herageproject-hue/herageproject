@@ -2013,16 +2013,19 @@ header{
 
     <div class="birthday-row">
 
-      <select>
-        <option>Day</option>
+      <!-- DAY -->
+      <select id="daySelect">
+        <option value="">Day</option>
       </select>
 
-      <select>
-        <option>Month</option>
+      <!-- MONTH -->
+      <select id="monthSelect">
+        <option value="">Month</option>
       </select>
 
-      <select>
-        <option>Year</option>
+      <!-- YEAR -->
+      <select id="yearSelect">
+        <option value="">Year</option>
       </select>
 
     </div>
@@ -3016,6 +3019,63 @@ window.onload = function(){
   renderWishlist();
 
 } 
+
+/* DAY */
+const daySelect = document.getElementById("daySelect");
+
+for(let i = 1; i <= 31; i++){
+
+  daySelect.innerHTML += `
+    <option value="${i}">
+      ${i}
+    </option>
+  `;
+}
+
+/* MONTH */
+const monthSelect =
+document.getElementById("monthSelect");
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+months.forEach((month,index)=>{
+
+  monthSelect.innerHTML += `
+    <option value="${index+1}">
+      ${month}
+    </option>
+  `;
+});
+
+/* YEAR */
+const yearSelect =
+document.getElementById("yearSelect");
+
+const currentYear =
+new Date().getFullYear();
+
+for(let y = currentYear; y >= 1950; y--){
+
+  yearSelect.innerHTML += `
+    <option value="${y}">
+      ${y}
+    </option>
+  `;
+}
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
