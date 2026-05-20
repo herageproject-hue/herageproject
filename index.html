@@ -1484,6 +1484,21 @@ header{
   z-index:30;
   pointer-events:auto;
 }
+/* FIX WISHLIST CLICK */
+.wishlist-btn{
+  position:relative;
+  z-index:9999;
+  pointer-events:auto;
+}
+
+.wishlist-btn svg{
+  pointer-events:none;
+}
+
+.price-row{
+  position:relative;
+  z-index:999;
+}
 </style>
 </head>
 
@@ -1741,7 +1756,7 @@ header{
             </p>
           </div>
 
-          <div class="wishlist-btn" onclick="toggleWishlist(event)">
+          <div class="wishlist-btn" onclick="event.stopPropagation(); toggleWishlist()">
 
             <svg id="wishlistIcon"
               xmlns="http://www.w3.org/2000/svg"
@@ -1756,11 +1771,9 @@ header{
                        C13.09 3.81 14.76 3 16.5 3
                        19.58 3 22 5.42 22 8.5
                        c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-
             </svg>
 
-          </div> 
-
+          </div>
         </div>
 
         <div class="quantity-box">
