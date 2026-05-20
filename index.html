@@ -2755,38 +2755,45 @@ function openProduct(title, price, images, status = "coming"){
 }
 
 /* TOGGLE WISHLIST */
-function toggleWishlist(){
+async function toggleWishlist(){
 
-  let wishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
+  const { data:{ user } } =
+    await supabaseClient.auth.getUser();
 
-  const exist = wishlist.find(
-    item => item.title === currentProduct.title
-  );
+  if(!user){
+    alert("Login dulu");
+    openAuth("login");
+    return;
+  }
 
-  const btn = document.querySelector(".wishlist-btn");
+  const { data:existing } = await supabaseClient
+    .from("wishlist")
+    .select("*")
+    .eq("user_id", user.id)
+    .eq("product", currentProduct.title);
 
-  if(exist){
+  if(existing.length > 0){
 
-    wishlist = wishlist.filter(
-      item => item.title !== currentProduct.title
-    );
-
-    btn.classList.remove("active");
+    await supabaseClient
+      .from("wishlist")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("product", currentProduct.title);
 
   } else {
 
-    wishlist.push(currentProduct);
-
-    btn.classList.add("active");
+    await supabaseClient
+      .from("wishlist")
+      .insert({
+        user_id:user.id,
+        product:currentProduct.title,
+        image:currentProduct.image,
+        price:currentProduct.price
+      });
   }
 
-  localStorage.setItem(
-    "wishlist",
-    JSON.stringify(wishlist)
-  );
-
   renderWishlist();
+  checkWishlist();
 }
 
 /* CHECK ACTIVE */
@@ -2813,67 +2820,42 @@ function checkWishlist(){
 }
 
 /* RENDER WISHLIST */
-function renderWishlist(){
+async function renderWishlist(){
 
-  const box =
-    document.getElementById("wishlistContent");
+  const { data:{ user } } =
+    await supabaseClient.auth.getUser();
 
-  const wishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
+  if(!user) return;
 
-  if(wishlist.length === 0){
+  const { data } = await supabaseClient
+    .from("wishlist")
+    .select("*")
+    .eq("user_id", user.id);
 
-  box.innerHTML = `
-    <img src="box.PNG"
-      style="width:90px;opacity:.45;margin-bottom:20px;">
+  const box = document.getElementById("wishlistContent");
 
-    <p>No Wishlist Yet</p>
-
-    <small>
-      Your favorite products will appear here.
-    </small>
-  `;
-
-  return;
-}
+  if(!data || data.length === 0){
+    box.innerHTML = `
+      <img src="box.PNG" style="width:90px;opacity:.45;margin-bottom:20px;">
+      <p>No Wishlist Yet</p>
+      <small>Your favorite products will appear here.</small>
+    `;
+    return;
+  }
 
   box.innerHTML = "";
 
-  wishlist.forEach(item=>{
-
+  data.forEach(item=>{
     box.innerHTML += `
-      <div style="
-        display:flex;
-        gap:12px;
-        margin-bottom:18px;
-        align-items:center;
-      ">
-
-        <img src="${item.image}"
-          style="
-            width:80px;
-            height:100px;
-            object-fit:cover;
-            border-radius:10px;
-          ">
-
+      <div style="display:flex;gap:12px;margin-bottom:18px;align-items:center;">
+        <img src="${item.image}" style="width:80px;height:100px;object-fit:cover;border-radius:10px;">
         <div>
-          <h4 style="font-size:14px;">
-            ${item.title}
-          </h4>
-
-          <p style="
-            margin-top:6px;
-            font-weight:bold;
-          ">
-            ${item.price}
-          </p>
+          <h4 style="font-size:14px;">${item.product}</h4>
+          <p style="margin-top:6px;font-weight:bold;">${item.price}</p>
         </div>
-
       </div>
     `;
   });
-
 }
 
 /* ACCOUNT TABS */
