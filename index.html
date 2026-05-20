@@ -1499,6 +1499,9 @@ header{
   position:relative;
   z-index:999;
 }
+.wishlist-btn{
+  touch-action:manipulation;
+}
 </style>
 </head>
 
@@ -1756,7 +1759,7 @@ header{
             </p>
           </div>
 
-          <div class="wishlist-btn" onclick="event.stopPropagation(); toggleWishlist()">
+          <div class="wishlist-btn" onclick="toggleWishlist(event)">
 
             <svg id="wishlistIcon"
               xmlns="http://www.w3.org/2000/svg"
@@ -2807,34 +2810,50 @@ function openProduct(title, price, images, status = "coming"){
 /* TOGGLE WISHLIST */
 async function toggleWishlist(event){
 
-  event.stopPropagation();
+  if(event){
+    event.stopPropagation();
+  }
 
-  const { data:{ user } } =
-    await supabaseClient.auth.getUser();
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
 
   if(!user){
-    alert("Login dulu");
+    alert("Please login first");
     openAuth("login");
     return;
   }
 
-  const { data:existing } = await supabaseClient
-    .from("wishlist")
-    .select("*")
-    .eq("user_id", user.id)
-    .eq("product", currentProduct.title);
-
-  if(existing.length > 0){
-
+  const { data:existing, error:checkError } =
     await supabaseClient
+      .from("wishlist")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("product", currentProduct.title);
+
+  if(checkError){
+    console.log(checkError);
+    return;
+  }
+
+  // REMOVE
+  if(existing && existing.length > 0){
+
+    const { error } = await supabaseClient
       .from("wishlist")
       .delete()
       .eq("user_id", user.id)
       .eq("product", currentProduct.title);
 
+    if(error){
+      console.log(error);
+      return;
+    }
+
   } else {
 
-    await supabaseClient
+    // INSERT
+    const { error } = await supabaseClient
       .from("wishlist")
       .insert({
         user_id:user.id,
@@ -2842,19 +2861,32 @@ async function toggleWishlist(event){
         image:currentProduct.image,
         price:currentProduct.price
       });
+
+    if(error){
+      console.log(error);
+      return;
+    }
   }
 
-  renderWishlist();
-  checkWishlist();
+  await renderWishlist();
+  await checkWishlist();
 }
 
 /* CHECK ACTIVE */
 async function checkWishlist(){
 
-  const { data:{ user } } =
-    await supabaseClient.auth.getUser();
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
 
-  if(!user) return;
+  const btn =
+    document.querySelector(".wishlist-btn");
+
+  // kalau belum login
+  if(!user){
+    btn.classList.remove("active");
+    return;
+  }
 
   const { data } = await supabaseClient
     .from("wishlist")
@@ -2862,11 +2894,12 @@ async function checkWishlist(){
     .eq("user_id", user.id)
     .eq("product", currentProduct.title);
 
-  const btn = document.querySelector(".wishlist-btn");
-
   if(data && data.length > 0){
+
     btn.classList.add("active");
+
   } else {
+
     btn.classList.remove("active");
   }
 }
