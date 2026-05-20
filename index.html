@@ -2797,25 +2797,25 @@ async function toggleWishlist(){
 }
 
 /* CHECK ACTIVE */
-function checkWishlist(){
+async function checkWishlist(){
 
-  const wishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
+  const { data:{ user } } =
+    await supabaseClient.auth.getUser();
 
-  const exist = wishlist.find(
-    item => item.title === currentProduct.title
-  );
+  if(!user) return;
+
+  const { data } = await supabaseClient
+    .from("wishlist")
+    .select("*")
+    .eq("user_id", user.id)
+    .eq("product", currentProduct.title);
 
   const btn = document.querySelector(".wishlist-btn");
 
-  if(exist){
-
+  if(data && data.length > 0){
     btn.classList.add("active");
-
   } else {
-
     btn.classList.remove("active");
-
   }
 }
 
