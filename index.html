@@ -1240,6 +1240,10 @@ html,body{
   align-items:flex-start;
 
   margin-bottom:24px;
+
+  position:relative;
+
+  z-index:10;
 }
 
 .price-row h2{
@@ -1266,6 +1270,12 @@ html,body{
   padding:0;
 
   margin-top:4px;
+
+  position:relative;
+
+  z-index:20;
+
+  pointer-events:auto;
 }
 
 .wishlist-btn svg{
@@ -1718,7 +1728,7 @@ header{
             </p>
           </div>
 
-          <div class="wishlist-btn" onclick="toggleWishlist()">
+          <div class="wishlist-btn" onclick="toggleWishlist(event)">
 
             <svg id="wishlistIcon"
               xmlns="http://www.w3.org/2000/svg"
@@ -2769,7 +2779,9 @@ function openProduct(title, price, images, status = "coming"){
 }
 
 /* TOGGLE WISHLIST */
-async function toggleWishlist(){
+async function toggleWishlist(event){
+
+  event.stopPropagation();
 
   const { data:{ user } } =
     await supabaseClient.auth.getUser();
