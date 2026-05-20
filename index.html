@@ -1237,6 +1237,8 @@ html,body{
 
   pointer-events:auto;
 }
+
+/* PRICE ROW */
 .price-row{
   display:flex;
   justify-content:space-between;
@@ -1245,52 +1247,45 @@ html,body{
   margin-bottom:24px;
 
   position:relative;
-
-  z-index:50;
+  z-index:5;
 }
 
-.price-row h2{
-  margin-bottom:0;
-}
-
-/* WISHLIST */
+/* WISHLIST BUTTON */
 .wishlist-btn{
-  width:auto;
-  height:auto;
+  position:relative;
+
+  width:42px;
+  height:42px;
 
   display:flex;
   justify-content:center;
   align-items:center;
 
-  background:transparent;
   border:none;
-  border-radius:0;
+  background:transparent;
 
   cursor:pointer;
 
-  box-shadow:none;
-
-  padding:0;
-
-  margin-top:4px;
-
-  position:relative;
-
-  z-index:60;
-
+  z-index:99999;
   pointer-events:auto;
+
+  flex-shrink:0;
 }
 
+/* ICON */
 .wishlist-btn svg{
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
 
   stroke:#111;
   fill:none;
 
+  pointer-events:none;
+
   transition:.2s;
 }
 
+/* ACTIVE */
 .wishlist-btn.active svg{
   fill:#111;
   stroke:#111;
@@ -1473,34 +1468,6 @@ header{
   margin-top:6px;
   font-size:13px;
   color:#777;
-}
-.price-row{
-  position:relative;
-  z-index:20;
-}
-
-.wishlist-btn{
-  position:relative;
-  z-index:30;
-  pointer-events:auto;
-}
-/* FIX WISHLIST CLICK */
-.wishlist-btn{
-  position:relative;
-  z-index:9999;
-  pointer-events:auto;
-}
-
-.wishlist-btn svg{
-  pointer-events:none;
-}
-
-.price-row{
-  position:relative;
-  z-index:999;
-}
-.wishlist-btn{
-  touch-action:manipulation;
 }
 </style>
 </head>
