@@ -2959,6 +2959,15 @@ async function notifyMe(){
 
   alert("Notification activated");
 
+  if(!currentProduct.title){
+    alert("No product selected");
+    return;
+  }
+
+  if(existing?.length){
+    alert("Already subscribed");
+    return;
+  }
 }
 document
 .getElementById("searchInput")
