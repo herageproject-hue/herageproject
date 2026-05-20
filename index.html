@@ -971,6 +971,8 @@ html {
 
   font-size:22px;
   font-weight:800;
+
+  pointer-events:auto;
 }
 
 /* DESCRIPTION */
@@ -1211,8 +1213,11 @@ html,body{
   color:#111;
 }
 .sticky-notify{
+
   position:sticky;
+
   bottom:0;
+
   left:0;
 
   width:100%;
@@ -1222,6 +1227,9 @@ html,body{
   background:#f3f3f3;
 
   z-index:1;
+
+  pointer-events:none;
+
 }
 
 .notify-btn{
@@ -1236,6 +1244,8 @@ html,body{
 
   font-size:22px;
   font-weight:800;
+
+  pointer-events:auto;
 }
 .price-row{
   display:flex;
@@ -1246,7 +1256,7 @@ html,body{
 
   position:relative;
 
-  z-index:10;
+  z-index:50;
 }
 
 .price-row h2{
@@ -1276,7 +1286,7 @@ html,body{
 
   position:relative;
 
-  z-index:20;
+  z-index:60;
 
   pointer-events:auto;
 }
