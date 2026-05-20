@@ -1404,6 +1404,10 @@ header{
 .product:hover .product-image img{
   transform:scale(1.03);
 }
+.auth-btn:disabled{
+  opacity:.7;
+  cursor:not-allowed;
+}
 </style>
 </head>
 
@@ -2139,6 +2143,8 @@ function closeAll(){
 /* OPEN AUTH */
 function openAuth(type = "login"){
 
+  closeAll();
+  
   document.getElementById("authModal").style.display = "flex";
 
   if(type === "register"){
@@ -2171,10 +2177,10 @@ function showRegister(){
 async function register(){
 
   const name =
-    document.getElementById("registerName").value;
+    document.getElementById("registerName").value.trim();
 
   const email =
-    document.getElementById("registerEmail").value;
+    document.getElementById("registerEmail").value.trim();
 
   const password =
     document.getElementById("registerPassword").value;
@@ -2193,45 +2199,56 @@ async function register(){
   }
 
   if(password.length < 6){
-    alert("Password minimal 6 karakter");
+    alert("Password minimum 6 characters");
     return;
   }
 
   const btn =
-  document.querySelector("#registerSheet .auth-btn");
+    document.querySelector("#registerSheet .auth-btn");
 
   btn.disabled = true;
   btn.innerText = "Loading...";
-  btn.disabled = false;
-  btn.innerText = "Create New Account";
 
-  const { data, error } =
-    await supabaseClient.auth.signUp({
-      email,
-      password,
-      options:{
-        data:{
-          name:name
+  try{
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+        email,
+        password,
+        options:{
+          data:{
+            name:name
+          }
         }
-      }
-    });
+      });
 
-  if(error){
-    alert(error.message);
-    return;
+    if(error){
+      alert(error.message);
+      return;
+    }
+
+    alert("Register success. Check your email!");
+
+    showLogin();
+
+  } catch(err){
+
+    alert("Something went wrong");
+
+  } finally {
+
+    btn.disabled = false;
+    btn.innerText = "Create New Account";
+
   }
 
-  alert("Register success. Check your email!");
-
-  showLogin();
 }
-
 
 /* LOGIN */
 async function login(){
 
   const email =
-    document.getElementById("loginEmail").value;
+    document.getElementById("loginEmail").value.trim();
 
   const password =
     document.getElementById("loginPassword").value;
@@ -2241,28 +2258,43 @@ async function login(){
     return;
   }
 
-  if(password.length < 6){
-    alert("Password minimal 6 karakter");
-    return;
+  const btn =
+    document.querySelector("#loginSheet .auth-btn");
+
+  btn.disabled = true;
+  btn.innerText = "Loading...";
+
+  try{
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if(error){
+      alert(error.message);
+      return;
+    }
+
+    alert("Login success");
+
+    closeAuth();
+
+    loadUser();
+
+  } catch(err){
+
+    alert("Something went wrong");
+
+  } finally {
+
+    btn.disabled = false;
+    btn.innerText = "Next";
+
   }
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
 
-  if(error){
-    alert(error.message);
-    return;
-  }
-
-  alert("Login success");
-
-  closeAuth();
-
-  loadUser();
 }
-
 
 
 /* LOGOUT */
@@ -2435,6 +2467,8 @@ function goHome(){
 let selectedSort = "featured";
 let selectedAvailability = "all";
 let selectedPrice = null;
+let selectedColor = null;
+let selectedSize = null;
 
 // EVENT GLOBAL
 document.addEventListener("click", function(e){
@@ -2617,17 +2651,19 @@ function decreaseQty(){
 
   document.getElementById("qty").innerText = qty;
 }
-document.querySelectorAll('.sizes button').forEach(btn=>{
+document.addEventListener("click", function(e){
 
-  btn.addEventListener('click', ()=>{
+  if(e.target.matches('.sizes button')){
 
-    document.querySelectorAll('.sizes button').forEach(b=>{
-      b.classList.remove('active');
-    });
+    document
+      .querySelectorAll('.sizes button')
+      .forEach(b=>{
+        b.classList.remove('active');
+      });
 
-    btn.classList.add('active');
+    e.target.classList.add('active');
 
-  });
+  }
 
 });
 /* =========================
