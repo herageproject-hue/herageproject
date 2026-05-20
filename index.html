@@ -2911,35 +2911,50 @@ async function notifyMe(){
 
     alert("Please login first");
     openAuth("login");
+
     return;
   }
 
-  let notifyList =
-    JSON.parse(localStorage.getItem("notifyList")) || [];
+  const {
+    data:existing
+  } = await supabaseClient
 
-  const exist = notifyList.find(
-    item =>
-      item.email === user.email &&
-      item.product === currentProduct.title
-  );
+    .from("notifications")
 
-  if(exist){
+    .select("*")
 
-    alert("You already joined notification");
+    .eq("email", user.email)
+
+    .eq("product", currentProduct.title);
+
+  if(existing.length > 0){
+
+    alert("Already subscribed");
     return;
   }
 
-  notifyList.push({
-    name:user.user_metadata.name || "User",
-    email:user.email,
-    product:currentProduct.title,
-    date:new Date().toLocaleString()
-  });
+  const { error } =
+    await supabaseClient
 
-  localStorage.setItem(
-    "notifyList",
-    JSON.stringify(notifyList)
-  );
+    .from("notifications")
+
+    .insert({
+
+      user_id:user.id,
+
+      name:user.user_metadata.name || "User",
+
+      email:user.email,
+
+      product:currentProduct.title
+
+    });
+
+  if(error){
+
+    alert(error.message);
+    return;
+  }
 
   document.querySelector(".notify-btn")
     .innerText = "Notification Active";
@@ -2948,6 +2963,7 @@ async function notifyMe(){
     .style.background = "#111";
 
   alert("Notification activated");
+
 }
 document
 .getElementById("searchInput")
