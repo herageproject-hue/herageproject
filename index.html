@@ -1697,8 +1697,12 @@ header{
         <h1 id="productTitle"></h1>
 
         <div class="price-row">
-
           <h2 id="productPrice"></h2>
+        </div>
+          
+        <p id="waitingCount" style="margin-top:6px;font-size:13px;color:#777;">
+          0 people waiting
+        </p>
 
           <div class="wishlist-btn" onclick="toggleWishlist()">
 
@@ -2717,6 +2721,10 @@ function openProduct(title, price, images, status = "coming"){
     : status === "available" ? "AVAILABLE"
     : "COMING SOON";
   document.getElementById('productPrice').innerText = price;
+  getWaitingCount(title).then(count=>{
+    document.getElementById("waitingCount").innerText =
+      `${count} people waiting`;
+  });
 
   productImages = images;
 
@@ -3058,6 +3066,15 @@ for(let y = currentYear; y >= 1950; y--){
   `;
 }
 
+async function getWaitingCount(productTitle){
+
+  const { data } = await supabaseClient
+    .from("notifications")
+    .select("*")
+    .eq("product", productTitle);
+
+  return data ? data.length : 0;
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
