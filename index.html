@@ -2760,11 +2760,14 @@ function openProduct(title, price, images, status = "coming"){
   };
 
   checkWishlist();
-  document.querySelector(".notify-btn")
-  .innerText = "Notify Me";
+  const notifyBtn =
+    document.querySelector(".notify-btn");
 
-  document.querySelector(".notify-btn")
-  .style.background = "#bdbdbd";
+  notifyBtn.innerText = "Notify Me";
+  notifyBtn.style.background = "#bdbdbd";
+
+  notifyBtn.disabled = false;
+  notifyBtn.dataset.active = "false";
 
   document.querySelectorAll('.sizes button')
   .forEach(btn=>{
@@ -2954,11 +2957,23 @@ document.querySelectorAll(".tabs span")
 
 async function notifyMe(){
 
+  const btn =
+    document.querySelector(".notify-btn");
+
+  // cegah spam klik
+  if(btn.dataset.active === "true"){
+    return;
+  }
+
+  btn.disabled = true;
+
   const {
     data:{ user }
   } = await supabaseClient.auth.getUser();
 
   if(!user){
+
+    btn.disabled = false;
 
     alert("Please login first");
     openAuth("login");
@@ -2966,6 +2981,15 @@ async function notifyMe(){
     return;
   }
 
+  if(!currentProduct.title){
+
+    btn.disabled = false;
+
+    alert("No product selected");
+    return;
+  }
+
+  // cek apakah sudah subscribe
   const {
     data:existing
   } = await supabaseClient
@@ -2978,52 +3002,50 @@ async function notifyMe(){
 
     .eq("product", currentProduct.title);
 
-  if(existing.length > 0){
+  // kalau sudah ada
+  if(existing && existing.length > 0){
 
-    alert("Already subscribed");
+    btn.innerText = "Notification Active";
+    btn.style.background = "#111";
+    btn.dataset.active = "true";
+
     return;
   }
 
+  // insert database
   const { error } =
     await supabaseClient
 
-    .from("notifications")
+      .from("notifications")
 
-    .insert({
+      .insert({
 
-      user_id:user.id,
+        user_id:user.id,
 
-      name:user.user_metadata.name || "User",
+        name:user.user_metadata.name || "User",
 
-      email:user.email,
+        email:user.email,
 
-      product:currentProduct.title
+        product:currentProduct.title
 
-    });
+      });
 
   if(error){
+
+    btn.disabled = false;
 
     alert(error.message);
     return;
   }
 
-  document.querySelector(".notify-btn")
-    .innerText = "Notification Active";
+  // sukses
+  btn.innerText = "Notification Active";
 
-  document.querySelector(".notify-btn")
-    .style.background = "#111";
+  btn.style.background = "#111";
+
+  btn.dataset.active = "true";
 
   alert("Notification activated");
-
-  if(!currentProduct.title){
-    alert("No product selected");
-    return;
-  }
-
-  if(existing?.length){
-    alert("Already subscribed");
-    return;
-  }
 }
 document
 .getElementById("searchInput")
