@@ -1478,6 +1478,9 @@ header{
   opacity:1;
   cursor:default;
 }
+.wishlist-btn:disabled{
+  opacity:1;
+}
 </style>
 </head>
 
@@ -1735,7 +1738,7 @@ header{
             </p>
           </div>
 
-          <div class="wishlist-btn" onclick="toggleWishlist(event)">
+          <button class="wishlist-btn" onclick="toggleWishlist(event)">
 
             <svg id="wishlistIcon"
               xmlns="http://www.w3.org/2000/svg"
@@ -1751,8 +1754,8 @@ header{
                        19.58 3 22 5.42 22 8.5
                        c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
-
-          </div>
+          </button>
+          
         </div>
 
         <div class="quantity-box">
@@ -2793,18 +2796,14 @@ async function toggleWishlist(event){
   const btn =
     document.querySelector(".wishlist-btn");
 
-  btn.style.pointerEvents = "none";
-
   try{
 
     const {
       data:{ user }
     } = await supabaseClient.auth.getUser();
 
-    // belum login
+    // BELUM LOGIN
     if(!user){
-
-      btn.style.pointerEvents = "auto";
 
       alert("Please login first");
 
@@ -2813,17 +2812,18 @@ async function toggleWishlist(event){
       return;
     }
 
-    // cek product
+    // CEK PRODUCT
     if(!currentProduct.title){
-
-      btn.style.pointerEvents = "auto";
 
       alert("No product selected");
 
       return;
     }
 
-    // cek existing
+    // LOCK BUTTON
+    btn.disabled = true;
+
+    // CHECK EXISTING
     const {
       data:existing,
       error:checkError
@@ -2834,11 +2834,7 @@ async function toggleWishlist(event){
       .eq("product", currentProduct.title);
 
     if(checkError){
-
       console.log(checkError);
-
-      btn.style.pointerEvents = "auto";
-
       return;
     }
 
@@ -2872,6 +2868,7 @@ async function toggleWishlist(event){
       if(error){
         console.log(error);
       }
+
     }
 
     await renderWishlist();
@@ -2883,7 +2880,8 @@ async function toggleWishlist(event){
 
   } finally {
 
-    btn.style.pointerEvents = "auto";
+    // UNLOCK BUTTON
+    btn.disabled = false;
   }
 }
 /* CHECK ACTIVE */
