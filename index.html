@@ -1266,13 +1266,12 @@ html,body{
 
   cursor:pointer;
 
-  z-index:99999;
+  z-index:999999;
   pointer-events:auto;
 
   flex-shrink:0;
 }
 
-/* ICON */
 .wishlist-btn svg{
   width:22px;
   height:22px;
@@ -2762,14 +2761,7 @@ function openProduct(title, price, images, status = "coming"){
   };
 
   checkWishlist();
-  const notifyBtn =
-    document.querySelector(".notify-btn");
-
-  notifyBtn.innerText = "Notify Me";
-  notifyBtn.style.background = "#bdbdbd";
-
-  notifyBtn.disabled = false;
-  notifyBtn.dataset.active = "false";
+  checkNotificationStatus();
 
   document.querySelectorAll('.sizes button')
   .forEach(btn=>{
@@ -2998,7 +2990,7 @@ async function notifyMe(){
   const btn =
     document.querySelector(".notify-btn");
 
-  // cegah spam klik
+  // kalau sudah aktif jangan bisa dipencet lagi
   if(btn.dataset.active === "true"){
     return;
   }
@@ -3009,6 +3001,7 @@ async function notifyMe(){
     data:{ user }
   } = await supabaseClient.auth.getUser();
 
+  // belum login
   if(!user){
 
     btn.disabled = false;
@@ -3019,25 +3012,13 @@ async function notifyMe(){
     return;
   }
 
-  if(!currentProduct.title){
-
-    btn.disabled = false;
-
-    alert("No product selected");
-    return;
-  }
-
-  // cek apakah sudah subscribe
+  // cek database lagi
   const {
     data:existing
   } = await supabaseClient
-
     .from("notifications")
-
     .select("*")
-
     .eq("email", user.email)
-
     .eq("product", currentProduct.title);
 
   // kalau sudah ada
@@ -3046,26 +3027,20 @@ async function notifyMe(){
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
     btn.dataset.active = "true";
+    btn.disabled = true;
 
     return;
   }
 
-  // insert database
+  // insert
   const { error } =
     await supabaseClient
-
       .from("notifications")
-
       .insert({
-
         user_id:user.id,
-
         name:user.user_metadata.name || "User",
-
         email:user.email,
-
         product:currentProduct.title
-
       });
 
   if(error){
@@ -3078,12 +3053,18 @@ async function notifyMe(){
 
   // sukses
   btn.innerText = "Notification Active";
-
   btn.style.background = "#111";
-
   btn.dataset.active = "true";
+  btn.disabled = true;
 
   alert("Notification activated");
+
+  // update waiting count
+  const count =
+    await getWaitingCount(currentProduct.title);
+
+  document.getElementById("waitingCount").innerText =
+    `${count} people waiting`;
 }
 document
 .getElementById("searchInput")
@@ -3198,6 +3179,49 @@ supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
+async function checkNotificationStatus(){
+
+  const btn =
+    document.querySelector(".notify-btn");
+
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
+
+  // belum login
+  if(!user){
+
+    btn.innerText = "Notify Me";
+    btn.style.background = "#bdbdbd";
+    btn.dataset.active = "false";
+    btn.disabled = false;
+
+    return;
+  }
+
+  // cek database
+  const { data } = await supabaseClient
+    .from("notifications")
+    .select("*")
+    .eq("email", user.email)
+    .eq("product", currentProduct.title);
+
+  // kalau sudah subscribe
+  if(data && data.length > 0){
+
+    btn.innerText = "Notification Active";
+    btn.style.background = "#111";
+    btn.dataset.active = "true";
+    btn.disabled = true;
+
+  } else {
+
+    btn.innerText = "Notify Me";
+    btn.style.background = "#bdbdbd";
+    btn.dataset.active = "false";
+    btn.disabled = false;
+  }
+}
 </script>
 <div id="homeAccordion">
   <div class="accordion">
