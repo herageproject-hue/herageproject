@@ -2332,6 +2332,8 @@ async function login(){
     closeAuth();
 
     loadUser();
+    checkWishlist();
+    renderWishlist();
 
   } catch(err){
 
@@ -2784,68 +2786,104 @@ function openProduct(title, price, images, status = "coming"){
 /* TOGGLE WISHLIST */
 async function toggleWishlist(event){
 
-  if(event){
-    event.stopPropagation();
-  }
+  event.stopPropagation();
 
-  const {
-    data:{ user }
-  } = await supabaseClient.auth.getUser();
+  const btn =
+    document.querySelector(".wishlist-btn");
 
-  if(!user){
-    alert("Please login first");
-    openAuth("login");
-    return;
-  }
+  btn.style.pointerEvents = "none";
 
-  const { data:existing, error:checkError } =
-    await supabaseClient
+  try{
+
+    const {
+      data:{ user }
+    } = await supabaseClient.auth.getUser();
+
+    // belum login
+    if(!user){
+
+      btn.style.pointerEvents = "auto";
+
+      alert("Please login first");
+
+      openAuth("login");
+
+      return;
+    }
+
+    // cek product
+    if(!currentProduct.title){
+
+      btn.style.pointerEvents = "auto";
+
+      alert("No product selected");
+
+      return;
+    }
+
+    // cek existing
+    const {
+      data:existing,
+      error:checkError
+    } = await supabaseClient
       .from("wishlist")
       .select("*")
       .eq("user_id", user.id)
       .eq("product", currentProduct.title);
 
-  if(checkError){
-    console.log(checkError);
-    return;
-  }
+    if(checkError){
 
-  // REMOVE
-  if(existing && existing.length > 0){
+      console.log(checkError);
 
-    const { error } = await supabaseClient
-      .from("wishlist")
-      .delete()
-      .eq("user_id", user.id)
-      .eq("product", currentProduct.title);
+      btn.style.pointerEvents = "auto";
 
-    if(error){
-      console.log(error);
       return;
     }
 
-  } else {
+    // REMOVE
+    if(existing && existing.length > 0){
 
-    // INSERT
-    const { error } = await supabaseClient
-      .from("wishlist")
-      .insert({
-        user_id:user.id,
-        product:currentProduct.title,
-        image:currentProduct.image,
-        price:currentProduct.price
-      });
+      const { error } =
+        await supabaseClient
+          .from("wishlist")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("product", currentProduct.title);
 
-    if(error){
-      console.log(error);
-      return;
+      if(error){
+        console.log(error);
+      }
+
+    } else {
+
+      // INSERT
+      const { error } =
+        await supabaseClient
+          .from("wishlist")
+          .insert({
+            user_id:user.id,
+            product:currentProduct.title,
+            image:currentProduct.image,
+            price:currentProduct.price
+          });
+
+      if(error){
+        console.log(error);
+      }
     }
-  }
 
-  await renderWishlist();
-  await checkWishlist();
+    await renderWishlist();
+    await checkWishlist();
+
+  } catch(err){
+
+    console.log(err);
+
+  } finally {
+
+    btn.style.pointerEvents = "auto";
+  }
 }
-
 /* CHECK ACTIVE */
 async function checkWishlist(){
 
