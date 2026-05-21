@@ -1472,6 +1472,12 @@ header{
   position:relative;
   z-index:1;
 }
+.notify-btn:disabled{
+  background:#111 !important;
+  color:#fff;
+  opacity:1;
+  cursor:default;
+}
 </style>
 </head>
 
@@ -1791,7 +1797,10 @@ header{
 
         </div>
         <div class="sticky-notify">
-          <button class="notify-btn" onclick="notifyMe()">
+          <button
+            id="notifyBtn"
+            class="notify-btn"
+            onclick="notifyMe()">
             Notify Me
           </button>
         </div>
@@ -2989,7 +2998,7 @@ document.querySelectorAll(".tabs span")
 async function notifyMe(){
 
   const btn =
-    document.querySelector(".notify-btn");
+    document.getElementById("notifyBtn");
 
   // lock sementara biar tidak double click
   btn.disabled = true;
@@ -3200,7 +3209,7 @@ supabase.createClient(
 async function checkNotificationStatus(){
 
   const btn =
-    document.querySelector(".notify-btn");
+    document.getElementById("notifyBtn");
 
   const {
     data:{ user }
@@ -3212,7 +3221,7 @@ async function checkNotificationStatus(){
     btn.innerText = "Notify Me";
     btn.style.background = "#bdbdbd";
     btn.dataset.active = "false";
-    btn.disabled = false;
+    btn.removeAttribute("disabled");
 
     return;
   }
@@ -3230,14 +3239,14 @@ async function checkNotificationStatus(){
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
     btn.dataset.active = "true";
-    btn.disabled = true;
+    btn.setAttribute("disabled", true);
 
   } else {
 
     btn.innerText = "Notify Me";
     btn.style.background = "#bdbdbd";
     btn.dataset.active = "false";
-    btn.disabled = false;
+    btn.removeAttribute("disabled");
   }
 }
 </script>
