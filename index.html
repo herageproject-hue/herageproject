@@ -2333,6 +2333,7 @@ async function login(){
     loadUser();
     checkWishlist();
     renderWishlist();
+    await checkNotificationStatus();
 
   } catch(err){
 
@@ -2990,81 +2991,98 @@ async function notifyMe(){
   const btn =
     document.querySelector(".notify-btn");
 
-  // kalau sudah aktif jangan bisa dipencet lagi
-  if(btn.dataset.active === "true"){
-    return;
-  }
-
+  // lock sementara biar tidak double click
   btn.disabled = true;
 
-  const {
-    data:{ user }
-  } = await supabaseClient.auth.getUser();
+  try{
 
-  // belum login
-  if(!user){
+    const {
+      data:{ user }
+    } = await supabaseClient.auth.getUser();
 
-    btn.disabled = false;
+    // BELUM LOGIN
+    if(!user){
 
-    alert("Please login first");
-    openAuth("login");
+      btn.disabled = false;
 
-    return;
-  }
+      alert("Please login first");
 
-  // cek database lagi
-  const {
-    data:existing
-  } = await supabaseClient
-    .from("notifications")
-    .select("*")
-    .eq("email", user.email)
-    .eq("product", currentProduct.title);
+      openAuth("login");
 
-  // kalau sudah ada
-  if(existing && existing.length > 0){
+      return;
+    }
 
+    // cek apakah sudah subscribe
+    const {
+      data:existing,
+      error:checkError
+    } = await supabaseClient
+      .from("notifications")
+      .select("*")
+      .eq("email", user.email)
+      .eq("product", currentProduct.title);
+
+    if(checkError){
+      console.log(checkError);
+
+      btn.disabled = false;
+      return;
+    }
+
+    // SUDAH ADA
+    if(existing && existing.length > 0){
+
+      btn.innerText = "Notification Active";
+      btn.style.background = "#111";
+      btn.dataset.active = "true";
+      btn.disabled = true;
+
+      return;
+    }
+
+    // INSERT
+    const { error } =
+      await supabaseClient
+        .from("notifications")
+        .insert({
+          user_id:user.id,
+          name:user.user_metadata.name || "User",
+          email:user.email,
+          product:currentProduct.title
+        });
+
+    if(error){
+
+      console.log(error);
+
+      btn.disabled = false;
+
+      alert(error.message);
+
+      return;
+    }
+
+    // SUCCESS
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
     btn.dataset.active = "true";
     btn.disabled = true;
 
-    return;
-  }
+    alert("Notification activated");
 
-  // insert
-  const { error } =
-    await supabaseClient
-      .from("notifications")
-      .insert({
-        user_id:user.id,
-        name:user.user_metadata.name || "User",
-        email:user.email,
-        product:currentProduct.title
-      });
+    // update count
+    const count =
+      await getWaitingCount(currentProduct.title);
 
-  if(error){
+    document.getElementById("waitingCount").innerText =
+      `${count} people waiting`;
+
+  } catch(err){
+
+    console.log(err);
 
     btn.disabled = false;
-
-    alert(error.message);
-    return;
   }
-
-  // sukses
-  btn.innerText = "Notification Active";
-  btn.style.background = "#111";
-  btn.dataset.active = "true";
-  btn.disabled = true;
-
-  alert("Notification activated");
-
-  // update waiting count
-  const count =
-    await getWaitingCount(currentProduct.title);
-
-  document.getElementById("waitingCount").innerText =
-    `${count} people waiting`;
 }
 document
 .getElementById("searchInput")
