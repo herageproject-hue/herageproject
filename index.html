@@ -2297,7 +2297,10 @@ async function register(){
         }
       });
 
+    alert(JSON.stringify({ data, error }));
+    
     if(error){
+      console.log(error);
       alert(error.message);
       return;
     }
