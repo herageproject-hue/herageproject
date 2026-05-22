@@ -2789,9 +2789,16 @@ function openProduct(title, price, images, status = "coming"){
 }
 
 /* TOGGLE WISHLIST */
+let wishlistLoading = false;
+
 async function toggleWishlist(event){
 
   event.stopPropagation();
+
+  // cegah spam klik
+  if(wishlistLoading) return;
+
+  wishlistLoading = true;
 
   const btn =
     document.querySelector(".wishlist-btn");
@@ -2809,70 +2816,65 @@ async function toggleWishlist(event){
 
       openAuth("login");
 
-      return;
-    }
-
-    // CEK PRODUCT
-    if(!currentProduct.title){
-
-      alert("No product selected");
-
+      wishlistLoading = false;
       return;
     }
 
     // LOCK BUTTON
     btn.disabled = true;
 
-    // CHECK EXISTING
+    // CEK SUDAH ADA ATAU BELUM
     const {
       data:existing,
       error:checkError
     } = await supabaseClient
       .from("wishlist")
-      .select("*")
+      .select("id")
       .eq("user_id", user.id)
-      .eq("product", currentProduct.title);
+      .eq("product", currentProduct.title)
+      .limit(1);
 
     if(checkError){
       console.log(checkError);
+
+      btn.disabled = false;
+      wishlistLoading = false;
       return;
     }
 
-    // REMOVE
+    // JIKA SUDAH ADA -> JANGAN INSERT LAGI
     if(existing && existing.length > 0){
 
-      const { error } =
-        await supabaseClient
-          .from("wishlist")
-          .delete()
-          .eq("user_id", user.id)
-          .eq("product", currentProduct.title);
+      btn.classList.add("active");
 
-      if(error){
-        console.log(error);
-      }
+      btn.disabled = false;
+      wishlistLoading = false;
 
-    } else {
-
-      // INSERT
-      const { error } =
-        await supabaseClient
-          .from("wishlist")
-          .insert({
-            user_id:user.id,
-            product:currentProduct.title,
-            image:currentProduct.image,
-            price:currentProduct.price
-          });
-
-      if(error){
-        console.log(error);
-      }
-
+      return;
     }
 
+    // INSERT SEKALI SAJA
+    const { error } =
+      await supabaseClient
+        .from("wishlist")
+        .insert({
+          user_id:user.id,
+          product:currentProduct.title,
+          image:currentProduct.image,
+          price:currentProduct.price
+        });
+
+    if(error){
+      console.log(error);
+
+      btn.disabled = false;
+      wishlistLoading = false;
+      return;
+    }
+
+    btn.classList.add("active");
+
     await renderWishlist();
-    await checkWishlist();
 
   } catch(err){
 
@@ -2880,8 +2882,8 @@ async function toggleWishlist(event){
 
   } finally {
 
-    // UNLOCK BUTTON
     btn.disabled = false;
+    wishlistLoading = false;
   }
 }
 /* CHECK ACTIVE */
@@ -2894,18 +2896,23 @@ async function checkWishlist(){
   const btn =
     document.querySelector(".wishlist-btn");
 
-  // kalau belum login
+  // belum login
   if(!user){
+
     btn.classList.remove("active");
+    btn.disabled = false;
+
     return;
   }
 
   const { data } = await supabaseClient
     .from("wishlist")
-    .select("*")
+    .select("id")
     .eq("user_id", user.id)
-    .eq("product", currentProduct.title);
+    .eq("product", currentProduct.title)
+    .limit(1);
 
+  // SUDAH ADA DI DATABASE
   if(data && data.length > 0){
 
     btn.classList.add("active");
@@ -2993,13 +3000,18 @@ document.querySelectorAll(".tabs span")
 
 })
 
+/* NOTIFY SYSTEM */
+let notifyLoading = false;
+
 async function notifyMe(){
+
+  // cegah spam klik
+  if(notifyLoading) return;
+
+  notifyLoading = true;
 
   const btn =
     document.getElementById("notifyBtn");
-
-  // lock sementara biar tidak double click
-  btn.disabled = true;
 
   try{
 
@@ -3010,29 +3022,32 @@ async function notifyMe(){
     // BELUM LOGIN
     if(!user){
 
-      btn.disabled = false;
-
       alert("Please login first");
 
       openAuth("login");
 
+      notifyLoading = false;
       return;
     }
 
-    // cek apakah sudah subscribe
+    btn.disabled = true;
+
+    // CEK DATABASE
     const {
       data:existing,
       error:checkError
     } = await supabaseClient
       .from("notifications")
-      .select("*")
-      .eq("email", user.email)
-      .eq("product", currentProduct.title);
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("product", currentProduct.title)
+      .limit(1);
 
     if(checkError){
       console.log(checkError);
 
       btn.disabled = false;
+      notifyLoading = false;
       return;
     }
 
@@ -3041,13 +3056,13 @@ async function notifyMe(){
 
       btn.innerText = "Notification Active";
       btn.style.background = "#111";
-      btn.dataset.active = "true";
       btn.disabled = true;
 
+      notifyLoading = false;
       return;
     }
 
-    // INSERT
+    // INSERT SEKALI
     const { error } =
       await supabaseClient
         .from("notifications")
@@ -3063,21 +3078,17 @@ async function notifyMe(){
       console.log(error);
 
       btn.disabled = false;
-
-      alert(error.message);
+      notifyLoading = false;
 
       return;
     }
 
-    // SUCCESS
+    // ACTIVE
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
-    btn.dataset.active = "true";
     btn.disabled = true;
 
-    alert("Notification activated");
-
-    // update count
+    // UPDATE COUNT
     const count =
       await getWaitingCount(currentProduct.title);
 
@@ -3088,7 +3099,9 @@ async function notifyMe(){
 
     console.log(err);
 
-    btn.disabled = false;
+  } finally {
+
+    notifyLoading = false;
   }
 }
 document
@@ -3213,38 +3226,36 @@ async function checkNotificationStatus(){
     data:{ user }
   } = await supabaseClient.auth.getUser();
 
-  // belum login
+  // BELUM LOGIN
   if(!user){
 
     btn.innerText = "Notify Me";
     btn.style.background = "#bdbdbd";
-    btn.dataset.active = "false";
-    btn.removeAttribute("disabled");
+    btn.disabled = false;
 
     return;
   }
 
-  // cek database
+  // CEK DATABASE
   const { data } = await supabaseClient
     .from("notifications")
-    .select("*")
-    .eq("email", user.email)
-    .eq("product", currentProduct.title);
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("product", currentProduct.title)
+    .limit(1);
 
-  // kalau sudah subscribe
+  // SUDAH ACTIVE
   if(data && data.length > 0){
 
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
-    btn.dataset.active = "true";
-    btn.setAttribute("disabled", true);
+    btn.disabled = true;
 
   } else {
 
     btn.innerText = "Notify Me";
     btn.style.background = "#bdbdbd";
-    btn.dataset.active = "false";
-    btn.removeAttribute("disabled");
+    btn.disabled = false;
   }
 }
 </script>
