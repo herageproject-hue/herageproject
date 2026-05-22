@@ -2010,10 +2010,16 @@ header{
         placeholder="Password">
     </div>
 
+    <div class="h-captcha"
+
+         data-sitekey="baf4dc1a-8976-41b8-a31c-ff7850c0d380">
+
+    </div>
+
     <button class="auth-btn" onclick="login()">
       Next
     </button>
-
+    
     <p class="switch-auth">
       Don't have account?
       <span onclick="showRegister()">
@@ -2073,6 +2079,12 @@ header{
       <select id="yearSelect">
         <option value="">Year</option>
       </select>
+
+    </div>
+
+    <div class="h-captcha"
+
+         data-sitekey="baf4dc1a-8976-41b8-a31c-ff7850c0d380">
 
     </div>
 
@@ -2272,11 +2284,19 @@ async function register(){
 
   try{
 
+  const captchaToken = hcaptcha.getResponse();
+
+  if(!captchaToken){
+    alert("Please complete captcha");
+    return;
+  }
+
     const { data, error } =
       await supabaseClient.auth.signUp({
         email,
         password,
         options:{
+          captchaToken,
           data:{
             name:name
           }
@@ -2327,11 +2347,21 @@ async function login(){
 
   try{
 
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
+  const captchaToken = hcaptcha.getResponse();
+
+  if(!captchaToken){
+    alert("Please complete captcha");
+    return;
+  }
+
+   const { data, error } =
+     await supabaseClient.auth.signInWithPassword({
+       email,
+       password,
+       options:{
+         captchaToken
+       }
+     }); 
 
     if(error){
       alert(error.message);
@@ -3303,5 +3333,6 @@ async function checkNotificationStatus(){
     </div>
   </div>
 </div>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </body>                                                                                                                                                                                                
 </html>
