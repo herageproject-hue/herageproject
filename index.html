@@ -2795,7 +2795,7 @@ async function toggleWishlist(event){
 
   event.stopPropagation();
 
-  // cegah spam klik
+  // ANTI SPAM
   if(wishlistLoading) return;
 
   wishlistLoading = true;
@@ -2820,10 +2820,9 @@ async function toggleWishlist(event){
       return;
     }
 
-    // LOCK BUTTON
     btn.disabled = true;
 
-    // CEK SUDAH ADA ATAU BELUM
+    // CEK SUDAH ADA BELUM
     const {
       data:existing,
       error:checkError
@@ -2835,45 +2834,61 @@ async function toggleWishlist(event){
       .limit(1);
 
     if(checkError){
+
       console.log(checkError);
 
       btn.disabled = false;
       wishlistLoading = false;
+
       return;
     }
 
-    // JIKA SUDAH ADA -> JANGAN INSERT LAGI
+    // =========================
+    // REMOVE WISHLIST
+    // =========================
     if(existing && existing.length > 0){
 
+      const { error } =
+        await supabaseClient
+          .from("wishlist")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("product", currentProduct.title);
+
+      if(error){
+        console.log(error);
+      }
+
+      btn.classList.remove("active");
+
+    } else {
+
+      // =========================
+      // ADD WISHLIST
+      // =========================
+      const { error } =
+        await supabaseClient
+          .from("wishlist")
+          .insert({
+            user_id:user.id,
+            product:currentProduct.title,
+            image:currentProduct.image,
+            price:currentProduct.price
+          });
+
+      if(error){
+        console.log(error);
+
+        btn.disabled = false;
+        wishlistLoading = false;
+
+        return;
+      }
+
       btn.classList.add("active");
-
-      btn.disabled = false;
-      wishlistLoading = false;
-
-      return;
     }
 
-    // INSERT SEKALI SAJA
-    const { error } =
-      await supabaseClient
-        .from("wishlist")
-        .insert({
-          user_id:user.id,
-          product:currentProduct.title,
-          image:currentProduct.image,
-          price:currentProduct.price
-        });
-
-    if(error){
-      console.log(error);
-
-      btn.disabled = false;
-      wishlistLoading = false;
-      return;
-    }
-
-    btn.classList.add("active");
-
+    // RENDER ULANG
     await renderWishlist();
 
   } catch(err){
@@ -2885,7 +2900,7 @@ async function toggleWishlist(event){
     btn.disabled = false;
     wishlistLoading = false;
   }
-}
+}  
 /* CHECK ACTIVE */
 async function checkWishlist(){
 
