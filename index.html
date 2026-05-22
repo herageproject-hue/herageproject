@@ -2298,11 +2298,8 @@ async function register(){
       });
 
     alert(error ? error.message : "REGISTER SUCCESS");
-
-    alert(JSON.stringify({ data, error }));
     
     if(error){
-      console.log(error);
       alert(error.message);
       return;
     }
