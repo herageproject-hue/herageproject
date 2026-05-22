@@ -2792,7 +2792,6 @@ async function toggleWishlist(event){
 
   event.stopPropagation();
 
-  // ANTI SPAM
   if(wishlistLoading) return;
 
   wishlistLoading = true;
@@ -2806,23 +2805,28 @@ async function toggleWishlist(event){
       data:{ user }
     } = await supabaseClient.auth.getUser();
 
-    // BELUM LOGIN
     if(!user){
 
       alert("Please login first");
-
       openAuth("login");
 
       wishlistLoading = false;
       return;
     }
 
-    btn.disabled = true;
+    const isActive =
+      btn.classList.contains("active");
 
-    // CEK SUDAH ADA BELUM
+    // UI LANGSUNG BERUBAH
+    if(isActive){
+      btn.classList.remove("active");
+    } else {
+      btn.classList.add("active");
+    }
+
+    // CEK DATABASE
     const {
-      data:existing,
-      error:checkError
+      data:existing
     } = await supabaseClient
       .from("wishlist")
       .select("id")
@@ -2830,19 +2834,7 @@ async function toggleWishlist(event){
       .eq("product", currentProduct.title)
       .limit(1);
 
-    if(checkError){
-
-      console.log(checkError);
-
-      btn.disabled = false;
-      wishlistLoading = false;
-
-      return;
-    }
-
-    // =========================
-    // REMOVE WISHLIST
-    // =========================
+    // REMOVE
     if(existing && existing.length > 0){
 
       const { error } =
@@ -2853,16 +2845,16 @@ async function toggleWishlist(event){
           .eq("product", currentProduct.title);
 
       if(error){
+
+        // BALIKKAN UI JIKA ERROR
+        btn.classList.add("active");
+
         console.log(error);
       }
 
-      btn.classList.remove("active");
-
     } else {
 
-      // =========================
-      // ADD WISHLIST
-      // =========================
+      // INSERT
       const { error } =
         await supabaseClient
           .from("wishlist")
@@ -2874,19 +2866,13 @@ async function toggleWishlist(event){
           });
 
       if(error){
+
+        // BALIKKAN UI JIKA ERROR
+        btn.classList.remove("active");
+
         console.log(error);
-
-        btn.disabled = false;
-        wishlistLoading = false;
-
-        return;
       }
-
-      btn.classList.add("active");
     }
-
-    // RENDER ULANG
-    await renderWishlist();
 
   } catch(err){
 
@@ -2894,10 +2880,9 @@ async function toggleWishlist(event){
 
   } finally {
 
-    btn.disabled = false;
     wishlistLoading = false;
   }
-}  
+}
 /* CHECK ACTIVE */
 async function checkWishlist(){
 
