@@ -2278,7 +2278,7 @@ async function register(){
 
   const captchaToken = hcaptcha.getResponse();
 
-  alert("TOKEN = " + (captchaToken ? "ADA" : "KOSONG"));
+  alert(captchaToken);
 
   if(!captchaToken){
     alert("Please complete captcha");
