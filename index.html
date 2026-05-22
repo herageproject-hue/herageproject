@@ -2832,7 +2832,7 @@ async function toggleWishlist(event){
       .select("id")
       .eq("user_id", user.id)
       .eq("product", currentProduct.title)
-      .limit(1);
+      .single();
 
     // REMOVE
     if(existing && existing.length > 0){
