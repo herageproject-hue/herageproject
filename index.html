@@ -2010,10 +2010,9 @@ header{
         placeholder="Password">
     </div>
 
-    <div class="h-captcha"
-
+    <div id="loginCaptcha"
+         class="h-captcha"
          data-sitekey="baf4dc1a-8976-41b8-a31c-ff7850c0d380">
-
     </div>
 
     <button class="auth-btn" onclick="login()">
@@ -2082,10 +2081,9 @@ header{
 
     </div>
 
-    <div class="h-captcha"
-
+    <div id="registerCaptcha"
+         class="h-captcha"
          data-sitekey="baf4dc1a-8976-41b8-a31c-ff7850c0d380">
-
     </div>
 
     <button class="auth-btn" onclick="register()">
@@ -2285,6 +2283,8 @@ async function register(){
   try{
 
   const captchaToken = hcaptcha.getResponse();
+
+  alert("TOKEN = " + (captchaToken ? "ADA" : "KOSONG"));
 
   if(!captchaToken){
     alert("Please complete captcha");
