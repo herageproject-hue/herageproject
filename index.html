@@ -2278,7 +2278,7 @@ async function register(){
 
   const captchaToken = hcaptcha.getResponse();
 
-  alert(captchaToken);
+  
 
   if(!captchaToken){
     alert("Please complete captcha");
@@ -2296,6 +2296,8 @@ async function register(){
           }
         }
       });
+
+    alert(error ? error.message : "REGISTER SUCCESS");
 
     alert(JSON.stringify({ data, error }));
     
