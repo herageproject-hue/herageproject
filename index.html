@@ -3005,7 +3005,6 @@ let notifyLoading = false;
 
 async function notifyMe(){
 
-  // cegah spam klik
   if(notifyLoading) return;
 
   notifyLoading = true;
@@ -3032,10 +3031,9 @@ async function notifyMe(){
 
     btn.disabled = true;
 
-    // CEK DATABASE
+    // CEK SUDAH ADA BELUM
     const {
-      data:existing,
-      error:checkError
+      data:existing
     } = await supabaseClient
       .from("notifications")
       .select("id")
@@ -3043,15 +3041,7 @@ async function notifyMe(){
       .eq("product", currentProduct.title)
       .limit(1);
 
-    if(checkError){
-      console.log(checkError);
-
-      btn.disabled = false;
-      notifyLoading = false;
-      return;
-    }
-
-    // SUDAH ADA
+    // SUDAH ACTIVE
     if(existing && existing.length > 0){
 
       btn.innerText = "Notification Active";
@@ -3062,7 +3052,7 @@ async function notifyMe(){
       return;
     }
 
-    // INSERT SEKALI
+    // INSERT
     const { error } =
       await supabaseClient
         .from("notifications")
@@ -3083,17 +3073,22 @@ async function notifyMe(){
       return;
     }
 
-    // ACTIVE
+    // BUTTON ACTIVE
     btn.innerText = "Notification Active";
     btn.style.background = "#111";
     btn.disabled = true;
 
-    // UPDATE COUNT
-    const count =
-      await getWaitingCount(currentProduct.title);
+    // AMBIL TOTAL TERBARU
+    const {
+      count
+    } = await supabaseClient
+      .from("notifications")
+      .select("*", { count:"exact", head:true })
+      .eq("product", currentProduct.title);
 
+    // UPDATE UI
     document.getElementById("waitingCount").innerText =
-      `${count} people waiting`;
+      `${count || 0} people waiting`;
 
   } catch(err){
 
@@ -3194,12 +3189,17 @@ for(let y = currentYear; y >= 1950; y--){
 
 async function getWaitingCount(productTitle){
 
-  const { data } = await supabaseClient
+  const {
+    count
+  } = await supabaseClient
     .from("notifications")
-    .select("*")
+    .select("*", {
+      count:"exact",
+      head:true
+    })
     .eq("product", productTitle);
 
-  return data ? data.length : 0;
+  return count || 0;
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
