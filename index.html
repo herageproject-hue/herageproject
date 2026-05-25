@@ -45,9 +45,12 @@ header {
 /* HERO */
 .hero{
   width:100%;
-  min-height:100vh;
 
-  background:url('foto1.PNG') center top/cover no-repeat;
+  min-height:calc(100vh - 82px);
+
+  margin-top:82px;
+
+  background:url('foto1.PNG') center center/cover no-repeat;
 
   display:flex;
   justify-content:center;
@@ -87,20 +90,14 @@ header {
 .container{
   width:100%;
   padding:0;
-  background:#111;
   margin:0;
-
-  display:flex;
-  flex-direction:column;
 }
 
 body{
   background:#fff;
   color:#111;
-
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
+  overflow-x:hidden;
 }
 
 #shop{
@@ -1094,13 +1091,17 @@ html {
 
 }
 header{
-  position:sticky;
+  position:fixed;
   top:0;
+  left:0;
+  width:100%;
+
   z-index:999;
 
   height:82px;
 
-  background:#fff;
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(12px);
 
   display:flex;
   align-items:center;
@@ -1108,7 +1109,7 @@ header{
 
   padding:0 16px;
 
-  border-bottom:1px solid #eee;
+  border-bottom:1px solid rgba(0,0,0,0.06);
 }
 #catalog{
   width:100%;
@@ -1149,7 +1150,6 @@ html,body{
 }
 #home{
   background:#111;
-  min-height:100vh;
 }
   
 #shop{
@@ -1480,6 +1480,14 @@ header{
 }
 .wishlist-btn:disabled{
   opacity:1;
+}
+
+#catalog,
+#productPage,
+#community,
+#archives,
+#about{
+  padding-top:82px;
 }
 </style>
 </head>
