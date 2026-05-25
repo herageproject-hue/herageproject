@@ -2360,20 +2360,11 @@ async function login(){
 
   try{
 
-  const { data, error } =
-  await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-   const { data, error } =
-     await supabaseClient.auth.signInWithPassword({
-       email,
-       password,
-       options:{
-         captchaToken
-       }
-     }); 
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
 
     if(error){
       alert(error.message);
@@ -2390,6 +2381,8 @@ async function login(){
     await checkNotificationStatus();
 
   } catch(err){
+
+    console.log(err);
 
     alert("Something went wrong");
 
