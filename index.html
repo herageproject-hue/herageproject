@@ -2360,12 +2360,11 @@ async function login(){
 
   try{
 
-  const captchaToken = hcaptcha.getResponse();
-
-  if(!captchaToken){
-    alert("Please complete captcha");
-    return;
-  }
+  const { data, error } =
+  await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
 
    const { data, error } =
      await supabaseClient.auth.signInWithPassword({
