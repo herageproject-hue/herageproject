@@ -16,6 +16,9 @@
 body{
   background:#fff;
   color:#111;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
 /* HEADER */
@@ -106,6 +109,7 @@ header {
   width:100%;
   padding:0;
   margin:0;
+  flex:1;
 }
 
 body{
@@ -168,6 +172,7 @@ body{
   background:#111;
   padding:0 0 30px;
   margin-top:auto;
+  width:100%;
 }
 
 .accordion{
@@ -1528,6 +1533,12 @@ header{
 #archives,
 #about{
   padding-top:82px;
+}
+
+#community,
+#archives,
+#about{
+  min-height:calc(100vh - 200px);
 }
 
 .hero img{
