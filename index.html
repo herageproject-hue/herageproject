@@ -1679,6 +1679,37 @@ body.auth-open #overlay{
 .filter-title.active span{
   transform:rotate(180deg);
 }
+
+.size-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.size-box{
+  width:70px;
+  height:48px;
+
+  border:1px solid #ddd;
+  border-radius:10px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:14px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.size-box.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
   
 .accordion-item.active .payment-logos,
 .accordion-item.active .shipment-logos{
@@ -2349,6 +2380,35 @@ body.auth-open #overlay{
       <span onclick="closeSheet()">✕</span>
     </div>
 
+    <!-- PRODUCT TYPE -->
+    <div class="filter-section">
+
+      <div class="filter-title"
+           onclick="toggleFilter(this)">
+ 
+        Product Type
+
+        <span>⌄</span>
+
+      </div>
+
+      <div class="filter-content">
+
+        <p class="filter-product active"
+           data-value="all">
+          ● All Products
+        </p>
+
+        <p class="filter-product"
+           data-value="featured">
+          ○ Featured Products
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- AVAILABILITY -->
     <div class="filter-section">
 
       <div class="filter-title"
@@ -2371,6 +2431,72 @@ body.auth-open #overlay{
            data-value="stock">
           ○ In Stock
         </p>
+
+      </div>
+
+    </div>
+
+    <!-- PRICE -->
+    <div class="filter-section">
+
+      <div class="filter-title"
+           onclick="toggleFilter(this)">
+
+        Price
+
+        <span>⌄</span>
+
+      </div>
+
+      <div class="filter-content">
+
+        <p class="filter-price"
+           data-value="0-620">
+          ○ Under Rp 620.000
+        </p>
+
+        <p class="filter-price"
+           data-value="620-1200">
+          ○ Rp 620.000 - Rp 1.200.000
+        </p>
+
+        <p class="filter-price"
+           data-value="1200-1800">
+          ○ Rp 1.200.000 - Rp 1.800.000
+        </p>
+
+        <p class="filter-price"
+           data-value="1800+">
+          ○ Rp 1.800.000+
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- SIZE -->
+    <div class="filter-section">
+
+      <div class="filter-title"
+           onclick="toggleFilter(this)">
+
+        Size
+
+        <span>⌄</span>
+
+      </div>
+
+      <div class="filter-content">
+
+        <div class="size-grid">
+
+          <div class="size-box">S</div>
+          <div class="size-box">M</div>
+          <div class="size-box">L</div>
+          <div class="size-box">XL</div>
+          <div class="size-box">XXL</div>
+
+        </div>
 
       </div>
 
@@ -2405,6 +2531,22 @@ function toggleFilter(el){
   content.classList.toggle("hidden");
 
 }
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("size-box")){
+
+    document
+      .querySelectorAll(".size-box")
+      .forEach(box=>{
+        box.classList.remove("active");
+      });
+
+    e.target.classList.add("active");
+
+  }
+
+});
   
 /* DRAWER */
 function openMenu(){
