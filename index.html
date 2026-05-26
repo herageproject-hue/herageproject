@@ -2916,19 +2916,29 @@ document.addEventListener("touchend",(e)=>{
   }
 
 });
-let autoSlide = setInterval(()=>{
+let autoSlide;
 
-  if(productImages.length === 0) return;
+function startAutoSlide(){
 
-  currentSlide++;
+  clearInterval(autoSlide);
 
-  if(currentSlide >= productImages.length){
-    currentSlide = 0;
-  }
+  autoSlide = setInterval(()=>{
 
-  changeSlide(currentSlide);
+    if(productImages.length === 0) return;
 
-},3000);
+    currentSlide++;
+
+    if(currentSlide >= productImages.length){
+      currentSlide = 0;
+    }
+
+    changeSlide(currentSlide);
+
+  },7000);
+
+}
+
+startAutoSlide();
 let qty = 1;
 
 function increaseQty(){
