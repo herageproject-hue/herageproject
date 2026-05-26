@@ -295,12 +295,17 @@ body{
   top:68px;
   left:0;
   width:100%;
-  height:calc(100dvh - 68px);
-  background:rgba(0,0,0,.35);
+  height:calc(100vh - 68px);
+  background:#fff;
   display:none;
-  justify-content:flex-end;
-  align-items:flex-end;
+  flex-direction:column;
+  overflow-y:auto;
   z-index:10000;
+}
+
+body.no-scroll{
+  overflow:hidden;
+  height:100vh;
 }
 
 /* SHEET */
@@ -2264,11 +2269,14 @@ function closeAll(){
   document.getElementById('filterModal').style.bottom = '-100%';
 
   document.getElementById('overlay').style.display = 'none';
+  document.body.classList.remove("no-scroll");
+  document.getElementById("authModal").style.display = "none";
 }
 
 /* OPEN AUTH */
 function openAuth(type = "login"){
   document.getElementById("authModal").style.display = "flex";
+  document.body.classList.add("no-scroll");
 
   if(type === "register"){
     showRegister();
