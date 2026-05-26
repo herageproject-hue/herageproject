@@ -292,19 +292,24 @@ body{
 /* AUTH MODAL */
 #authModal{
   position:fixed;
-  top:220px;
+  top:50%;
   left:50%;
-  transform:translateX(-50%);
+  transform:translate(-50%,-50%);
   width:92%;
-  max-width:420px;
-  max-height:50vh;
+  max-width:390px;
+
   background:#fff;
+
   display:none;
   flex-direction:column;
-  overflow-y:auto;
+
   z-index:10000;
-  border-radius:22px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.15);
+
+  border-radius:24px;
+
+  box-shadow:0 10px 35px rgba(0,0,0,0.12);
+
+  overflow:hidden;
 }
 
 body.no-scroll{
@@ -317,9 +322,7 @@ body.no-scroll{
   width:100%;
   background:#fff;
 
-  border-radius:28px 28px 0 0;
-
-  padding:22px 22px 28px;
+  padding:20px;
 
   animation:slideUp .25s ease;
 }
@@ -1542,6 +1545,50 @@ header{
 
 .payment-method{
    margin-top:0 !important;
+}
+
+/* LOGIN HEIGHT */
+#loginSheet{
+  max-height:420px;
+}
+
+/* REGISTER HEIGHT */
+#registerSheet{
+  max-height:78vh;
+  overflow-y:auto;
+}
+
+/* INPUT LEBIH KECIL */
+.auth-input{
+  height:52px;
+  margin-bottom:12px;
+}
+
+/* BUTTON LEBIH KECIL */
+.auth-btn{
+  height:54px;
+  font-size:16px;
+  border-radius:16px;
+}
+
+/* TITLE */
+.auth-header{
+  margin-bottom:16px;
+}
+
+.auth-header h2{
+  font-size:18px;
+}
+
+/* REGISTER TEXT */
+.register-text{
+  font-size:12px;
+  margin-bottom:16px;
+}
+
+/* BIRTHDAY */
+.birthday-row select{
+  height:50px;
 }
 </style>
 </head>
