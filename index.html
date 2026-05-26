@@ -1710,6 +1710,26 @@ body.auth-open #overlay{
   color:#fff;
   border-color:#111;
 }
+
+.filter-footer{
+  margin-top:30px;
+}
+
+.apply-btn{
+  width:100%;
+  height:55px;
+
+  background:#111;
+  color:#fff;
+
+  border:none;
+  border-radius:30px;
+
+  font-size:15px;
+  font-weight:700;
+
+  cursor:pointer;
+}
   
 .accordion-item.active .payment-logos,
 .accordion-item.active .shipment-logos{
@@ -2374,7 +2394,7 @@ body.auth-open #overlay{
 <div id="filterModal" class="bottom-sheet">
 
   <div class="sheet-content">
-
+    
     <div class="sheet-header">
       <h3>Filter</h3>
       <span onclick="closeSheet()">✕</span>
@@ -2499,6 +2519,20 @@ body.auth-open #overlay{
         </div>
 
       </div>
+   
+    </div>
+
+    <!-- APPLY BUTTON -->
+
+    <div class="filter-footer">
+
+      <button class="apply-btn"
+
+              onclick="applyFilters()">
+
+        APPLY
+
+      </button>
 
     </div>
 
@@ -2547,6 +2581,66 @@ document.addEventListener("click", function(e){
   }
 
 });
+
+document.querySelectorAll(".filter-product").forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    document.querySelectorAll(".filter-product")
+      .forEach(el=>{
+        el.classList.remove("active");
+        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
+      });
+
+    item.classList.add("active");
+
+    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+
+  });
+
+});
+
+document.querySelectorAll(".filter-availability").forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    document.querySelectorAll(".filter-availability")
+      .forEach(el=>{
+        el.classList.remove("active");
+        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
+      });
+
+    item.classList.add("active");
+
+    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+
+  });
+
+});
+
+document.querySelectorAll(".filter-price").forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    document.querySelectorAll(".filter-price")
+      .forEach(el=>{
+        el.classList.remove("active");
+        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
+      });
+
+    item.classList.add("active");
+
+    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+
+  });
+
+});
+
+function applyFilters(){
+
+  closeSheet();
+
+}
   
 /* DRAWER */
 function openMenu(){
