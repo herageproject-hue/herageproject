@@ -741,7 +741,6 @@ html {
 }
 .payment-logos,
 .shipment-logos{
-  display:flex;
   gap:14px;
   flex-wrap:wrap;
   padding-bottom:18px;
@@ -1621,6 +1620,11 @@ body.auth-open #overlay{
   display:block;
   background:rgba(0,0,0,.22);
   backdrop-filter:blur(2px);
+}
+
+.accordion-item.active .payment-logos,
+.accordion-item.active .shipment-logos{
+  display:flex;
 }
 </style>
 </head>
