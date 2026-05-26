@@ -1602,6 +1602,26 @@ header{
   height:58px;
   border-radius:18px;
 }
+
+/* BLUR BACKGROUND SAAT LOGIN */
+body.auth-open #accountDrawer,
+body.auth-open #home,
+body.auth-open #catalog,
+body.auth-open #productPage,
+body.auth-open #community,
+body.auth-open #archives,
+body.auth-open #about,
+body.auth-open header{
+  filter:blur(8px);
+  transition:.3s;
+}
+
+/* OVERLAY GELAP */
+body.auth-open #overlay{
+  display:block;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(4px);
+}
 </style>
 </head>
 
@@ -2338,12 +2358,16 @@ function closeAll(){
 
 /* OPEN AUTH */
 function openAuth(type = "login"){
+
   document.getElementById("authModal").style.display = "block";
 
   setTimeout(()=>{
-    document.getElementById("authModal").classList.add("active");
+    document.getElementById("authModal")
+    .classList.add("active");
   },10);
+
   document.body.classList.add("no-scroll");
+  document.body.classList.add("auth-open");
 
   if(type === "register"){
     showRegister();
@@ -2354,13 +2378,18 @@ function openAuth(type = "login"){
 
 /* CLOSE */
 function closeAuth(){
-  document.getElementById("authModal").classList.remove("active");
+
+  document.getElementById("authModal")
+  .classList.remove("active");
+
+  document.body.classList.remove("auth-open");
 
   setTimeout(()=>{
-    document.getElementById("authModal").style.display = "none";
+    document.getElementById("authModal")
+    .style.display = "none";
   },300);
 }
-
+  
 /* SHOW LOGIN */
 function showLogin(){
 
