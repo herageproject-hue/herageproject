@@ -2871,7 +2871,52 @@ function changeSlide(index){
 
   currentSlide = index;
 }
-setInterval(()=>{
+
+let startX = 0;
+let endX = 0;
+
+document.addEventListener("touchstart",(e)=>{
+
+  if(!e.target.closest(".slider")) return;
+
+  startX = e.touches[0].clientX;
+
+});
+
+document.addEventListener("touchend",(e)=>{
+
+  if(!e.target.closest(".slider")) return;
+
+  endX = e.changedTouches[0].clientX;
+
+  const diff = startX - endX;
+
+  // swipe kiri
+  if(diff > 50){
+
+    currentSlide++;
+
+    if(currentSlide >= productImages.length){
+      currentSlide = 0;
+    }
+
+    changeSlide(currentSlide);
+  }
+
+  // swipe kanan
+  if(diff < -50){
+
+    currentSlide--;
+
+    if(currentSlide < 0){
+      currentSlide = productImages.length - 1;
+    }
+
+    changeSlide(currentSlide);
+  }
+
+});
+  let autoSlide = setInterval(()=>{
 
   if(productImages.length === 0) return;
 
