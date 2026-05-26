@@ -218,7 +218,7 @@ body{
   transform:rotate(180deg);
 }
 /* DRAWER */
-#menuDrawer, #cartDrawer, #accountDrawer {
+#menuDrawer, #cartDrawer {
   position:fixed;
   top:0;
   width:300px;
@@ -231,8 +231,22 @@ body{
 }
 
 #menuDrawer { left:-300px; }
-#accountDrawer { left:-300px; }
 #cartDrawer { right:-300px; }
+  
+/* ACCOUNT FULL PAGE */
+#accountDrawer{
+  position:fixed;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100dvh;
+  background:#fff;
+  color:#000;
+  padding:24px;
+  transition:.35s ease;
+  z-index:3000;
+  overflow-y:auto;
+}
 
 #overlay {
   position:fixed;
@@ -2241,7 +2255,7 @@ function openAccount(){
 function closeAll(){
   document.getElementById('menuDrawer').style.left = '-300px';
   document.getElementById('cartDrawer').style.right = '-300px';
-  document.getElementById('accountDrawer').style.left = '-300px';
+  document.getElementById('accountDrawer').style.left = '-100px';
 
   document.getElementById('sortModal').style.bottom = '-100%';
   document.getElementById('filterModal').style.bottom = '-100%';
