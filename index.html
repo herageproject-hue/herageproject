@@ -1651,112 +1651,252 @@ body.auth-open #overlay{
   backdrop-filter:blur(2px);
 }
 
-/* FILTER STYLE */
+/* =========================
+   FILTER & SORT MODERN UI
+========================= */
 
-.filter-section{
-  border-top:1px solid #ededed;
-  padding:0;
+#filterModal,
+#sortModal{
+  position:fixed;
+  left:0;
+  bottom:-100%;
+  width:100%;
+  background:#fff;
+  border-radius:32px 32px 0 0;
+  z-index:9999;
+  transition:.35s ease;
+  overflow:hidden;
 }
 
-.filter-title{
-  height:78px;
+#filterModal{
+  max-height:88vh;
+}
 
+#sortModal{
+  max-height:70vh;
+}
+
+#filterModal.active,
+#sortModal.active{
+  bottom:0;
+}
+
+/* CONTENT */
+.sheet-content{
+  width:100%;
+  background:#fff;
+  border-radius:32px 32px 0 0;
+  overflow-y:auto;
+  padding-bottom:120px;
+}
+
+/* HEADER */
+.sheet-header{
+  height:88px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  border-bottom:1px solid #f1f1f1;
+}
 
-  padding:0 22px;
+.sheet-header h3{
+  font-size:28px;
+  font-weight:800;
+  color:#111;
+  letter-spacing:-1px;
+}
 
-  font-size:17px;
-  font-weight:700;
-
+.sheet-header span{
+  font-size:42px;
+  font-weight:300;
   cursor:pointer;
-} 
+  color:#111;
+}
 
+/* SECTION */
+.filter-section{
+  border-bottom:1px solid #f1f1f1;
+}
+
+/* TITLE */
+.filter-title{
+  height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  cursor:pointer;
+
+  font-size:18px;
+  font-weight:700;
+  color:#111;
+}
+
+/* ARROW */
 .filter-title span{
-  font-size:20px;
-  transition:.3s;
-}
-
-.filter-content{
-  padding:0 22px 18px;
-}
-
-.filter-content.hidden{
-  display:none;
+  font-size:28px;
+  transition:.25s ease;
+  transform:rotate(0deg);
 }
 
 .filter-title.active span{
   transform:rotate(180deg);
 }
 
+/* CONTENT */
+.filter-content{
+  padding:0 28px 26px;
+}
+
+.filter-content.hidden{
+  display:none;
+}
+
+/* RADIO STYLE */
+.filter-content p{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  min-height:54px;
+
+  font-size:17px;
+  font-weight:600;
+  color:#222;
+
+  cursor:pointer;
+}
+
+/* SIZE GRID */
 .size-grid{
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
+  gap:12px;
 }
 
+/* SIZE BOX */
 .size-box{
-  width:70px;
-  height:48px;
+  width:88px;
+  height:56px;
 
-  border:1px solid #ddd;
-  border-radius:10px;
+  border:1.5px solid #ddd;
+  border-radius:12px;
 
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
-  font-size:14px;
+  font-size:18px;
   font-weight:700;
 
-  cursor:pointer;
+  background:#fff;
+  color:#111;
 
   transition:.2s;
 }
 
+/* ACTIVE SIZE */
 .size-box.active{
   background:#111;
   color:#fff;
   border-color:#111;
 }
 
-.filter-footer{
-  padding:12px 22px 4px;
-}
-  
-.apply-btn{
-  width:100%;
-  height:56px;
-
-  border:none;
-  border-radius:18px;
-
-  background:#000;
-  color:#fff;
-
-  font-size:16px;
-  font-weight:700;
-
-  letter-spacing:.2px;
-}
-
+/* APPLY BUTTON AREA */
 .filter-footer{
   position:sticky;
   bottom:0;
+  left:0;
+  width:100%;
+
   background:#fff;
 
-  padding:16px 20px;
-}
-  
-.accordion-item.active .payment-logos,
-.accordion-item.active .shipment-logos{
-  display:flex;
+  padding:20px 28px 28px;
+
+  border-top:1px solid #f1f1f1;
 }
 
-#filterModal{
-  height:auto;
-  max-height:72vh;
+/* APPLY BUTTON */
+.apply-btn{
+  width:100%;
+  height:68px;
+
+  border:none;
+  border-radius:22px;
+
+  background:#111;
+  color:#fff;
+
+  font-size:24px;
+  font-weight:800;
+
+  letter-spacing:-0.5px;
+
+  cursor:pointer;
+}
+
+/* SORT OPTION */
+.sort-option{
+  height:72px;
+
+  display:flex;
+  align-items:center;
+
+  padding:0 28px;
+
+  border-bottom:1px solid #f3f3f3;
+
+  font-size:18px;
+  font-weight:600;
+
+  color:#111;
+
+  cursor:pointer;
+}
+
+/* ACTIVE SORT */
+.sort-option.active{
+  font-weight:800;
+}
+
+/* BUTTON FILTER SORT */
+.filter-sort{
+  display:flex;
+  gap:12px;
+  padding:18px 16px 10px;
+}
+
+/* TOP BUTTON */
+.btn{
+  flex:1;
+  height:58px;
+
+  border:2px solid #111;
+  border-radius:18px;
+
+  background:#fff;
+  color:#111;
+
+  font-size:17px;
+  font-weight:800;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  transition:.2s;
+}
+
+.btn svg{
+  width:20px;
+  height:20px;
+}
+
+.btn:hover{
+  background:#111;
+  color:#fff;
 }
 </style>
 </head>
@@ -2439,12 +2579,18 @@ body.auth-open #overlay{
 
         <p class="filter-product active"
            data-value="all">
-          ● All Products
+
+          <span>◉</span>
+          All Products
+
         </p>
 
         <p class="filter-product"
            data-value="featured">
-          ○ Featured Products
+
+          <span>○</span>
+          Featured Products
+
         </p>
 
       </div>
@@ -2467,12 +2613,18 @@ body.auth-open #overlay{
 
         <p class="filter-availability active"
            data-value="all">
-          ● All
+
+          <span>◉</span>
+          All
+
         </p>
 
         <p class="filter-availability"
            data-value="stock">
-          ○ In Stock
+
+          <span>○</span>
+          In Stock
+
         </p>
 
       </div>
@@ -2495,22 +2647,34 @@ body.auth-open #overlay{
 
         <p class="filter-price"
            data-value="0-620">
-          ○ Under Rp 620.000
+
+          <span>○</span>
+          Under Rp 620,000
+
         </p>
 
         <p class="filter-price"
            data-value="620-1200">
-          ○ Rp 620.000 - Rp 1.200.000
+
+          <span>○</span>
+          Rp 620,000 - Rp 1,200,000
+
         </p>
 
         <p class="filter-price"
            data-value="1200-1800">
-          ○ Rp 1.200.000 - Rp 1.800.000
+
+          <span>○</span>
+          Rp 1,200,000 - Rp 1,800,000
+
         </p>
 
         <p class="filter-price"
            data-value="1800+">
-          ○ Rp 1.800.000+
+
+          <span>○</span>
+          Rp 1,800,000+
+
         </p>
 
       </div>
@@ -2589,6 +2753,12 @@ function toggleFilter(el){
 
 }
 
+document.querySelectorAll(".filter-content")
+.forEach(content=>{
+
+  content.classList.add("hidden");
+
+});
 document.addEventListener("click", function(e){
 
   if(e.target.classList.contains("size-box")){
@@ -2605,55 +2775,83 @@ document.addEventListener("click", function(e){
 
 });
 
-document.querySelectorAll(".filter-product").forEach(item=>{
+/* =========================
+   FILTER RADIO UI
+========================= */
+
+function activateRadio(group, target){
+
+  document.querySelectorAll(group)
+  .forEach(item=>{
+
+    item.classList.remove("active");
+
+    const icon =
+      item.querySelector("span");
+
+    if(icon){
+      icon.innerText = "○";
+    }
+
+  });
+
+  target.classList.add("active");
+
+  const activeIcon =
+    target.querySelector("span");
+
+  if(activeIcon){
+    activeIcon.innerText = "◉";
+  }
+
+}
+
+/* PRODUCT */
+document
+.querySelectorAll(".filter-product")
+.forEach(item=>{
 
   item.addEventListener("click",()=>{
 
-    document.querySelectorAll(".filter-product")
-      .forEach(el=>{
-        el.classList.remove("active");
-        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
-      });
-
-    item.classList.add("active");
-
-    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+    activateRadio(".filter-product", item);
 
   });
 
 });
 
-document.querySelectorAll(".filter-availability").forEach(item=>{
+/* AVAILABILITY */
+document
+.querySelectorAll(".filter-availability")
+.forEach(item=>{
 
   item.addEventListener("click",()=>{
 
-    document.querySelectorAll(".filter-availability")
-      .forEach(el=>{
-        el.classList.remove("active");
-        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
-      });
+    activateRadio(
+      ".filter-availability",
+      item
+    );
 
-    item.classList.add("active");
-
-    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+    selectedAvailability =
+      item.dataset.value;
 
   });
 
 });
 
-document.querySelectorAll(".filter-price").forEach(item=>{
+/* PRICE */
+document
+.querySelectorAll(".filter-price")
+.forEach(item=>{
 
   item.addEventListener("click",()=>{
 
-    document.querySelectorAll(".filter-price")
-      .forEach(el=>{
-        el.classList.remove("active");
-        el.innerHTML = "○ " + el.textContent.trim().replace("● ","").replace("○ ","");
-      });
+    activateRadio(
+      ".filter-price",
+      item
+    );
 
-    item.classList.add("active");
-
-    item.innerHTML = "● " + item.textContent.trim().replace("● ","").replace("○ ","");
+    selectedPrice =
+      item.dataset.value;
 
   });
 
@@ -2956,20 +3154,41 @@ async function loadUser(){
 
 /* AUTO LOAD */
 
-function openSort(){
-  document.getElementById('sortModal').style.bottom = '0';
-  document.getElementById('overlay').style.display = 'block';
+function openFilter(){
+
+  document
+    .getElementById('filterModal')
+    .classList.add('active');
+
+  document
+    .getElementById('overlay')
+    .style.display = 'block';
 }
 
-function openFilter(){
-  document.getElementById('filterModal').style.bottom = '0';
-  document.getElementById('overlay').style.display = 'block';
+function openSort(){
+
+  document
+    .getElementById('sortModal')
+    .classList.add('active');
+
+  document
+    .getElementById('overlay')
+    .style.display = 'block';
 }
 
 function closeSheet(){
-  document.getElementById('sortModal').style.bottom = '-100%';
-  document.getElementById('filterModal').style.bottom = '-100%';
-  document.getElementById('overlay').style.display = 'none';
+
+  document
+    .getElementById('filterModal')
+    .classList.remove('active');
+
+  document
+    .getElementById('sortModal')
+    .classList.remove('active');
+
+  document
+    .getElementById('overlay')
+    .style.display = 'none';
 }
 function addToCart(name){
   alert(name + ' ditambahkan ke keranjang');
