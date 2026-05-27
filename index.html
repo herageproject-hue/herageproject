@@ -1905,6 +1905,15 @@ body.auth-open #overlay{
   background:#111;
   color:#fff;
 }
+
+#filterModal,
+#sortModal{
+  z-index:99999;
+}
+
+#overlay{
+  z-index:9990;
+}
 </style>
 </head>
 
@@ -2892,9 +2901,12 @@ function closeAll(){
   document.getElementById('cartDrawer').style.right = '-300px';
   document.getElementById("accountDrawer").classList.remove("active");
 
-  document.getElementById('sortModal').style.bottom = '-100%';
-  document.getElementById('filterModal').style.bottom = '-100%';
+  document.getElementById('sortModal')
+  .classList.remove('active');
 
+  document.getElementById('filterModal')
+  .classList.remove('active');
+  
   document.getElementById('overlay').style.display = 'none';
   document.body.classList.remove("no-scroll");
   document.getElementById("authModal").style.display = "none";
