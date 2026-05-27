@@ -210,11 +210,13 @@ body{
 
 .accordion-content{
   display:none;
-
-  padding:0 18px 18px;
-
-  background:#111;
+  padding-top:15px;
 }
+
+.accordion-item.active .accordion-content{
+  display:block;
+}
+
 .accordion-header span{
   transition:.3s;
 }
@@ -2746,15 +2748,8 @@ body.auth-open #overlay{
 function toggle(el){
 
   const item = el.parentElement;
-  const content = el.nextElementSibling;
 
   item.classList.toggle("active");
-
-  if(content.style.display === "block"){
-    content.style.display = "none";
-  } else {
-    content.style.display = "block";
-  }
 
 }
 
