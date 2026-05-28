@@ -1746,6 +1746,86 @@ body.auth-open #overlay{
 
   overflow-y:auto;
 }
+
+.pickup-area{
+  border-top:1px solid #eee;
+  margin-top:30px;
+  background:#fff;
+}
+
+.pickup-header{
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+#pickupArrow{
+  font-size:18px;
+  transition:.3s;
+}
+
+.pickup-content{
+  display:none;
+  padding:20px;
+  border-top:1px solid #eee;
+}
+
+.pickup-content h2{
+  font-size:34px;
+  margin-bottom:25px;
+}
+
+.pickup-subtitle{
+  font-size:15px;
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+.search-box{
+  height:58px;
+  border:1px solid #ddd;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  margin-bottom:20px;
+}
+
+.search-box input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-size:16px;
+}
+
+.search-box span{
+  font-size:28px;
+}
+
+.province-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.province-item{
+  height:64px;
+  border-bottom:1px solid #eee;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:17px;
+  font-weight:600;
+}
+
+.province-item span{
+  font-size:28px;
+  color:#666;
+}
 </style>
 </head>
 
@@ -2532,8 +2612,71 @@ body.auth-open #overlay{
     </button>
 
   </div>
+</div>
+
+<div class="pickup-area">
+
+  <div class="pickup-header" onclick="togglePickup()">
+    <span>Pick Area</span>
+    <span id="pickupArrow">⌄</span>
+  </div>
+
+  <div class="pickup-content" id="pickupContent">
+
+    <h2>1. Pick Province</h2>
+
+    <p class="pickup-subtitle">
+      Send package to which address?
+    </p>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search Province">
+      <span>⌕</span>
+    </div>
+
+    <div class="province-list">
+
+      <div class="province-item">
+        Bali
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Bangka Belitung
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Banten
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Bengkulu
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        DKI Jakarta
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Jawa Barat
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Jawa Tengah
+        <span>›</span>
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
+
 <script>
 function toggle(el){
 
@@ -3788,6 +3931,26 @@ async function checkNotificationStatus(){
     btn.disabled = false;
   }
 }
+
+function togglePickup(){
+
+  const content = document.getElementById("pickupContent");
+  const arrow = document.getElementById("pickupArrow");
+
+  if(content.style.display === "block"){
+
+    content.style.display = "none";
+    arrow.style.transform = "rotate(0deg)";
+
+  } else {
+
+    content.style.display = "block";
+    arrow.style.transform = "rotate(180deg)";
+
+  }
+
+}
+
 </script>
 <div id="homeAccordion">
   <div class="accordion">
