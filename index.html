@@ -1826,6 +1826,53 @@ body.auth-open #overlay{
   font-size:28px;
   color:#666;
 }
+
+#pickupSheet{
+  bottom:-100%;
+  height:88vh;
+  border-radius:28px 28px 0 0;
+  z-index:3000;
+  overflow:hidden;
+}
+
+#pickupSheet .sheet-content{
+  padding:26px 22px 40px;
+}
+
+#pickupSheet .sheet-header{
+  margin-bottom:28px;
+}
+
+#pickupSheet .sheet-header h3{
+  font-size:22px;
+  font-weight:800;
+  color:#1a2233;
+}
+
+#pickupSheet .pickup-subtitle{
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:18px;
+  color:#1a2233;
+}
+
+#pickupSheet .search-box{
+  height:58px;
+  border:1px solid #e5e5e5;
+  border-radius:18px;
+  background:#fff;
+}
+
+#pickupSheet .search-box input{
+  font-size:16px;
+  font-weight:700;
+}
+
+#pickupSheet .province-item{
+  height:68px;
+  font-size:17px;
+  font-weight:700;
+}
 </style>
 </head>
 
@@ -2176,7 +2223,9 @@ body.auth-open #overlay{
 
         <div class="delivery-row">
           <span>Deliver to:</span>
-          <span>Pick Area ▼</span>
+          <span onclick="openPickupSheet()" style="cursor:pointer;">
+            Pick Area ▼
+          </span>
         </div>
 
         <div class="delivery-row">
@@ -2614,16 +2663,15 @@ body.auth-open #overlay{
   </div>
 </div>
 
-<div class="pickup-area">
+<!-- PICK AREA SHEET -->
+<div id="pickupSheet" class="bottom-sheet">
 
-  <div class="pickup-header" onclick="togglePickup()">
-    <span>Pick Area</span>
-    <span id="pickupArrow">⌄</span>
-  </div>
+  <div class="sheet-content">
 
-  <div class="pickup-content" id="pickupContent">
-
-    <h2>1. Pick Province</h2>
+    <div class="sheet-header">
+      <h3>1. Pick Province</h3>
+      <span onclick="closePickupSheet()">✕</span>
+    </div>
 
     <p class="pickup-subtitle">
       Send package to which address?
@@ -2657,7 +2705,17 @@ body.auth-open #overlay{
       </div>
 
       <div class="province-item">
+        DI Yogyakarta
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
         DKI Jakarta
+        <span>›</span>
+      </div>
+
+      <div class="province-item">
+        Gorontalo
         <span>›</span>
       </div>
 
@@ -2730,6 +2788,7 @@ function closeAll(){
   document.getElementById('overlay').style.display = 'none';
   document.body.classList.remove("no-scroll");
   document.getElementById("authModal").style.display = "none";
+  document.getElementById('pickupSheet').style.bottom = '-100%';
 }
 
 /* OPEN AUTH */
@@ -3932,23 +3991,18 @@ async function checkNotificationStatus(){
   }
 }
 
-function togglePickup(){
+function openPickupSheet(){
 
-  const content = document.getElementById("pickupContent");
-  const arrow = document.getElementById("pickupArrow");
+  document.getElementById("pickupSheet").style.bottom = "0";
 
-  if(content.style.display === "block"){
+  document.getElementById("overlay").style.display = "block";
+}
 
-    content.style.display = "none";
-    arrow.style.transform = "rotate(0deg)";
+function closePickupSheet(){
 
-  } else {
+  document.getElementById("pickupSheet").style.bottom = "-100%";
 
-    content.style.display = "block";
-    arrow.style.transform = "rotate(180deg)";
-
-  }
-
+  document.getElementById("overlay").style.display = "none";
 }
 
 </script>
