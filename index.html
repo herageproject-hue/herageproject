@@ -3447,11 +3447,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-color").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.;
+      i.innerHTML = i.innerText;
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.;
+    e.target.innerHTML = e.target.innerText;
 
     selectedColor = e.target.dataset.value;
   }
@@ -3463,11 +3463,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-size").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.;
+      i.innerHTML = i.innerText;
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.;
+    e.target.innerHTML = e.target.innerText;
 
     selectedSize = e.target.dataset.value;
   }
