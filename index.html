@@ -2248,18 +2248,43 @@ body.auth-open #overlay{
 
         <h3>Delivery</h3>
 
+        <!-- DELIVER TO -->
+        
         <div class="delivery-row">
           <span>Deliver to:</span>
-          <span onclick="openPickupSheet()" style="cursor:pointer;">
+          <span id="selectedLocation">
             Pick Area ▼
           </span>
         </div>
 
+        <!-- ONGKIR -->
+        <div class="delivery-row">
+          <span>
+            Estimated Delivery Cost:
+          </span>
+
+          <span
+            id="deliveryCost"
+            onclick="calculateShipping()"
+            style="   
+              font-weight:700;
+              cursor:pointer;
+
+            "
+          >
+
+            Check Delivery Cost
+
+          </span>
+
+        </div>
+
+        <!-- WEIGHT -->
         <div class="delivery-row">
           <span>Weight:</span>
           <span>1000g</span>
         </div>
-
+  
         <p class="delivery-note">
           Shipped within 48 hours,<br>
           (Upon confirmation of payment)
@@ -4172,19 +4197,60 @@ async function selectDistrict(id, name){
   selectedDistrictId = id;
   selectedDistrictName = name;
 
-  alert(
-    "Selected:\n" +
+  // UBAH PICK AREA
+  document.getElementById(
+    "selectedLocation"
+  ).innerText =
+
     selectedProvinceName +
-    " / " +
+    ", " +
     selectedCityName +
-    " / " +
-    selectedDistrictName
-  );
+    ", " +
+    selectedDistrictName;
+
+  // RESET ONGKIR
+  document.getElementById(
+    "deliveryCost"
+  ).innerText =
+    "Check Delivery Cost";
 
   closePickupSheet();
 
 }
-  
+
+async function calculateShipping(){
+
+  const cost =
+    document.getElementById(
+      "deliveryCost"
+    );
+
+  cost.innerText = "Loading...";
+
+  setTimeout(()=>{
+
+    let shipping = 12000;
+
+    // contoh otomatis beda kota
+    if(selectedCityName.includes("Jakarta")){
+      shipping = 9000;
+    }
+
+    if(selectedCityName.includes("Bandung")){
+      shipping = 12000;
+    }
+
+    if(selectedCityName.includes("Surabaya")){
+      shipping = 15000;
+    }
+
+    cost.innerText =
+      "Rp " +
+      shipping.toLocaleString("id-ID");
+
+  },1000);
+
+}
 </script>
 <div id="homeAccordion">
   <div class="accordion">
