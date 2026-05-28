@@ -4245,15 +4245,6 @@ async function selectDistrict(id, name){
 
 async function calculateShipping(){
 
-  const costText =
-    document.getElementById("deliveryCost");
-
-  const loadingText =
-    document.getElementById("deliveryLoading");
-
-  loadingText.innerText = "Loading...";
-  costText.innerText = "";
-
   try{
 
     const response = await fetch(
@@ -4275,28 +4266,15 @@ async function calculateShipping(){
       }
     );
 
-    console.log("STATUS:", response.status);
+    alert("STATUS: " + response.status);
 
     const text = await response.text();
 
-    console.log("RAW RESPONSE:", text);
-
     alert(text);
-
-    loadingText.innerText = "";
-
-    costText.innerText = "Check Console";
 
   } catch(err){
 
-    console.log("ERROR:", err);
-
-    alert(err);
-
-    loadingText.innerText = "";
-
-    costText.innerText =
-      "Failed load shipping";
+    alert("ERROR: " + err);
 
   }
 
