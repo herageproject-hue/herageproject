@@ -3304,74 +3304,71 @@ let isDragging = false;
 const slider =
   document.querySelector(".slider");
 
-const slidesContainer =
-  document.getElementById("slidesContainer");
+if(slider){
 
-/* TOUCH START */
-slider.addEventListener("touchstart",(e)=>{
+  /* TOUCH START */
+  slider.addEventListener("touchstart",(e)=>{
 
-  startX = e.touches[0].clientX;
+    startX = e.touches[0].clientX;
 
-  isDragging = true;
+    isDragging = true;
 
-  clearInterval(autoSlide);
+    clearInterval(autoSlide);
 
-});
+  });
 
-/* TOUCH MOVE */
-slider.addEventListener("touchmove",(e)=>{
+  /* TOUCH MOVE */
+  slider.addEventListener("touchmove",(e)=>{
 
-  if(!isDragging) return;
+    if(!isDragging) return;
 
-  const currentX =
-    e.touches[0].clientX;
+    const currentX =
+      e.touches[0].clientX;
 
-  const diff =
-    currentX - startX;
+    const diff =
+      currentX - startX;
 
-  currentTranslate =
-    (-currentSlide * window.innerWidth) + diff;
+    currentTranslate =
+      (-currentSlide * window.innerWidth) + diff;
 
-  slidesContainer.style.transition = "none";
+    slidesContainer.style.transition = "none";
 
-  slidesContainer.style.transform =
-    `translateX(${currentTranslate}px)`;
+    slidesContainer.style.transform =
+      `translateX(${currentTranslate}px)`;
 
-});
+  });
 
-/* TOUCH END */
-slider.addEventListener("touchend",(e)=>{
+  /* TOUCH END */
+  slider.addEventListener("touchend",(e)=>{
 
-  isDragging = false;
+    isDragging = false;
 
-  const endX =
-    e.changedTouches[0].clientX;
+    const endX =
+      e.changedTouches[0].clientX;
 
-  const diff =
-    startX - endX;
+    const diff =
+      startX - endX;
 
-  slidesContainer.style.transition =
-    "transform .35s ease";
+    slidesContainer.style.transition =
+      "transform .35s ease";
 
-  // NEXT
-  if(diff > 50){
+    if(diff > 50){
 
-    currentSlide++;
+      currentSlide++;
 
-  }
+    } else if(diff < -50){
 
-  // PREV
-  else if(diff < -50){
+      currentSlide--;
 
-    currentSlide--;
+    }
 
-  }
+    changeSlide(currentSlide);
 
-  changeSlide(currentSlide);
+    startAutoSlide();
 
-  startAutoSlide();
+  });
 
-});
+}
 let autoSlide;
 
 function startAutoSlide(){
