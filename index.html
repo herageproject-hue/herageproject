@@ -3929,6 +3929,10 @@ supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
+
+const RAJAONGKIR_KEY =
+"CkCLxFcKd9d56e26508b1ae4la6rbif7";
+  
 async function checkNotificationStatus(){
 
   const btn =
@@ -3997,6 +4001,7 @@ function openPickupSheet(){
   ).style.display = "block";
 
   loadProvinces();
+
 }
 
 function closePickupSheet(){
@@ -4012,33 +4017,49 @@ function closePickupSheet(){
 
 async function loadProvinces(){
 
-  pickupList.innerHTML = `
-    <div style="padding:20px;font-size:14px;">
-      Loading provinces...
-    </div>
-  `;
+  pickupTitle.innerText =
+    "1. Pick Province";
+
+  pickupSearch.placeholder =
+    "Search Province";
+
+  pickupList.innerHTML =
+    "<p style='padding:15px'>Loading...</p>";
 
   try{
 
     const response = await fetch(
-      "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+      "https://api.rajaongkir.com/starter/province",
+      {
+        headers:{
+          key:RAJAONGKIR_KEY
+        }
+      }
     );
 
-    if(!response.ok){
-      throw new Error("Failed fetch province");
-    }
+    const result =
+      await response.json();
 
-    const provinces = await response.json();
+    const provinces =
+      result.rajaongkir.results;
 
     pickupList.innerHTML = "";
 
     provinces.forEach(p => {
 
       pickupList.innerHTML += `
-        <div class="province-item"
-          onclick="selectProvince('${p.id}','${p.name}')">
+        <div
+          class="province-item"
 
-          ${p.name}
+          onclick="
+            selectProvince(
+              '${p.province_id}',
+              '${p.province}'
+            )
+          "
+        >
+
+          ${p.province}
 
           <span>›</span>
 
@@ -4051,11 +4072,8 @@ async function loadProvinces(){
 
     console.log(err);
 
-    pickupList.innerHTML = `
-      <div style="padding:20px;color:red;font-size:14px;">
-        Failed load provinces
-      </div>
-    `;
+    pickupList.innerHTML =
+      "<p style='padding:15px;color:red'>Failed load province</p>";
   }
 }
 
@@ -4070,39 +4088,58 @@ async function selectProvince(id, name){
   pickupSearch.placeholder =
     "Search City";
 
-  pickupList.innerHTML = "";
+  pickupList.innerHTML =
+    "<p style='padding:15px'>Loading city...</p>";
 
-  const response = await fetch(
-    `https://emsifa.github.io/api-wilayah-indonesia/api/regencies/${id}.json`
-  );
+  try{
 
-  const cities = await response.json();
+    const response = await fetch(
+      `https://api.rajaongkir.com/starter/city?province=${id}`,
+      {
+        headers:{
+          key:RAJAONGKIR_KEY
+        }
+      }
+    );
 
-  cities.forEach(city => {
+    const result =
+      await response.json();
 
-    pickupList.innerHTML += `
+    const cities =
+      result.rajaongkir.results;
 
-      <div
-        class="province-item"
+    pickupList.innerHTML = "";
 
-        onclick="
-          selectCity(
-            '${city.id}',
-            '${city.name}'
-          )
-        "
-      >
+    cities.forEach(city => {
 
-        ${city.name}
+      pickupList.innerHTML += `
+        <div
+          class="province-item"
 
-        <span>›</span>
+          onclick="
+            selectCity(
+              '${city.city_id}',
+              '${city.city_name}'
+            )
+          "
+        >
 
-      </div>
+          ${city.city_name}
 
-    `;
+          <span>›</span>
 
-  });
+        </div>
+      `;
 
+    });
+
+  } catch(err){
+
+    console.log(err);
+
+    pickupList.innerHTML =
+      "<p style='padding:15px;color:red'>Failed load city</p>";
+  }
 }
 
 async function selectCity(id, name){
@@ -4110,52 +4147,11 @@ async function selectCity(id, name){
   selectedCityId = id;
   selectedCityName = name;
 
-  pickupTitle.innerText =
-    "3. Pick Area";
-
-  pickupSearch.placeholder =
-    "Search Area";
-
-  pickupList.innerHTML = "";
-
-  const response = await fetch(
-    `https://emsifa.github.io/api-wilayah-indonesia/api/districts/${id}.json`
-  );
-
-  const areas = await response.json();
-
-  areas.forEach(area => {
-
-    pickupList.innerHTML += `
-
-      <div
-        class="province-item"
-
-        onclick="
-          selectArea('${area.name}')
-        "
-      >
-
-        ${area.name}
-
-        <span>›</span>
-
-      </div>
-
-    `;
-
-  });
-
-}  
-
-function selectArea(area){
-
   alert(
+    "Selected:\n" +
     selectedProvinceName +
     " / " +
-    selectedCityName +
-    " / " +
-    area
+    selectedCityName
   );
 
   closePickupSheet();
