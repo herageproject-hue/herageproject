@@ -4281,14 +4281,16 @@ async function calculateShipping(){
       }
     );
 
-    const result =
-      await response.json();
+    const result = await response.json();
 
-    alert(JSON.stringify(result));
     console.log(result);
 
     const cost =
-      result.data.calculate_reguler[0].shipping_cost;
+      result.data.calculate_reguler?.[0]?.shipping_cost;
+
+    if(!cost){
+      throw new Error("Shipping not found");
+    }
 
     costText.innerText =
       "Rp " +
