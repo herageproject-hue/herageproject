@@ -2252,31 +2252,41 @@ body.auth-open #overlay{
         
         <div class="delivery-row">
           <span>Deliver to:</span>
-          <span id="selectedLocation">
+          <span
+            id="selectedLocation"
+            onclick="openPickupSheet()"
+            style="
+              cursor:pointer;
+              font-weight:700;
+            "
+          >
             Pick Area ▼
           </span>
         </div>
 
         <!-- ONGKIR -->
-        <div class="delivery-row">
-          <span>
-            Estimated Delivery Cost:
-          </span>
+        <div
+          id="shippingSection"
+          style="display:none;"
+        >
+          <div class="delivery-row">
+            <span>
+              Estimated Delivery Cost:
+            </span>
 
-          <span
-            id="deliveryCost"
-            onclick="calculateShipping()"
-            style="   
-              font-weight:700;
-              cursor:pointer;
+            <span
+              id="deliveryCost"
+              onclick="calculateShipping()"
+              style="   
+                font-weight:700;
+                cursor:pointer;  
+              "
+            >
 
-            "
-          >
+              Check Delivery Cost
 
-            Check Delivery Cost
-
-          </span>
-
+            </span>
+          </div>
         </div>
 
         <!-- WEIGHT -->
@@ -4197,7 +4207,7 @@ async function selectDistrict(id, name){
   selectedDistrictId = id;
   selectedDistrictName = name;
 
-  // UBAH PICK AREA
+  // UBAH LOKASI
   document.getElementById(
     "selectedLocation"
   ).innerText =
@@ -4208,7 +4218,12 @@ async function selectDistrict(id, name){
     ", " +
     selectedDistrictName;
 
-  // RESET ONGKIR
+  // TAMPILKAN ONGKIR
+  document.getElementById(
+    "shippingSection"
+  ).style.display = "block";
+
+  // RESET TEXT ONGKIR
   document.getElementById(
     "deliveryCost"
   ).innerText =
