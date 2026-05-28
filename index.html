@@ -1900,6 +1900,23 @@ body.auth-open #overlay{
   min-height:52px;
   background:#fff;
 }
+
+.delivery-location{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  font-size:15px;
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.location-arrow{
+  font-size:18px;
+  flex-shrink:0;
+}
 </style>
 </head>
 
@@ -2252,16 +2269,18 @@ body.auth-open #overlay{
         
         <div class="delivery-row">
           <span>Deliver to:</span>
-          <span
+          <div
             id="selectedLocation"
+            class="delivery-location"
             onclick="openPickupSheet()"
-            style="
-              cursor:pointer;
-              font-weight:700;
-            "
           >
-            Pick Area ▼
-          </span>
+            <span id="locationText">
+              Pick Area 
+            </span>
+
+            <span class="location-arrow">
+              ▼
+            </span>
         </div>
 
         <!-- ONGKIR -->
@@ -4208,14 +4227,8 @@ async function selectDistrict(id, name){
   selectedDistrictName = name;
 
   // UBAH LOKASI
-  document.getElementById(
-    "selectedLocation"
-  ).innerText =
-
-    selectedProvinceName +
-    ", " +
-    selectedCityName +
-    ", " +
+  document.getElementById("locationText").innerText =
+    selectedCityName + ", " +
     selectedDistrictName;
 
   // TAMPILKAN ONGKIR
