@@ -2277,23 +2277,26 @@ body.auth-open #overlay{
           id="shippingSection"
           style="display:none;"
         >
+
           <div class="delivery-row">
+
             <span>
               Estimated Delivery Cost:
             </span>
 
             <div
               id="deliveryCost"
-              onclick="calculateShipping()"  
+              onclick="calculateShipping()"
+              style="
+                cursor:pointer;
+                font-weight:500;
+              "
             >
               Check Delivery Cost
             </div>
 
-            <div
-              id="shippingResult"
-              
-            ></div>
           </div>
+
         </div>
 
         <!-- WEIGHT -->
@@ -4239,12 +4242,8 @@ async function calculateShipping(){
   const costText =
     document.getElementById("deliveryCost");
 
-  const loadingText =
-    document.getElementById("deliveryLoading");
-
-  loadingText.innerText = "Loading...";
-
-  costText.innerText = "";
+  // loading
+  costText.innerText = "Loading...";
 
   try{
 
@@ -4252,45 +4251,43 @@ async function calculateShipping(){
       "https://api-sandbox.collaborator.komerce.id/tariff/api/v1/calculate",
       {
         method:"POST",
+
         headers:{
           "Content-Type":"application/json",
-          "x-api-key":"CkCLxFcKd9d56e26508b1ae4la6rbif7"   
+          "x-api-key":"CkCLxFcKd9d56e26508b1ae4la6rbif7"
         },
 
         body: JSON.stringify({
 
           origin: 23,
 
-          destination:
-            parseInt(selectedDistrictId),
+          destination: parseInt(selectedDistrictId),
 
           weight: 1000,
 
           courier: "jne"
 
         })
+
       }
     );
 
-    const result =
-      await response.json();
+    const result = await response.json();
 
     console.log(result);
 
+    // ambil ongkir
     const cost =
       result.data[0].costs[0].cost;
 
+    // tampilkan ongkir
     costText.innerText =
       "Rp " +
       cost.toLocaleString("id-ID");
 
-    loadingText.innerText = "";
-
   } catch(err){
 
     console.log(err);
-
-    loadingText.innerText = "";
 
     costText.innerText =
       "Failed load shipping";
