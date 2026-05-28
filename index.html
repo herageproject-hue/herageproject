@@ -2685,7 +2685,7 @@ body.auth-open #overlay{
   <div class="sheet-content">
 
     <div class="sheet-header">
-      <h3>1. Pick Province</h3>
+      <h3 id="pickupTitle">1. Pick Province</h3>
       <span onclick="closePickupSheet()">✕</span>
     </div>
 
@@ -2694,58 +2694,11 @@ body.auth-open #overlay{
     </p>
 
     <div class="search-box">
-      <input type="text" placeholder="Search Province">
+      <input type="text" id="pickupSearch" placeholder="Search Province">
       <span>⌕</span>
     </div>
 
-    <div class="province-list">
-
-      <div class="province-item">
-        Bali
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Bangka Belitung
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Banten
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Bengkulu
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        DI Yogyakarta
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        DKI Jakarta
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Gorontalo
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Jawa Barat
-        <span>›</span>
-      </div>
-
-      <div class="province-item">
-        Jawa Tengah
-        <span>›</span>
-      </div>
-
-    </div>
+    <div class="province-list" id="pickupList"></div>
 
   </div>
 
@@ -4010,8 +3963,8 @@ async function checkNotificationStatus(){
 function openPickupSheet(){
 
   document.getElementById("pickupSheet").style.bottom = "0";
-
   document.getElementById("overlay").style.display = "block";
+  showProvince();
 }
 
 function closePickupSheet(){
@@ -4021,6 +3974,142 @@ function closePickupSheet(){
   document.getElementById("overlay").style.display = "none";
 }
 
+const pickupData = {
+
+  "Jawa Barat": {
+
+    "Kota Bandung": [
+      "Andir",
+      "Antapani",
+      "Arcamanik",
+      "Astana Anyar"
+    ],
+
+    "Kab. Bandung": [
+      "Banjaran",
+      "Baleendah",
+      "Bojongsoang"
+    ]
+
+  },
+
+  "DKI Jakarta": {
+
+    "Jakarta Selatan": [
+      "Mampang",
+      "Pasar Minggu",
+      "Kebayoran Baru"
+    ],
+
+    "Jakarta Barat": [
+      "Cengkareng",
+      "Kalideres"
+    ]
+
+  }
+
+};
+
+let selectedProvince = "";
+let selectedCity = "";
+
+const pickupTitle = document.getElementById("pickupTitle");
+const pickupSearch = document.getElementById("pickupSearch");
+const pickupList = document.getElementById("pickupList");
+
+function showProvince(){
+
+  pickupTitle.innerText = "1. Pick Province";
+
+  pickupSearch.placeholder = "Search Province";
+
+  pickupList.innerHTML = "";
+
+  Object.keys(pickupData).forEach(province => {
+
+    pickupList.innerHTML += `
+      <div class="province-item"
+        onclick="selectProvince('${province}')">
+
+        ${province}
+
+        <span>›</span>
+
+      </div>
+    `;
+
+  });
+
+}
+
+function selectProvince(province){
+
+  selectedProvince = province;
+
+  pickupTitle.innerText = "2. Pick City";
+
+  pickupSearch.placeholder = "Search City";
+
+  pickupList.innerHTML = "";
+
+  Object.keys(pickupData[province]).forEach(city => {
+
+    pickupList.innerHTML += `
+      <div class="province-item"
+        onclick="selectCity('${city}')">
+
+        ${city}
+
+        <span>›</span>
+
+      </div>
+    `;
+
+  });
+
+}
+
+function selectCity(city){
+
+  selectedCity = city;
+
+  pickupTitle.innerText = "3. Pick Area";
+
+  pickupSearch.placeholder = "Search Area";
+
+  pickupList.innerHTML = "";
+
+  pickupData[selectedProvince][city].forEach(area => {
+
+    pickupList.innerHTML += `
+      <div class="province-item"
+        onclick="selectArea('${area}')">
+
+        ${area}
+
+        <span>›</span>
+
+      </div>
+    `;
+
+  });
+
+}
+
+function selectArea(area){
+
+  alert(
+    selectedProvince +
+    " / " +
+    selectedCity +
+    " / " +
+    area
+  );
+
+  closePickupSheet();
+
+}
+  
 </script>
 <div id="homeAccordion">
   <div class="accordion">
