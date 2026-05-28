@@ -3929,8 +3929,6 @@ supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
-
-const API_URL = 'https://bxsrbfaecrmuaziakyvi.supabase.co/functions/v1/rajaongkir';
   
 async function checkNotificationStatus(){
 
@@ -4022,18 +4020,10 @@ async function loadProvinces() {
       "<p style='padding:15px'>Loading province...</p>";
 
     const res = await fetch(
-      API_URL + '/province',
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: 'Bearer ' + supabaseKey
-        }
-      }
+      'https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'
     );
 
-    const data = await res.json();
-
-    const provinces = data.data || data;
+    const provinces = await res.json();
 
     pickupList.innerHTML = "";
 
@@ -4084,18 +4074,10 @@ async function selectProvince(id, name){
   try{
 
     const response = await fetch(
-      API_URL + '/city?province=' + id,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: 'Bearer ' + supabaseKey
-        }
-      }
+      'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/' + id + '.json'
     );
 
-    const result = await response.json();
-
-    const cities = result.data;
+    const cities = await response.json();
 
     pickupList.innerHTML = "";
 
@@ -4104,7 +4086,6 @@ async function selectProvince(id, name){
       pickupList.innerHTML += `
         <div
           class="province-item"
-
           onclick="
             selectCity(
               '${city.id}',
