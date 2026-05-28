@@ -3994,46 +3994,28 @@ function closePickupSheet(){
 }
 
 async function loadProvinces(){
-
-  pickupTitle.innerText =
-    "1. Pick Province";
-
-  pickupSearch.placeholder =
-    "Search Province";
-
-  pickupList.innerHTML = "";
+  console.log("LOAD PROVINCES START");
 
   const response = await fetch(
     "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
   );
 
+  console.log("RESPONSE:", response);
+
   const provinces = await response.json();
 
-  provinces.forEach(province => {
+  console.log("DATA:", provinces);
 
+  pickupList.innerHTML = "";
+
+  provinces.forEach(p => {
     pickupList.innerHTML += `
-
-      <div
-        class="province-item"
-
-        onclick="
-          selectProvince(
-            '${province.id}',
-            '${province.name}'
-          )
-        "
-      >
-
-        ${province.name}
-
-        <span>›</span>
-
+      <div class="province-item"
+        onclick="selectProvince('${p.id}','${p.name}')">
+        ${p.name} <span>›</span>
       </div>
-
     `;
-
   });
-
 }
 
 async function selectProvince(id, name){
