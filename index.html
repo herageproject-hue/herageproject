@@ -4286,6 +4286,7 @@ async function calculateShipping(){
       await response.json();
 
     console.log(result);
+    alert(JSON.stringify(result));
 
     const cost =
       result.data.calculate_reguler[0].shipping_cost;
