@@ -1633,6 +1633,49 @@ body.auth-open #overlay{
   backdrop-filter:blur(2px);
 }
 
+/* FILTER ACCORDION */
+.filter-accordion{
+  border-bottom:1px solid #ececec;
+}
+
+.filter-title{
+  height:64px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  cursor:pointer;
+}
+
+.filter-title h4{
+  font-size:17px;
+  font-weight:800;
+}
+
+.filter-title span{
+  font-size:20px;
+  transition:.3s;
+}
+
+.filter-body{
+  display:none;
+  padding-bottom:14px;
+}
+
+.filter-body p{
+  padding:14px 0;
+  border-top:1px solid #f3f3f3;
+}
+
+.filter-accordion.active .filter-body{
+  display:block;
+}
+
+.filter-accordion.active .filter-title span{
+  transform:rotate(180deg);
+}
+
 .accordion-item.active .payment-logos,
 .accordion-item.active .shipment-logos{
   display:flex;
@@ -2294,6 +2337,7 @@ body.auth-open #overlay{
 
 <!-- FILTER MODAL -->
 <div id="filterModal" class="bottom-sheet">
+
   <div class="sheet-content">
 
     <div class="sheet-header">
@@ -2301,30 +2345,120 @@ body.auth-open #overlay{
       <span onclick="closeSheet()">✕</span>
     </div>
 
-    <h4>Availability</h4>
-    <p class="filter-availability active" data-value="all">● All</p>
-    <p class="filter-availability" data-value="stock">○ In Stock</p>
+    <!-- AVAILABILITY -->
+    <div class="filter-accordion">
 
-    <h4>Price</h4>
-    <p class="filter-price" data-value="0-620">○ Under Rp 620.000</p>
-    <p class="filter-price" data-value="620-1200">○ Rp 620.000 - Rp 1.200.000</p>
-    <p class="filter-price" data-value="1200-1800">○ Rp 1.200.000 - Rp 1.800.000</p>
-    <p class="filter-price" data-value="1800+">○ Rp 1.800.000+</p>
+      <div class="filter-title" onclick="toggleFilter(this)">
+        <h4>Availability</h4>
+        <span>⌄</span>
+      </div>
 
-    <h4>Color</h4>
-    <p class="filter-color" data-value="black">○ Black</p>
-    <p class="filter-color" data-value="white">○ White</p>
-    <p class="filter-color" data-value="grey">○ Grey</p>
+      <div class="filter-body">
 
-    <h4>Size</h4>
-    <p class="filter-size" data-value="s">○ S</p>
-    <p class="filter-size" data-value="m">○ M</p>
-    <p class="filter-size" data-value="l">○ L</p>
-    <p class="filter-size" data-value="xl">○ XL</p>
+        <p class="filter-availability active" data-value="all">
+          ● All
+        </p>
 
-    <button class="apply-btn" onclick="applyFilter()">Apply</button>
+        <p class="filter-availability" data-value="stock">
+          ○ In Stock
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- PRICE -->
+    <div class="filter-accordion">
+
+      <div class="filter-title" onclick="toggleFilter(this)">
+        <h4>Price</h4>
+        <span>⌄</span>
+      </div>
+
+      <div class="filter-body">
+
+        <p class="filter-price" data-value="0-620">
+          ○ Under Rp 620.000
+        </p>
+
+        <p class="filter-price" data-value="620-1200">
+          ○ Rp 620.000 - Rp 1.200.000
+        </p>
+
+        <p class="filter-price" data-value="1200-1800">
+          ○ Rp 1.200.000 - Rp 1.800.000
+        </p>
+
+        <p class="filter-price" data-value="1800+">
+          ○ Rp 1.800.000+
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- COLOR -->
+    <div class="filter-accordion">
+
+      <div class="filter-title" onclick="toggleFilter(this)">
+        <h4>Color</h4>
+        <span>⌄</span>
+      </div>
+
+      <div class="filter-body">
+
+        <p class="filter-color" data-value="black">
+          ○ Black
+        </p>
+
+        <p class="filter-color" data-value="white">
+          ○ White
+        </p>
+
+        <p class="filter-color" data-value="grey">
+          ○ Grey
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- SIZE -->
+    <div class="filter-accordion">
+
+      <div class="filter-title" onclick="toggleFilter(this)">
+        <h4>Size</h4>
+        <span>⌄</span>
+      </div>
+
+      <div class="filter-body">
+
+        <p class="filter-size" data-value="s">
+          ○ S
+        </p>
+
+        <p class="filter-size" data-value="m">
+          ○ M
+        </p>
+
+        <p class="filter-size" data-value="l">
+          ○ L
+        </p>
+
+        <p class="filter-size" data-value="xl">
+          ○ XL
+        </p>
+
+      </div>
+
+    </div>
+
+    <button class="apply-btn" onclick="applyFilter()">
+      Apply
+    </button>
 
   </div>
+
 </div>
 <script>
 function toggle(el){
@@ -2341,6 +2475,16 @@ function toggle(el){
   }
 
 }
+
+function toggleFilter(el){
+
+  const parent =
+    el.parentElement;
+
+  parent.classList.toggle("active");
+
+}
+
 /* DRAWER */
 function openMenu(){
   document.getElementById('menuDrawer').style.left = '0';
