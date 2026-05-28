@@ -498,7 +498,7 @@ body.no-scroll{
 }
 
 .sheet-content {
-  padding: 20px;
+  padding:22px 34px 28px;
   overflow-y: auto;
   height: 100%;
 }
@@ -1640,7 +1640,7 @@ body.auth-open #overlay{
 }
 
 .filter-title{
-  height:64px;
+  height:52px;
 
   display:flex;
   justify-content:space-between;
@@ -1650,8 +1650,8 @@ body.auth-open #overlay{
 }
 
 .filter-title h4{
-  font-size:17px;
-  font-weight:800;
+  font-size:16px;
+  font-weight:700;
 }
 
 .filter-title span{
@@ -1667,6 +1667,8 @@ body.auth-open #overlay{
 .filter-body p{
   padding:14px 0;
   border-top:none;
+  font-size:15px;
+  font-weight:600;
 }
 
 .filter-accordion.active .filter-body{
@@ -1727,6 +1729,15 @@ body.auth-open #overlay{
 .accordion-item.active .payment-logos,
 .accordion-item.active .shipment-logos{
   display:flex;
+}
+
+#filterModal{
+  height:auto;
+  max-height:88vh;
+
+  bottom:-100%;
+
+  overflow-y:auto;
 }
 </style>
 </head>
