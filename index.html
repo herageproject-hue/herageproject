@@ -4033,7 +4033,7 @@ async function loadProvinces() {
 
     const data = await res.json();
 
-    const provinces = data.data;
+    const provinces = data.data || data;
 
     pickupList.innerHTML = "";
 
@@ -4044,12 +4044,12 @@ async function loadProvinces() {
           class="province-item"
           onclick="
             selectProvince(
-              '${province.province_id}',
-              '${province.province}'
+              '${province.id}',
+              '${province.name}'
             )
           "
         >
-          ${province.province}
+          ${province.name}
           <span>›</span>
         </div>
       `;
