@@ -2374,7 +2374,7 @@ body.auth-open #overlay{
       <span onclick="closeSheet()">✕</span>
     </div>
 
-    <p class="sort-option active" data-value="featured">Featured ✔</p>
+    <p class="sort-option active" data-value="featured">Featured ✓</p>
     <p class="sort-option" data-value="recent">Recent</p>
     <p class="sort-option" data-value="oldest">Oldest</p>
     <p class="sort-option" data-value="popular">Most Popular</p>
@@ -2939,11 +2939,11 @@ document.addEventListener("click", function(e){
   if(e.target.classList.contains("sort-option")){
     document.querySelectorAll(".sort-option").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("✔","");
+      i.innerHTML = i.innerText.replace(" ✓","");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText + " ✔";
+    e.target.innerHTML = e.target.innerText + " ✓";
 
     selectedSort = e.target.dataset.value;
   }
