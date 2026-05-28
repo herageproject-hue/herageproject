@@ -1989,6 +1989,152 @@ body.no-scroll{
   font-size:18px;
   font-weight:600;
 }
+
+/* FILTER STYLE */
+
+.filter-sheet{
+  height:85vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-radius:28px 28px 0 0;
+  background:#fff;
+}
+
+.filter-body{
+  flex:1;
+  overflow-y:auto;
+  padding-bottom:20px;
+}
+
+.sheet-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:24px;
+  border-bottom:1px solid #eee;
+}
+
+.sheet-header h3{
+  font-size:42px;
+  font-weight:700;
+}
+
+.sheet-header span{
+  font-size:38px;
+  cursor:pointer;
+}
+
+.filter-section{
+  border-bottom:1px solid #eee;
+}
+
+.filter-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:26px 24px;
+  font-size:20px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.filter-content{
+  display:none;
+  padding:0 24px 20px;
+}
+
+.filter-content.active{
+  display:block;
+}
+
+.filter-content p{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 0;
+  font-size:18px;
+  font-weight:600;
+  border-bottom:1px solid #f1f1f1;
+}
+
+/* RADIO */
+
+.radio{
+  width:20px;
+  height:20px;
+  border:2px solid #111;
+  border-radius:50%;
+  position:relative;
+  flex-shrink:0;
+}
+
+.active .radio::after{
+  content:'';
+  width:10px;
+  height:10px;
+  background:#111;
+  border-radius:50%;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+/* SIZE */
+
+.size-grid{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.size-box{
+  width:54px;
+  height:54px;
+  border:1px solid #ccc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  font-weight:600;
+}
+
+.size-box.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* APPLY */
+
+.filter-footer{
+  padding:18px 24px 30px;
+  background:#fff;
+  border-top:1px solid #eee;
+}
+
+.apply-btn{
+  width:100%;
+  height:58px;
+  border:none;
+  border-radius:18px;
+  background:#111;
+  color:#fff;
+  font-size:20px;
+  font-weight:700;
+}
+
+/* STOP BACKGROUND SCROLL */
+
+.bottom-sheet{
+  overflow:hidden;
+}
+
+.bottom-sheet.active{
+  display:flex;
+  align-items:flex-end;
+}
 </style>
 </head>
 
@@ -2647,175 +2793,117 @@ body.no-scroll{
 <!-- FILTER MODAL -->
 <div id="filterModal" class="bottom-sheet">
 
-  <div class="sheet-content">
-    
+  <div class="sheet-content filter-sheet">
+
+    <!-- HEADER -->
     <div class="sheet-header">
       <h3>Filter</h3>
       <span onclick="closeSheet()">✕</span>
     </div>
 
-    <!-- PRODUCT TYPE -->
-    <div class="filter-section">
+    <!-- BODY -->
+    <div class="filter-body">
 
-      <div class="filter-title"
-           onclick="toggleFilter(this)">
- 
-        Product Type
+      <!-- PRODUCT TYPE -->
+      <div class="filter-section">
 
-        <span>⌄</span>
-
-      </div>
-
-      <div class="filter-content">
-
-        <p class="filter-product active"
-           data-value="all">
-
-          <span>◉</span>
-          All Products
-
-        </p>
-
-        <p class="filter-product"
-           data-value="featured">
-
-          <span>○</span>
-          Featured Products
-
-        </p>
-
-      </div>
-
-    </div>
-
-    <!-- AVAILABILITY -->
-    <div class="filter-section">
-
-      <div class="filter-title"
-           onclick="toggleFilter(this)">
-
-        Availability
-
-        <span>⌄</span>
-
-      </div>
-
-      <div class="filter-content">
-
-        <p class="filter-availability active"
-           data-value="all">
-
-          <span>◉</span>
-          All
-
-        </p>
-
-        <p class="filter-availability"
-           data-value="stock">
-
-          <span>○</span>
-          In Stock
-
-        </p>
-
-      </div>
-
-    </div>
-
-    <!-- PRICE -->
-    <div class="filter-section">
-
-      <div class="filter-title"
-           onclick="toggleFilter(this)">
-
-        Price
-
-        <span>⌄</span>
-
-      </div>
-
-      <div class="filter-content">
-
-        <p class="filter-price"
-           data-value="0-620">
-
-          <span>○</span>
-          Under Rp 620,000
-
-        </p>
-
-        <p class="filter-price"
-           data-value="620-1200">
-
-          <span>○</span>
-          Rp 620,000 - Rp 1,200,000
-
-        </p>
-
-        <p class="filter-price"
-           data-value="1200-1800">
-
-          <span>○</span>
-          Rp 1,200,000 - Rp 1,800,000
-
-        </p>
-
-        <p class="filter-price"
-           data-value="1800+">
-
-          <span>○</span>
-          Rp 1,800,000+
-
-        </p>
-
-      </div>
-
-    </div>
-
-    <!-- SIZE -->
-    <div class="filter-section">
-
-      <div class="filter-title"
-           onclick="toggleFilter(this)">
-
-        Size
-
-        <span>⌄</span>
-
-      </div>
-
-      <div class="filter-content">
-
-        <div class="size-grid">
-
-          <div class="size-box">S</div>
-          <div class="size-box">M</div>
-          <div class="size-box">L</div>
-          <div class="size-box">XL</div>
-          <div class="size-box">XXL</div>
-
+        <div class="filter-title" onclick="toggleFilter(this)">
+          <span>Product Type</span>
+          <span class="arrow">⌄</span>
         </div>
 
+        <div class="filter-content">
+
+          <p class="filter-product active" data-value="all">
+            <span class="radio"></span>
+            All Products
+          </p>
+
+          <p class="filter-product" data-value="featured">
+            <span class="radio"></span>
+            Featured Products
+          </p>
+
+        </div>
       </div>
-   
+
+      <!-- AVAILABILITY -->
+      <div class="filter-section">
+
+        <div class="filter-title" onclick="toggleFilter(this)">
+          <span>Availability</span>
+          <span class="arrow">⌄</span>
+        </div>
+
+        <div class="filter-content">
+
+          <p class="filter-availability active" data-value="all">
+            <span class="radio"></span>
+            All
+          </p>
+
+          <p class="filter-availability" data-value="stock">
+            <span class="radio"></span>
+            In Stock
+          </p>
+
+        </div>
+      </div>
+
+      <!-- PRICE -->
+      <div class="filter-section">
+
+        <div class="filter-title" onclick="toggleFilter(this)">
+          <span>Price</span>
+          <span class="arrow">⌄</span>
+        </div>
+
+        <div class="filter-content">
+
+          <p class="filter-price" data-value="0-620">
+            <span class="radio"></span>
+            Under Rp 620,000
+          </p>
+
+          <p class="filter-price" data-value="620-1200">
+            <span class="radio"></span>
+            Rp 620,000 - Rp 1,200,000
+          </p>
+
+        </div>
+      </div>
+
+      <!-- SIZE -->
+      <div class="filter-section">
+
+        <div class="filter-title" onclick="toggleFilter(this)">
+          <span>Size</span>
+          <span class="arrow">⌄</span>
+        </div>
+
+        <div class="filter-content">
+
+          <div class="size-grid">
+            <div class="size-box">S</div>
+            <div class="size-box">M</div>
+            <div class="size-box">L</div>
+            <div class="size-box">XL</div>
+            <div class="size-box">XXL</div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
-    <!-- APPLY BUTTON -->
-
+    <!-- FOOTER -->
     <div class="filter-footer">
-
-      <button class="apply-btn"
-
-              onclick="applyFilters()">
-
+      <button class="apply-btn" onclick="applyFilters()">
         Apply
-
       </button>
-
     </div>
 
   </div>
-
 </div>
 <script>
 function toggle(el){
@@ -2828,12 +2916,9 @@ function toggle(el){
 
 function toggleFilter(el){
 
-  el.classList.toggle("active");
+  const content = el.nextElementSibling;
 
-  const content =
-    el.nextElementSibling;
-
-  content.classList.toggle("hidden");
+  content.classList.toggle("active");
 
 }
 
@@ -3362,11 +3447,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-color").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.innerHTML = i.innerText.;
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+    e.target.innerHTML = e.target.innerText.;
 
     selectedColor = e.target.dataset.value;
   }
@@ -3378,11 +3463,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-size").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.innerHTML = i.innerText.;
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+    e.target.innerHTML = e.target.innerText.;
 
     selectedSize = e.target.dataset.value;
   }
@@ -3830,6 +3915,17 @@ document.querySelectorAll(".tabs span")
 
 })
 
+function activateRadio(group, target){
+
+  document.querySelectorAll(group)
+  .forEach(item=>{
+    item.classList.remove("active");
+  });
+
+  target.classList.add("active");
+
+}
+  
 /* NOTIFY SYSTEM */
 let notifyLoading = false;
 
