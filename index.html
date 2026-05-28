@@ -1916,6 +1916,53 @@ body.auth-open #overlay{
 #overlay{
   z-index:9990;
 }
+
+body.no-scroll{
+  overflow:hidden;
+  height:100vh;
+}
+
+.sheet-content{
+  max-height:90vh;
+  overflow-y:auto;
+  padding-bottom:120px;
+}
+
+.sort-option,
+.filter-content p{
+  padding:14px 4px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:15px;
+}
+
+.filter-content p span{
+  display:inline-flex;
+  width:18px;
+  min-width:18px;
+  justify-content:center;
+  align-items:center;
+  font-size:16px;
+}
+
+.filter-footer{
+  position:sticky;
+  bottom:0;
+  background:#fff;
+  padding:15px 0;
+}
+
+.apply-btn{
+  width:100%;
+  height:52px;
+  border:none;
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  font-size:15px;
+  font-weight:600;
+}
 </style>
 </head>
 
@@ -3177,6 +3224,8 @@ function openFilter(){
   document
     .getElementById('overlay')
     .style.display = 'block';
+
+  document.body.classList.add("no-scroll");
 }
 
 function openSort(){
@@ -3188,6 +3237,8 @@ function openSort(){
   document
     .getElementById('overlay')
     .style.display = 'block';
+
+  document.body.classList.add("no-scroll");
 }
 
 function closeSheet(){
@@ -3203,7 +3254,10 @@ function closeSheet(){
   document
     .getElementById('overlay')
     .style.display = 'none';
+
+  document.body.classList.remove("no-scroll");
 }
+  
 function addToCart(name){
   alert(name + ' ditambahkan ke keranjang');
 }
