@@ -1818,12 +1818,10 @@ body.auth-open #overlay{
   bottom:0;
   left:0;
   width:100%;
-
   background:#fff;
-
-  padding:20px 28px 28px;
-
-  border-top:1px solid #f1f1f1;
+  padding:20px;
+  border-top:1px solid #eee;
+  z-index:20;
 }
 
 /* APPLY BUTTON */
@@ -1923,6 +1921,8 @@ body.no-scroll{
 }
 
 .sheet-content{
+  background:#fff;
+  border-radius:28px 28px 0 0;
   max-height:90vh;
   overflow-y:auto;
   padding-bottom:120px;
@@ -1961,6 +1961,32 @@ body.no-scroll{
   color:#fff;
   border-radius:999px;
   font-size:15px;
+  font-weight:600;
+}
+
+.filter-content p{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:22px 0;
+  border-bottom:1px solid #eee;
+  font-size:18px;
+  font-weight:600;
+}
+
+.filter-content p span{
+  width:22px;
+  min-width:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.sort-option{
+  padding:20px 0;
+  border-bottom:1px solid #eee;
+  font-size:18px;
   font-weight:600;
 }
 </style>
@@ -2837,84 +2863,6 @@ document.addEventListener("click", function(e){
    FILTER RADIO UI
 ========================= */
 
-function activateRadio(group, target){
-
-  document.querySelectorAll(group)
-  .forEach(item=>{
-
-    item.classList.remove("active");
-
-    const icon =
-      item.querySelector("span");
-
-    if(icon){
-      icon.innerText = "○";
-    }
-
-  });
-
-  target.classList.add("active");
-
-  const activeIcon =
-    target.querySelector("span");
-
-  if(activeIcon){
-    activeIcon.innerText = "◉";
-  }
-
-}
-
-/* PRODUCT */
-document
-.querySelectorAll(".filter-product")
-.forEach(item=>{
-
-  item.addEventListener("click",()=>{
-
-    activateRadio(".filter-product", item);
-
-  });
-
-});
-
-/* AVAILABILITY */
-document
-.querySelectorAll(".filter-availability")
-.forEach(item=>{
-
-  item.addEventListener("click",()=>{
-
-    activateRadio(
-      ".filter-availability",
-      item
-    );
-
-    selectedAvailability =
-      item.dataset.value;
-
-  });
-
-});
-
-/* PRICE */
-document
-.querySelectorAll(".filter-price")
-.forEach(item=>{
-
-  item.addEventListener("click",()=>{
-
-    activateRadio(
-      ".filter-price",
-      item
-    );
-
-    selectedPrice =
-      item.dataset.value;
-
-  });
-
-});
-
 function applyFilters(){
 
   closeSheet();
@@ -3346,39 +3294,63 @@ document.addEventListener("click", function(e){
 
   // SORT
   if(e.target.classList.contains("sort-option")){
-    document.querySelectorAll(".sort-option").forEach(i=>{
-      i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("✔","");
-    });
+
+    document.querySelectorAll(".sort-option")
+    .forEach(i=>i.classList.remove("active"));
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText + " ✔";
 
     selectedSort = e.target.dataset.value;
   }
 
-  // AVAILABILITY
-  if(e.target.classList.contains("filter-availability")){
-    document.querySelectorAll(".filter-availability").forEach(i=>{
+  // PRODUCT TYPE
+  if(e.target.classList.contains("filter-product")){
+
+    document.querySelectorAll(".filter-product")
+    .forEach(i=>{
+
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.querySelector("span").innerText = "○";
+
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+
+    e.target.querySelector("span").innerText = "◉";
+  }
+
+  // AVAILABILITY
+  if(e.target.classList.contains("filter-availability")){
+
+    document.querySelectorAll(".filter-availability")
+    .forEach(i=>{
+
+      i.classList.remove("active");
+      i.querySelector("span").innerText = "○";
+
+    });
+
+    e.target.classList.add("active");
+
+    e.target.querySelector("span").innerText = "◉";
 
     selectedAvailability = e.target.dataset.value;
   }
 
   // PRICE
   if(e.target.classList.contains("filter-price")){
-    document.querySelectorAll(".filter-price").forEach(i=>{
+
+    document.querySelectorAll(".filter-price")
+    .forEach(i=>{
+
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.querySelector("span").innerText = "○";
+
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+
+    e.target.querySelector("span").innerText = "◉";
 
     selectedPrice = e.target.dataset.value;
   }
