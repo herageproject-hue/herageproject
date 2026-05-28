@@ -4252,7 +4252,6 @@ async function calculateShipping(){
     document.getElementById("deliveryLoading");
 
   loadingText.innerText = "Loading...";
-
   costText.innerText = "";
 
   try{
@@ -4268,39 +4267,31 @@ async function calculateShipping(){
         },
 
         body: JSON.stringify({
-
           origin: 23,
-
           destination: 41954,
-
           weight: 1000,
-
           courier: "jne"
-
         })
       }
     );
 
-    const result = await response.json();
+    console.log("STATUS:", response.status);
 
-    console.log(result);
+    const text = await response.text();
 
-    const cost =
-      result.data.calculate_reguler?.[0]?.shipping_cost;
+    console.log("RAW RESPONSE:", text);
 
-    if(!cost){
-      throw new Error("Shipping not found");
-    }
-
-    costText.innerText =
-      "Rp " +
-      Number(cost).toLocaleString("id-ID");
+    alert(text);
 
     loadingText.innerText = "";
 
+    costText.innerText = "Check Console";
+
   } catch(err){
 
-    console.log(err);
+    console.log("ERROR:", err);
+
+    alert(err);
 
     loadingText.innerText = "";
 
