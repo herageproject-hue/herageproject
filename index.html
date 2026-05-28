@@ -1676,6 +1676,37 @@ body.auth-open #overlay{
   transform:rotate(180deg);
 }
 
+/* SIZE FILTER BOX */
+.filter-size-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+
+  padding-top:12px;
+}
+
+.filter-size-box{
+  height:44px;
+
+  border:1px solid #ddd;
+  border-radius:10px;
+
+  background:#fff;
+
+  font-size:14px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.filter-size-box.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
 .accordion-item.active .payment-logos,
 .accordion-item.active .shipment-logos{
   display:flex;
@@ -2424,7 +2455,7 @@ body.auth-open #overlay{
     </div>
 
     <!-- SIZE -->
-    <div class="filter-accordion">
+    <div class="filter-body">
 
       <div class="filter-title" onclick="toggleFilter(this)">
         <h4>Size</h4>
@@ -2433,21 +2464,33 @@ body.auth-open #overlay{
 
       <div class="filter-body">
 
-        <p class="filter-size" data-value="s">
-          ○ S
-        </p>
+        <div class="filter-body">
 
-        <p class="filter-size" data-value="m">
-          ○ M
-        </p>
+          <div class="filter-size-grid">
 
-        <p class="filter-size" data-value="l">
-          ○ L
-        </p>
+            <button class="filter-size-box" data-value="s">
+              S
+            </button>
 
-        <p class="filter-size" data-value="xl">
-          ○ XL
-        </p>
+            <button class="filter-size-box" data-value="m">
+              M
+            </button>
+
+            <button class="filter-size-box" data-value="l">
+              L
+            </button>
+
+            <button class="filter-size-box" data-value="xl">
+              XL
+            </button>
+
+            <button class="filter-size-box" data-value="xxl">
+              XXL
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -2933,20 +2976,24 @@ document.addEventListener("click", function(e){
   }
 });
 
-// SIZE
+// SIZE BOX
 document.addEventListener("click", function(e){
-  if(e.target.classList.contains("filter-size")){
-    
-    document.querySelectorAll(".filter-size").forEach(i=>{
-      i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
-    });
+
+  if(e.target.classList.contains("filter-size-box")){
+
+    document
+      .querySelectorAll(".filter-size-box")
+      .forEach(btn=>{
+        btn.classList.remove("active");
+      });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
 
-    selectedSize = e.target.dataset.value;
+    selectedSize =
+      e.target.dataset.value;
+
   }
+
 });
 function applyFilter(){
   console.log("=== FILTER RESULT ===");
