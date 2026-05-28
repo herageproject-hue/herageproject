@@ -210,13 +210,11 @@ body{
 
 .accordion-content{
   display:none;
-  padding-top:15px;
-}
 
-.accordion-item.active .accordion-content{
-  display:block;
-}
+  padding:0 18px 18px;
 
+  background:#111;
+}
 .accordion-header span{
   transition:.3s;
 }
@@ -486,60 +484,35 @@ body.no-scroll{
   z-index: 2000;
 }
 /* BOTTOM SHEET */
-.bottom-sheet{
-  position:fixed;
-  left:0;
-  bottom:0;
-
-  width:100%;
-
-  background:#fff;
-
-  border-radius:32px 32px 0 0;
-
-  z-index:9999;
-
-  overflow:hidden;
-
-  transform:translateY(110%);
-  transition:.35s ease;
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 80%;
+  background: #fff;
+  color: #000;
+  border-radius: 20px 20px 0 0;
+  transition: 0.3s;
+  z-index: 2000;
 }
 
-.bottom-sheet.active{
-  transform:translateY(0);
+.sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
 }
 
-.sheet-content{
-  background:#fff;
-
-  border-radius:26px 26px 0 0;
-
-  width:100%;
-
-  padding:20px 0 18px;
-
-  overflow-y:auto;
-}
-  
-.sheet-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  padding:0 22px;
-
-  margin-bottom:10px;
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.sheet-header h3{
-  font-size:26px;
-  font-weight:700;
-  letter-spacing:-1px;
-}
-
-.sheet-header span{
-  font-size:26px;
-  font-weight:400;
+.sheet-header span {
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .sheet-content p {
@@ -1660,480 +1633,9 @@ body.auth-open #overlay{
   backdrop-filter:blur(2px);
 }
 
-/* =========================
-   FILTER & SORT MODERN UI
-========================= */
-
-#filterModal,
-#sortModal{
-  position:fixed;
-  left:0;
-  bottom:-100%;
-  width:100%;
-  background:#fff;
-  border-radius:32px 32px 0 0;
-  z-index:9999;
-  transition:.35s ease;
-  overflow:hidden;
-}
-
-#filterModal{
-  max-height:88vh;
-}
-
-#sortModal{
-  max-height:70vh;
-}
-
-#filterModal.active,
-#sortModal.active{
-  bottom:0;
-}
-
-/* CONTENT */
-.sheet-content{
-  width:100%;
-  background:#fff;
-  border-radius:32px 32px 0 0;
-  overflow-y:auto;
-  padding-bottom:120px;
-}
-
-/* HEADER */
-.sheet-header{
-  height:88px;
+.accordion-item.active .payment-logos,
+.accordion-item.active .shipment-logos{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  border-bottom:1px solid #f1f1f1;
-}
-
-.sheet-header h3{
-  font-size:28px;
-  font-weight:800;
-  color:#111;
-  letter-spacing:-1px;
-}
-
-.sheet-header span{
-  font-size:42px;
-  font-weight:300;
-  cursor:pointer;
-  color:#111;
-}
-
-/* SECTION */
-.filter-section{
-  border-bottom:1px solid #f1f1f1;
-}
-
-/* TITLE */
-.filter-title{
-  height:82px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  cursor:pointer;
-
-  font-size:18px;
-  font-weight:700;
-  color:#111;
-}
-
-/* ARROW */
-.filter-title span{
-  font-size:28px;
-  transition:.25s ease;
-  transform:rotate(0deg);
-}
-
-.filter-title.active span{
-  transform:rotate(180deg);
-}
-
-/* CONTENT */
-.filter-content{
-  padding:0 28px 26px;
-}
-
-.filter-content.hidden{
-  display:none;
-}
-
-/* RADIO STYLE */
-.filter-content p{
-  display:flex;
-  align-items:center;
-  gap:14px;
-
-  min-height:54px;
-
-  font-size:17px;
-  font-weight:600;
-  color:#222;
-
-  cursor:pointer;
-}
-
-/* SIZE GRID */
-.size-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-/* SIZE BOX */
-.size-box{
-  width:88px;
-  height:56px;
-
-  border:1.5px solid #ddd;
-  border-radius:12px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:18px;
-  font-weight:700;
-
-  background:#fff;
-  color:#111;
-
-  transition:.2s;
-}
-
-/* ACTIVE SIZE */
-.size-box.active{
-  background:#111;
-  color:#fff;
-  border-color:#111;
-}
-
-/* APPLY BUTTON AREA */
-.filter-footer{
-  position:sticky;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#fff;
-  padding:20px;
-  border-top:1px solid #eee;
-  z-index:20;
-}
-
-/* APPLY BUTTON */
-.apply-btn{
-  width:100%;
-  height:68px;
-
-  border:none;
-  border-radius:22px;
-
-  background:#111;
-  color:#fff;
-
-  font-size:24px;
-  font-weight:800;
-
-  letter-spacing:-0.5px;
-
-  cursor:pointer;
-}
-
-/* SORT OPTION */
-.sort-option{
-  height:72px;
-
-  display:flex;
-  align-items:center;
-
-  padding:0 28px;
-
-  border-bottom:1px solid #f3f3f3;
-
-  font-size:18px;
-  font-weight:600;
-
-  color:#111;
-
-  cursor:pointer;
-}
-
-/* ACTIVE SORT */
-.sort-option.active{
-  font-weight:800;
-}
-
-/* BUTTON FILTER SORT */
-.filter-sort{
-  display:flex;
-  gap:12px;
-  padding:18px 16px 10px;
-}
-
-/* TOP BUTTON */
-.btn{
-  flex:1;
-  height:58px;
-
-  border:2px solid #111;
-  border-radius:18px;
-
-  background:#fff;
-  color:#111;
-
-  font-size:17px;
-  font-weight:800;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  transition:.2s;
-}
-
-.btn svg{
-  width:20px;
-  height:20px;
-}
-
-.btn:hover{
-  background:#111;
-  color:#fff;
-}
-
-#filterModal,
-#sortModal{
-  z-index:99999;
-}
-
-#overlay{
-  z-index:9990;
-}
-
-body.no-scroll{
-  overflow:hidden;
-  height:100vh;
-}
-
-.sheet-content{
-  background:#fff;
-  border-radius:28px 28px 0 0;
-  max-height:90vh;
-  overflow-y:auto;
-  padding-bottom:120px;
-}
-
-.sort-option,
-.filter-content p{
-  padding:14px 4px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:15px;
-}
-
-.filter-content p span{
-  display:inline-flex;
-  width:18px;
-  min-width:18px;
-  justify-content:center;
-  align-items:center;
-  font-size:16px;
-}
-
-.filter-footer{
-  position:sticky;
-  bottom:0;
-  background:#fff;
-  padding:15px 0;
-}
-
-.apply-btn{
-  width:100%;
-  height:52px;
-  border:none;
-  background:#111;
-  color:#fff;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:600;
-}
-
-.filter-content p{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:22px 0;
-  border-bottom:1px solid #eee;
-  font-size:18px;
-  font-weight:600;
-}
-
-.filter-content p span{
-  width:22px;
-  min-width:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-.sort-option{
-  padding:20px 0;
-  border-bottom:1px solid #eee;
-  font-size:18px;
-  font-weight:600;
-}
-
-/* FILTER STYLE */
-
-.filter-sheet{
-  height:85vh;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  border-radius:28px 28px 0 0;
-  background:#fff;
-}
-
-.filter-body{
-  flex:1;
-  overflow-y:auto;
-  padding-bottom:20px;
-}
-
-.sheet-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:24px;
-  border-bottom:1px solid #eee;
-}
-
-.sheet-header h3{
-  font-size:42px;
-  font-weight:700;
-}
-
-.sheet-header span{
-  font-size:38px;
-  cursor:pointer;
-}
-
-.filter-section{
-  border-bottom:1px solid #eee;
-}
-
-.filter-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:26px 24px;
-  font-size:20px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.filter-content{
-  display:none;
-  padding:0 24px 20px;
-}
-
-.filter-content.active{
-  display:block;
-}
-
-.filter-content p{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:18px 0;
-  font-size:18px;
-  font-weight:600;
-  border-bottom:1px solid #f1f1f1;
-}
-
-/* RADIO */
-
-.radio{
-  width:20px;
-  height:20px;
-  border:2px solid #111;
-  border-radius:50%;
-  position:relative;
-  flex-shrink:0;
-}
-
-.active .radio::after{
-  content:'';
-  width:10px;
-  height:10px;
-  background:#111;
-  border-radius:50%;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-}
-
-/* SIZE */
-
-.size-grid{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.size-box{
-  width:54px;
-  height:54px;
-  border:1px solid #ccc;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:10px;
-  font-weight:600;
-}
-
-.size-box.active{
-  background:#111;
-  color:#fff;
-  border-color:#111;
-}
-
-/* APPLY */
-
-.filter-footer{
-  padding:18px 24px 30px;
-  background:#fff;
-  border-top:1px solid #eee;
-}
-
-.apply-btn{
-  width:100%;
-  height:58px;
-  border:none;
-  border-radius:18px;
-  background:#111;
-  color:#fff;
-  font-size:20px;
-  font-weight:700;
-}
-
-/* STOP BACKGROUND SCROLL */
-
-.bottom-sheet{
-  overflow:hidden;
-}
-
-.bottom-sheet.active{
-  display:flex;
-  align-items:flex-end;
 }
 </style>
 </head>
@@ -2792,116 +2294,35 @@ body.no-scroll{
 
 <!-- FILTER MODAL -->
 <div id="filterModal" class="bottom-sheet">
+  <div class="sheet-content">
 
-  <div class="sheet-content filter-sheet">
-
-    <!-- HEADER -->
     <div class="sheet-header">
       <h3>Filter</h3>
       <span onclick="closeSheet()">✕</span>
     </div>
 
-    <!-- BODY -->
-    <div class="filter-body">
+    <h4>Availability</h4>
+    <p class="filter-availability active" data-value="all">● All</p>
+    <p class="filter-availability" data-value="stock">○ In Stock</p>
 
-      <!-- PRODUCT TYPE -->
-      <div class="filter-section">
+    <h4>Price</h4>
+    <p class="filter-price" data-value="0-620">○ Under Rp 620.000</p>
+    <p class="filter-price" data-value="620-1200">○ Rp 620.000 - Rp 1.200.000</p>
+    <p class="filter-price" data-value="1200-1800">○ Rp 1.200.000 - Rp 1.800.000</p>
+    <p class="filter-price" data-value="1800+">○ Rp 1.800.000+</p>
 
-        <div class="filter-title" onclick="toggleFilter(this)">
-          <span>Product Type</span>
-          <span class="arrow">⌄</span>
-        </div>
+    <h4>Color</h4>
+    <p class="filter-color" data-value="black">○ Black</p>
+    <p class="filter-color" data-value="white">○ White</p>
+    <p class="filter-color" data-value="grey">○ Grey</p>
 
-        <div class="filter-content">
+    <h4>Size</h4>
+    <p class="filter-size" data-value="s">○ S</p>
+    <p class="filter-size" data-value="m">○ M</p>
+    <p class="filter-size" data-value="l">○ L</p>
+    <p class="filter-size" data-value="xl">○ XL</p>
 
-          <p class="filter-product active" data-value="all">
-            <span class="radio"></span>
-            All Products
-          </p>
-
-          <p class="filter-product" data-value="featured">
-            <span class="radio"></span>
-            Featured Products
-          </p>
-
-        </div>
-      </div>
-
-      <!-- AVAILABILITY -->
-      <div class="filter-section">
-
-        <div class="filter-title" onclick="toggleFilter(this)">
-          <span>Availability</span>
-          <span class="arrow">⌄</span>
-        </div>
-
-        <div class="filter-content">
-
-          <p class="filter-availability active" data-value="all">
-            <span class="radio"></span>
-            All
-          </p>
-
-          <p class="filter-availability" data-value="stock">
-            <span class="radio"></span>
-            In Stock
-          </p>
-
-        </div>
-      </div>
-
-      <!-- PRICE -->
-      <div class="filter-section">
-
-        <div class="filter-title" onclick="toggleFilter(this)">
-          <span>Price</span>
-          <span class="arrow">⌄</span>
-        </div>
-
-        <div class="filter-content">
-
-          <p class="filter-price" data-value="0-620">
-            <span class="radio"></span>
-            Under Rp 620,000
-          </p>
-
-          <p class="filter-price" data-value="620-1200">
-            <span class="radio"></span>
-            Rp 620,000 - Rp 1,200,000
-          </p>
-
-        </div>
-      </div>
-
-      <!-- SIZE -->
-      <div class="filter-section">
-
-        <div class="filter-title" onclick="toggleFilter(this)">
-          <span>Size</span>
-          <span class="arrow">⌄</span>
-        </div>
-
-        <div class="filter-content">
-
-          <div class="size-grid">
-            <div class="size-box">S</div>
-            <div class="size-box">M</div>
-            <div class="size-box">L</div>
-            <div class="size-box">XL</div>
-            <div class="size-box">XXL</div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div class="filter-footer">
-      <button class="apply-btn" onclick="applyFilters()">
-        Apply
-      </button>
-    </div>
+    <button class="apply-btn" onclick="applyFilter()">Apply</button>
 
   </div>
 </div>
@@ -2909,51 +2330,17 @@ body.no-scroll{
 function toggle(el){
 
   const item = el.parentElement;
+  const content = el.nextElementSibling;
 
   item.classList.toggle("active");
 
-}
-
-function toggleFilter(el){
-
-  const content = el.nextElementSibling;
-
-  content.classList.toggle("active");
-
-}
-
-document.querySelectorAll(".filter-content")
-.forEach(content=>{
-
-  content.classList.add("hidden");
-
-});
-document.addEventListener("click", function(e){
-
-  if(e.target.classList.contains("size-box")){
-
-    document
-      .querySelectorAll(".size-box")
-      .forEach(box=>{
-        box.classList.remove("active");
-      });
-
-    e.target.classList.add("active");
-
+  if(content.style.display === "block"){
+    content.style.display = "none";
+  } else {
+    content.style.display = "block";
   }
 
-});
-
-/* =========================
-   FILTER RADIO UI
-========================= */
-
-function applyFilters(){
-
-  closeSheet();
-
 }
-  
 /* DRAWER */
 function openMenu(){
   document.getElementById('menuDrawer').style.left = '0';
@@ -2976,12 +2363,9 @@ function closeAll(){
   document.getElementById('cartDrawer').style.right = '-300px';
   document.getElementById("accountDrawer").classList.remove("active");
 
-  document.getElementById('sortModal')
-  .classList.remove('active');
+  document.getElementById('sortModal').style.bottom = '-100%';
+  document.getElementById('filterModal').style.bottom = '-100%';
 
-  document.getElementById('filterModal')
-  .classList.remove('active');
-  
   document.getElementById('overlay').style.display = 'none';
   document.body.classList.remove("no-scroll");
   document.getElementById("authModal").style.display = "none";
@@ -3248,49 +2632,21 @@ async function loadUser(){
 
 /* AUTO LOAD */
 
-function openFilter(){
-
-  document
-    .getElementById('filterModal')
-    .classList.add('active');
-
-  document
-    .getElementById('overlay')
-    .style.display = 'block';
-
-  document.body.classList.add("no-scroll");
+function openSort(){
+  document.getElementById('sortModal').style.bottom = '0';
+  document.getElementById('overlay').style.display = 'block';
 }
 
-function openSort(){
-
-  document
-    .getElementById('sortModal')
-    .classList.add('active');
-
-  document
-    .getElementById('overlay')
-    .style.display = 'block';
-
-  document.body.classList.add("no-scroll");
+function openFilter(){
+  document.getElementById('filterModal').style.bottom = '0';
+  document.getElementById('overlay').style.display = 'block';
 }
 
 function closeSheet(){
-
-  document
-    .getElementById('filterModal')
-    .classList.remove('active');
-
-  document
-    .getElementById('sortModal')
-    .classList.remove('active');
-
-  document
-    .getElementById('overlay')
-    .style.display = 'none';
-
-  document.body.classList.remove("no-scroll");
+  document.getElementById('sortModal').style.bottom = '-100%';
+  document.getElementById('filterModal').style.bottom = '-100%';
+  document.getElementById('overlay').style.display = 'none';
 }
-  
 function addToCart(name){
   alert(name + ' ditambahkan ke keranjang');
 }
@@ -3379,63 +2735,39 @@ document.addEventListener("click", function(e){
 
   // SORT
   if(e.target.classList.contains("sort-option")){
-
-    document.querySelectorAll(".sort-option")
-    .forEach(i=>i.classList.remove("active"));
+    document.querySelectorAll(".sort-option").forEach(i=>{
+      i.classList.remove("active");
+      i.innerHTML = i.innerText.replace("✔","");
+    });
 
     e.target.classList.add("active");
+    e.target.innerHTML = e.target.innerText + " ✔";
 
     selectedSort = e.target.dataset.value;
   }
 
-  // PRODUCT TYPE
-  if(e.target.classList.contains("filter-product")){
-
-    document.querySelectorAll(".filter-product")
-    .forEach(i=>{
-
-      i.classList.remove("active");
-      i.querySelector("span").innerText = "○";
-
-    });
-
-    e.target.classList.add("active");
-
-    e.target.querySelector("span").innerText = "◉";
-  }
-
   // AVAILABILITY
   if(e.target.classList.contains("filter-availability")){
-
-    document.querySelectorAll(".filter-availability")
-    .forEach(i=>{
-
+    document.querySelectorAll(".filter-availability").forEach(i=>{
       i.classList.remove("active");
-      i.querySelector("span").innerText = "○";
-
+      i.innerHTML = i.innerText.replace("●","○");
     });
 
     e.target.classList.add("active");
-
-    e.target.querySelector("span").innerText = "◉";
+    e.target.innerHTML = e.target.innerText.replace("○","●");
 
     selectedAvailability = e.target.dataset.value;
   }
 
   // PRICE
   if(e.target.classList.contains("filter-price")){
-
-    document.querySelectorAll(".filter-price")
-    .forEach(i=>{
-
+    document.querySelectorAll(".filter-price").forEach(i=>{
       i.classList.remove("active");
-      i.querySelector("span").innerText = "○";
-
+      i.innerHTML = i.innerText.replace("●","○");
     });
 
     e.target.classList.add("active");
-
-    e.target.querySelector("span").innerText = "◉";
+    e.target.innerHTML = e.target.innerText.replace("○","●");
 
     selectedPrice = e.target.dataset.value;
   }
@@ -3447,11 +2779,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-color").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText;
+      i.innerHTML = i.innerText.replace("●","○");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText;
+    e.target.innerHTML = e.target.innerText.replace("○","●");
 
     selectedColor = e.target.dataset.value;
   }
@@ -3463,11 +2795,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-size").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText;
+      i.innerHTML = i.innerText.replace("●","○");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText;
+    e.target.innerHTML = e.target.innerText.replace("○","●");
 
     selectedSize = e.target.dataset.value;
   }
@@ -3915,17 +3247,6 @@ document.querySelectorAll(".tabs span")
 
 })
 
-function activateRadio(group, target){
-
-  document.querySelectorAll(group)
-  .forEach(item=>{
-    item.classList.remove("active");
-  });
-
-  target.classList.add("active");
-
-}
-  
 /* NOTIFY SYSTEM */
 let notifyLoading = false;
 
