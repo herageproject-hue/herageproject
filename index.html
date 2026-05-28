@@ -2404,11 +2404,11 @@ body.auth-open #overlay{
       <div class="filter-body">
 
         <p class="filter-availability active" data-value="all">
-          ● All
+          ◯ All
         </p>
 
         <p class="filter-availability" data-value="stock">
-          ○ In Stock
+          ◯ In Stock
         </p>
 
       </div>
@@ -2426,19 +2426,19 @@ body.auth-open #overlay{
       <div class="filter-body">
 
         <p class="filter-price" data-value="0-620">
-          ○ Under Rp 620.000
+          ◯ Under Rp 620.000
         </p>
 
         <p class="filter-price" data-value="620-1200">
-          ○ Rp 620.000 - Rp 1.200.000
+          ◯ Rp 620.000 - Rp 1.200.000
         </p>
 
         <p class="filter-price" data-value="1200-1800">
-          ○ Rp 1.200.000 - Rp 1.800.000
+          ◯ Rp 1.200.000 - Rp 1.800.000
         </p>
 
         <p class="filter-price" data-value="1800+">
-          ○ Rp 1.800.000+
+          ◯ Rp 1.800.000+
         </p>
 
       </div>
@@ -2456,15 +2456,15 @@ body.auth-open #overlay{
       <div class="filter-body">
 
         <p class="filter-color" data-value="black">
-          ○ Black
+          ◯ Black
         </p>
 
         <p class="filter-color" data-value="white">
-          ○ White
+          ◯ White
         </p>
 
         <p class="filter-color" data-value="grey">
-          ○ Grey
+          ◯ Grey
         </p>
 
       </div>
@@ -2950,11 +2950,11 @@ document.addEventListener("click", function(e){
   if(e.target.classList.contains("filter-availability")){
     document.querySelectorAll(".filter-availability").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.innerHTML = i.innerText.replace("◉","◯");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+    e.target.innerHTML = e.target.innerText.replace("◯","◉");
 
     selectedAvailability = e.target.dataset.value;
   }
@@ -2963,11 +2963,11 @@ document.addEventListener("click", function(e){
   if(e.target.classList.contains("filter-price")){
     document.querySelectorAll(".filter-price").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.innerHTML = i.innerText.replace("◉","◯");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+    e.target.innerHTML = e.target.innerText.replace("◯","◉");
 
     selectedPrice = e.target.dataset.value;
   }
@@ -2979,11 +2979,11 @@ document.addEventListener("click", function(e){
     
     document.querySelectorAll(".filter-color").forEach(i=>{
       i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("●","○");
+      i.innerHTML = i.innerText.replace("◉","◯");
     });
 
     e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("○","●");
+    e.target.innerHTML = e.target.innerText.replace("◯","◉");
 
     selectedColor = e.target.dataset.value;
   }
