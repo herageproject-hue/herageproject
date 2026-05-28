@@ -4017,7 +4017,12 @@ function closePickupSheet(){
 async function loadProvinces() {
   try {
 
-    const res = await fetch(API_URL + '/province');
+    const res = await fetch(API_URL + '/province', {
+      headers: {
+        apikey: supabaseKey,   
+        Authorization: 'Bearer ' + supabaseKey
+      }
+    });
 
     const data = await res.json();
 
@@ -4063,7 +4068,13 @@ async function selectProvince(id, name){
   try{
 
     const response = await fetch(
-      API_URL + '/city?province=' + id
+      API_URL + '/city?province=' + id,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: 'Bearer ' + supabaseKey
+        }
+      }
     );
 
     const result = await response.json();
