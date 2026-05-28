@@ -4015,30 +4015,43 @@ function closePickupSheet(){
 }
 
 async function loadProvinces() {
+
   try {
 
-    const res = await fetch(API_URL + '/province', {
-      headers: {
-        apikey: supabaseKey,   
-        Authorization: 'Bearer ' + supabaseKey
+    pickupList.innerHTML =
+      "<p style='padding:15px'>Loading province...</p>";
+
+    const res = await fetch(
+      API_URL + '/province',
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: 'Bearer ' + supabaseKey
+        }
       }
-    });
+    );
 
     const data = await res.json();
 
     const provinces = data.data;
 
-    const provinceSelect = document.getElementById('province');
-
-    provinceSelect.innerHTML =
-      '<option value="">Pilih Provinsi</option>';
+    pickupList.innerHTML = "";
 
     provinces.forEach(province => {
 
-      provinceSelect.innerHTML += `
-        <option value="${province.id}">
-          ${province.name}
-        </option>
+      pickupList.innerHTML += `
+        <div
+          class="province-item"
+          onclick="
+            selectProvince(
+              '${province.province_id}',
+              '${province.province}'
+            )
+          "
+        >
+          ${province.province}
+          <span>›</span>
+        </div>
       `;
 
     });
@@ -4046,9 +4059,12 @@ async function loadProvinces() {
   } catch (err) {
 
     console.log(err);
-    alert('Failed load province');
+
+    pickupList.innerHTML =
+      "<p style='padding:15px;color:red'>Failed load province</p>";
 
   }
+
 }
 
 async function selectProvince(id, name){
