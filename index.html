@@ -4242,8 +4242,12 @@ async function calculateShipping(){
   const costText =
     document.getElementById("deliveryCost");
 
-  // loading
-  costText.innerText = "Loading...";
+  const loadingText =
+    document.getElementById("deliveryLoading");
+
+  loadingText.innerText = "Loading...";
+
+  costText.innerText = "";
 
   try{
 
@@ -4261,33 +4265,36 @@ async function calculateShipping(){
 
           origin: 23,
 
-          destination: parseInt(selectedDistrictId),
+          destination:
+            parseInt(selectedDistrictId),
 
           weight: 1000,
 
           courier: "jne"
 
         })
-
       }
     );
 
-    const result = await response.json();
+    const result =
+      await response.json();
 
     console.log(result);
 
-    // ambil ongkir
     const cost =
-      result.data[0].costs[0].cost;
+      result.data.calculate_reguler[0].shipping_cost;
 
-    // tampilkan ongkir
     costText.innerText =
       "Rp " +
-      cost.toLocaleString("id-ID");
+      Number(cost).toLocaleString("id-ID");
+
+    loadingText.innerText = "";
 
   } catch(err){
 
     console.log(err);
+
+    loadingText.innerText = "";
 
     costText.innerText =
       "Failed load shipping";
