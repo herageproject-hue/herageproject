@@ -2286,14 +2286,12 @@ body.auth-open #overlay{
 
             <button
               id="deliveryCost"
-              onclick="calculateShipping()"
-              type="button"
               style="
                 border:none;
                 background:none;
                 cursor:pointer;
-                font-size:13px;
-                font-weight:600;
+                font-size:12px;
+                font-weight:700;
                 color:#111;
               "
             >
@@ -4245,38 +4243,112 @@ async function selectDistrict(id, name){
 
 async function calculateShipping(){
 
-  try{
+  const deliveryCost =
+    document.getElementById("deliveryCost");
 
-    const response = await fetch(
-      "https://api-sandbox.collaborator.komerce.id/tariff/api/v1/calculate",
-      {
-        method:"POST",
+  const deliveryLoading =
+    document.getElementById("deliveryLoading");
 
-        headers:{
-          "Content-Type":"application/json",
-          "x-api-key":"CkCLxFcKd9d56e26508b1ae4la6rbif7"
-        },
+  deliveryLoading.innerHTML =
+    "Loading...";
 
-        body: JSON.stringify({
-          origin: 23,
-          destination: 41954,
-          weight: 1000,
-          courier: "jne"
-        })
-      }
-    );
+  deliveryLoading.style.fontSize = "12px";
+  deliveryLoading.style.fontWeight = "700";
+  deliveryLoading.style.color = "#111";
 
-    alert("STATUS: " + response.status);
+  // ONGKIR MANUAL DARI BANDUNG
+  let ongkir = 18000;
+  let estimasi = "2-3 Days";
 
-    const text = await response.text();
+  const province =
+    selectedProvinceName.toLowerCase();
 
-    alert(text);
-
-  } catch(err){
-
-    alert("ERROR: " + err);
-
+  // JAWA BARAT
+  if(province.includes("jawa barat")){
+    ongkir = 12000;
+    estimasi = "1-2 Days";
   }
+
+  // DKI
+  else if(province.includes("dki jakarta")){
+    ongkir = 15000;
+    estimasi = "1-2 Days";
+  }
+
+  // BANTEN
+  else if(province.includes("banten")){
+    ongkir = 16000;
+    estimasi = "2-3 Days";
+  }
+
+  // JAWA TENGAH
+  else if(province.includes("jawa tengah")){
+    ongkir = 18000;
+    estimasi = "2-3 Days";
+  }
+
+  // YOGYAKARTA
+  else if(province.includes("di yogyakarta")){
+    ongkir = 19000;
+    estimasi = "2-3 Days";
+  }
+
+  // JAWA TIMUR
+  else if(province.includes("jawa timur")){
+    ongkir = 22000;
+    estimasi = "2-4 Days";
+  }
+
+  // BALI
+  else if(province.includes("bali")){
+    ongkir = 25000;
+    estimasi = "3-4 Days";
+  }
+
+  // SUMATERA
+  else if(
+    province.includes("sumatera") ||
+    province.includes("aceh") ||
+    province.includes("riau")
+  ){
+    ongkir = 32000;
+    estimasi = "3-5 Days";
+  }
+
+  // KALIMANTAN
+  else if(province.includes("kalimantan")){
+    ongkir = 38000;
+    estimasi = "4-6 Days";
+  }
+
+  // SULAWESI
+  else if(province.includes("sulawesi")){
+    ongkir = 42000;
+    estimasi = "4-7 Days";
+  }
+
+  // PAPUA / MALUKU
+  else if(
+    province.includes("papua") ||
+    province.includes("maluku")
+  ){
+    ongkir = 65000;
+    estimasi = "6-10 Days";
+  }
+
+  setTimeout(()=>{
+
+    deliveryLoading.innerHTML = "";
+
+    deliveryCost.innerHTML =
+      `Rp ${ongkir.toLocaleString("id-ID")} (${estimasi})`;
+
+    // SAMAKAN FONT DENGAN DELIVERY BOX
+    deliveryCost.style.fontSize = "12px";
+    deliveryCost.style.fontWeight = "700";
+    deliveryCost.style.color = "#111";
+
+  },700);
 
 }
 </script>
