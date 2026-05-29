@@ -1901,20 +1901,9 @@ body.auth-open #overlay{
   background:#fff;
 }
 
-#deliveryCost{
-  pointer-events:auto !important;
-  position:relative;
-  z-index:9999;
-}
-
 /* DELIVERY BOX */
 .delivery-box{
   padding:20px;
-}
-
-/* lokasi */
-.delivery-location{
-  padding-left:12px;
 }
 
 /* select lokasi */
@@ -1927,13 +1916,6 @@ body.auth-open #overlay{
 #checkShippingBtn{
   margin-left:12px;
   width:calc(100% - 24px);
-}
-
-/* hasil ongkir */
-#deliveryCost{
-  padding-left:12px;
-  padding-right:12px;
-  line-height:1.5;
 }
 
 /* teks ongkir */
@@ -1949,24 +1931,77 @@ body.auth-open #overlay{
     padding:18px;
   }
 
-  .delivery-location{
-    padding-left:14px;
-  }
 
   #checkShippingBtn{
     margin-left:14px;
     width:calc(100% - 28px);
   }
 
-  #deliveryCost{
-    padding-left:14px;
-    padding-right:14px;
-  }
 
   .delivery-cost-row{
     padding-left:14px;
     padding-right:14px;
   }
+}
+
+/* DELIVERY ROW */
+.delivery-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+}
+
+/* BAGIAN LOKASI */
+.delivery-location{
+  flex:1;
+  text-align:right;
+
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;
+  gap:6px;
+
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+
+  word-break:break-word;
+}
+
+/* TEXT LOKASI */
+#locationText{
+  max-width:220px;
+  text-align:right;
+}
+
+/* CHECK DELIVERY COST */
+#deliveryCost{
+  margin-left:auto;
+  text-align:right;
+
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+
+  white-space:normal;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .delivery-row{
+    gap:12px;
+  }
+
+  #locationText{
+    max-width:180px;
+  }
+
+  #deliveryCost{
+    max-width:180px;
+  }
+
 }
 </style>
 </head>
