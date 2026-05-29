@@ -1975,21 +1975,6 @@ body.auth-open #overlay{
   text-align:right;
 }
 
-/* CHECK DELIVERY COST */
-#deliveryCost{
-  margin-left:auto;
-  text-align:right;
-
-  font-size:12px;
-  font-weight:700;
-  line-height:1.5;
-
-  white-space:normal;
-  background:transparent;
-  padding:0;
-  border-radius:0;
-}
-
 /* MOBILE */
 @media(max-width:768px){
 
@@ -2003,6 +1988,58 @@ body.auth-open #overlay{
 
   #deliveryCost{
     max-width:180px;
+  }
+
+}
+
+/* AREA ONGKIR */
+.delivery-price-area{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  min-width:170px;
+}
+
+/* BUTTON ONGKIR */
+#deliveryCost{
+  border:none;
+  background:transparent;
+
+  padding:0;
+  margin:0;
+
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+
+  color:#111;
+
+  text-align:right;
+
+  cursor:pointer;
+}
+
+/* LOADING */
+#deliveryLoading{
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+
+  color:#111;
+
+  text-align:right;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .delivery-price-area{
+    min-width:150px;
+  }
+
+  #deliveryCost,
+  #deliveryLoading{
+    font-size:12px;
   }
 
 }
@@ -2402,8 +2439,6 @@ body.auth-open #overlay{
               >
                 Check Delivery Cost
               </button>
-
-              <div id="deliveryLoading"></div>
 
             </div>
 
@@ -4358,14 +4393,7 @@ function calculateShipping(event){
   const deliveryCost =
     document.getElementById("deliveryCost");
 
-  const deliveryLoading =
-    document.getElementById("deliveryLoading");
-
-  deliveryCost.innerHTML = "";
-  deliveryLoading.innerHTML = "Loading...";
-
-  deliveryLoading.style.fontSize = "12px";
-  deliveryLoading.style.fontWeight = "700";
+  deliveryCost.innerHTML = "Loading...";
 
   let ongkir = 18000;
   let estimasi = "2-3 Days";
@@ -4428,12 +4456,8 @@ function calculateShipping(event){
 
   setTimeout(()=>{
 
-    deliveryLoading.innerHTML = "";
-
     deliveryCost.innerHTML =
       `Rp ${ongkir.toLocaleString("id-ID")} (${estimasi})`;
-
-    deliveryLoading.innerHTML = "";
 
   },700);
 
