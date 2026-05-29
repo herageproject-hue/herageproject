@@ -2390,22 +2390,19 @@ body.auth-open #overlay{
               Estimated Delivery Cost:
             </span>
 
-            <button
-              id="deliveryCost"
-              type="button"
-              onclick="calculateShipping(event)"
-              style="
-                border:none;
-                background:none;
-                cursor:pointer;
-                font-size:12px;
-                font-weight:700;
-                color:#111;
-              "
-            >
-              Check Delivery Cost
-            </button>
-            <div id="deliveryLoading"></div>
+            <div class="delivery-price-area">
+
+              <button
+                id="deliveryCost"
+                type="button"
+                onclick="calculateShipping(event)"
+              >
+                Check Delivery Cost
+              </button>
+
+              <div id="deliveryLoading"></div>
+
+            </div>
 
           </div>
 
@@ -4361,8 +4358,8 @@ function calculateShipping(event){
   const deliveryLoading =
     document.getElementById("deliveryLoading");
 
-  deliveryLoading.innerHTML =
-    "Loading...";
+  deliveryCost.innerHTML = "";
+  deliveryLoading.innerHTML = "Loading...";
 
   deliveryLoading.style.fontSize = "12px";
   deliveryLoading.style.fontWeight = "700";
@@ -4433,9 +4430,7 @@ function calculateShipping(event){
     deliveryCost.innerHTML =
       `Rp ${ongkir.toLocaleString("id-ID")} (${estimasi})`;
 
-    deliveryCost.style.fontSize = "12px";
-    deliveryCost.style.fontWeight = "700";
-    deliveryCost.style.color = "#111";
+    deliveryLoading.innerHTML = "";
 
   },700);
 
