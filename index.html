@@ -2043,6 +2043,76 @@ body.auth-open #overlay{
   }
 
 }
+
+/* COLOR FILTER */
+.color-picker{
+  display:flex;
+  gap:14px;
+  padding-top:16px;
+}
+
+.color-item{
+  position:relative;
+  width:42px;
+  height:42px;
+  cursor:pointer;
+}
+
+.color-dot{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:block;
+  border:1px solid #ddd;
+}
+
+/* COLORS */
+.color-dot.black{
+  background:#111;
+}
+
+.color-dot.white{
+  background:#fff;
+}
+
+.color-dot.grey{
+  background:#9c9c9c;
+}
+
+.color-dot.maroon{
+  background:#8f1020;
+}
+
+/* CHECK ICON */
+.color-item.active::after{
+  content:"✓";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+}
+
+.color-item[data-value="white"].active::after{
+  color:#111;
+}
+
+/* TOOLTIP */
+.color-item:hover::before{
+  content:attr(data-name);
+  position:absolute;
+  top:-42px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:12px;
+  white-space:nowrap;
+}
 </style>
 </head>
 
@@ -2837,17 +2907,25 @@ body.auth-open #overlay{
 
       <div class="filter-body">
 
-        <p class="filter-color" data-value="black">
-          ◯ Black
-        </p>
+        <div class="color-picker">
 
-        <p class="filter-color" data-value="white">
-          ◯ White
-        </p>
+          <div class="color-item active" data-value="black" data-name="Black">
+            <span class="color-dot black"></span>
+          </div>
 
-        <p class="filter-color" data-value="grey">
-          ◯ Grey
-        </p>
+          <div class="color-item" data-value="white" data-name="White">
+            <span class="color-dot white"></span>
+          </div>
+
+          <div class="color-item" data-value="grey" data-name="Grey">
+            <span class="color-dot grey"></span>
+          </div>
+
+          <div class="color-item" data-value="maroon" data-name="Maroon">
+            <span class="color-dot maroon"></span>
+          </div>
+
+        </div>
 
       </div>
 
@@ -3383,20 +3461,22 @@ document.addEventListener("click", function(e){
 });
 // COLOR
 document.addEventListener("click", function(e){
-  if(e.target.classList.contains("filter-color")){
-    
-    document.querySelectorAll(".filter-color").forEach(i=>{
-      i.classList.remove("active");
-      i.innerHTML = i.innerText.replace("◉","◯");
-    });
 
-    e.target.classList.add("active");
-    e.target.innerHTML = e.target.innerText.replace("◯","◉");
+  const item = e.target.closest(".color-item");
 
-    selectedColor = e.target.dataset.value;
-  }
+  if(!item) return;
+
+  document.querySelectorAll(".color-item")
+  .forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  item.classList.add("active");
+
+  selectedColor = item.dataset.value;
+
 });
-
+  
 // SIZE BOX
 document.addEventListener("click", function(e){
 
