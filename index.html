@@ -2172,6 +2172,82 @@ body.auth-open #overlay{
   padding:0;
   box-sizing:border-box;
 }
+
+.chat-float{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:60px;
+  height:60px;
+  background:#111;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:9999;
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+.chat-float img{
+  width:30px;
+}
+
+.chat-popup{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  width:320px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  display:none;
+  z-index:10000;
+}
+
+.chat-header{
+  background:#111;
+  color:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chat-header button{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.chat-body{
+  padding:20px;
+  text-align:center;
+}
+
+.chat-login-btn{
+  width:100%;
+  background:#111;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+.chat-skip-btn{
+  width:100%;
+  background:#eee;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  margin-top:10px;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -4617,6 +4693,36 @@ function calculateShipping(event){
   },700);
 
 }
+
+function openChatPopup(){
+  document.getElementById("chatPopup").style.display = "block";
+}
+
+function closeChatPopup(){
+  document.getElementById("chatPopup").style.display = "none";
+}
+
+function chatLogin(){
+
+  closeChatPopup();
+
+  openAuth("login");
+
+}
+
+let guestChat = false;
+
+function startGuestChat(){
+
+  guestChat = true;
+
+  closeChatPopup();
+
+  openLiveChat();
+
+}
+
+
 </script>
 <div id="homeAccordion">
   <div class="accordion">
@@ -4644,6 +4750,48 @@ function calculateShipping(event){
       </div>
     </div>
   </div>
+</div>
+
+<!-- FLOATING CHAT -->
+<div class="chat-float" onclick="openChatPopup()">
+  <img src="chat-icon.png" alt="Chat">
+</div>
+
+<!-- CHAT POPUP -->
+<div id="chatPopup" class="chat-popup">
+
+  <div class="chat-header">
+    <span>Live Chat</span>
+    <button onclick="closeChatPopup()">✕</button>
+  </div>
+
+  <div class="chat-body">
+
+    <img
+      src="chat-support.png"
+      style="width:90px;margin:auto;display:block;"
+    >
+
+    <h3>Need Help?</h3>
+
+    <p>
+      Login untuk menyimpan riwayat chat ke akun Anda.
+    </p>
+
+    <button
+      class="chat-login-btn"
+      onclick="chatLogin()">
+      Login
+    </button>
+
+    <button
+      class="chat-skip-btn"
+      onclick="startGuestChat()">
+      Skip For Now
+    </button>
+
+  </div>
+
 </div>
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </body>                                                                                                                                                                                                
