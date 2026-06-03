@@ -1256,6 +1256,7 @@ html,body{
 
   color:#111;
 }
+  
 .sticky-notify{
   position:fixed;
   left:16px;
@@ -1264,12 +1265,9 @@ html,body{
 
   display:flex;
   align-items:center;
+  justify-content:center;
+
   gap:12px;
-
-  padding:0;
-
-  background:transparent;
-  border:none;
 
   z-index:9999;
 }
@@ -1286,6 +1284,8 @@ html,body{
 
   font-size:16px;
   font-weight:700;
+
+  margin:0;
 }
 
 /* PRICE ROW */
@@ -2184,8 +2184,8 @@ body.auth-open #overlay{
   height:58px;
 
   background:#111;
-  border:none;
 
+  border:none;
   border-radius:18px;
 
   display:flex;
@@ -2193,6 +2193,9 @@ body.auth-open #overlay{
   align-items:center;
 
   flex-shrink:0;
+
+  margin-top:0;
+  padding:0;
 }
   
 .chat-float img{
