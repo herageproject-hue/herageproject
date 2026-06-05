@@ -2293,7 +2293,7 @@ body.auth-open #overlay{
 
   background:#f6f6f6;
 
-  border-radius:28px;
+  border-radius:22px;
 
   overflow:hidden;
 
@@ -2402,7 +2402,7 @@ body.auth-open #overlay{
 .live-chat-window{
 
   width:92%;
-  height:82vh;
+  height:92vh;
 
   background:#f5f5f5;
 
@@ -2415,16 +2415,10 @@ body.auth-open #overlay{
 }
 
 .live-chat-header{
-
-  text-align:center;
-
-  padding:24px;
-
-  font-size:28px;
-
+  padding:18px 0 8px;
+  font-size:22px;
+  font-weight:400;
   color:#1d2738;
-
-  background:#f5f5f5;
 }
 
 .chat-body{
@@ -2434,10 +2428,10 @@ body.auth-open #overlay{
   display:flex;
   flex-direction:column;
 
-  justify-content:center;
+  justify-content:flex-end;
   align-items:center;
 
-  padding:25px;
+  padding:120px;
 }
 
 .chat-icon{
@@ -2460,19 +2454,22 @@ body.auth-open #overlay{
 .chat-login-btn{
 
   width:100%;
-  height:58px;
+  height:52px;
 
   border:none;
 
-  border-radius:16px;
+  border-radius:14px;
 
   background:#111;
   color:#fff;
 
-  font-size:18px;
+  font-size:16px;
+  font-weight:700;
 }
 
 .chat-skip-btn{
+
+  text-decoration:underline;
 
   margin-top:16px;
 
@@ -2480,9 +2477,9 @@ body.auth-open #overlay{
 
   background:none;
 
-  color:#999;
+  color:#9a9a9a;
 
-  font-size:18px;
+  font-size:16px;
 }
 
 .chat-messages{
@@ -2497,7 +2494,7 @@ body.auth-open #overlay{
 }
 
 .chat-input-area{
-  padding:16px;
+  padding:14px 18px 18px;
   display:flex;
   gap:10px;
 }
@@ -2506,9 +2503,9 @@ body.auth-open #overlay{
 
   flex:1;
 
-  height:58px;
+  height:56px;
 
-  border:2px solid #ddd;
+  border:1px solid #d7d7d7;
 
   border-radius:18px;
 
@@ -2517,14 +2514,14 @@ body.auth-open #overlay{
 
 .chat-input-area button{
 
-  width:58px;
-  height:58px;
+  width:56px;
+  height:56px;
 
   border:none;
 
   border-radius:18px;
 
-  background:#d9d9d9;
+  background:#d3d3d3;
 }
 
 .chat-close{
@@ -2534,18 +2531,18 @@ body.auth-open #overlay{
   right:16px;
   bottom:16px;
 
-  width:58px;
-  height:58px;
+  width:52px;
+  height:52px;
 
   border:none;
 
-  border-radius:18px;
+  border-radius:16px;
 
   background:#111;
 
   color:#fff;
 
-  font-size:24px;
+  font-size:20px;
 }
 </style>
 </head>
@@ -5160,7 +5157,7 @@ async function loadMessages(){
 
       <div class="chat-body">
 
-        <img src="chat-support.png" class="chat-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/679/679720.png">
 
         <h3>Need Help?</h3>
 
