@@ -5251,6 +5251,12 @@ async function loadGuestMessages(){
       .from("guest_chat")
       .select("*")
       .eq("guest_id", guestId)
+      .gte(
+        "created_at",
+        new Date(
+          Date.now() - 24 * 60 * 60 * 1000
+        ).toISOString()
+      )
       .order("created_at");
 
   if(!data || data.length === 0){
