@@ -2179,35 +2179,6 @@ body.auth-open #overlay{
   box-sizing:border-box;
 }
 
-.chat-float-btn{
-  width:58px;
-  height:58px;
-
-  min-width:58px;
-  min-height:58px;
-
-  background:#111;
-  border:none;
-  border-radius:18px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  overflow:hidden;
-  flex-shrink:0;
-}
-
-.chat-float-btn img,
-.chat-float-btn svg{
-  width:28px;
-  height:28px;
-  max-width:28px;
-  max-height:28px;
-
-  object-fit:contain;
-}
-
 .chat-popup{
   position:fixed;
   right:20px;
@@ -2345,6 +2316,11 @@ body.auth-open #overlay{
 }
 
 .chat-float{
+  position:fixed;
+
+  right:16px;
+  bottom:16px;
+
   width:58px;
   height:58px;
 
@@ -2356,9 +2332,11 @@ body.auth-open #overlay{
   justify-content:center;
   align-items:center;
 
-  flex-shrink:0;
-
   cursor:pointer;
+
+  z-index:9999;
+
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .chat-float img{
@@ -2716,10 +2694,6 @@ body.auth-open #overlay{
             onclick="notifyMe()">
             Notify Me
           </button>
-          <!-- FLOATING CHAT -->
-          <div class="chat-float" onclick="openChatPopup()">
-            <img src="chat-icon.PNG" alt="Chat">
-          </div>
         </div>
 
       </div>
@@ -5045,6 +5019,11 @@ async function loadMessages(){
 
   </div>
 
+</div>
+
+<!-- GLOBAL CHAT -->
+<div class="chat-float" onclick="openChatPopup()">
+  <img src="chat-icon.PNG" alt="Chat">
 </div>
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </body>                                                                                                                                                                                                
