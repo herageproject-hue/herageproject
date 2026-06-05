@@ -2470,25 +2470,31 @@ body.auth-open #overlay{
 
 .live-chat-header{
   text-align:center;
-
   font-size:18px;
   font-weight:400;
-
   color:#1d2738;
-
-  padding-top:38px;
+  padding:38px 0 20px;
+  flex-shrink:0;
 }
 
 .chat-body{
-  position:relative;
   flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+}
+
+.chat-body{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .login-content{
-  position:absolute;
-  left:32px;
-  right:32px;
-  bottom:170px;
+  width:100%;
+  max-width:320px;
   text-align:center;
 }
 
@@ -4985,13 +4991,13 @@ function calculateShipping(event){
 
 function openChat(){
 
-  document.getElementById("chatOverlay").style.display="flex";
+  document.getElementById("chatOverlay").style.display = "flex";
 
-  document.querySelector(".chat-float").style.display="none";
+  document.querySelector(".chat-float").style.display = "none";
 
-  document.getElementById("loginScreen").style.display="block";
+  document.getElementById("loginScreen").style.display = "flex";
 
-  document.getElementById("chatScreen").style.display="none";
+  document.getElementById("chatScreen").style.display = "none";
 
 }
 
