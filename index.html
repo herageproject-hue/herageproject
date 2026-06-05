@@ -2400,8 +2400,9 @@ body.auth-open #overlay{
   flex:1;
   display:flex;
   flex-direction:column;
+  justify-content:flex-end;
   align-items:center;
-  padding:20px 30px 40px;
+  padding:0 30px 140px;
 }
 
 .chat-body .chat-icon{
@@ -2414,13 +2415,15 @@ body.auth-open #overlay{
   font-size:20px;
   font-weight:700;
   margin-bottom:10px;
+  display:none;
 }
 
 .chat-body p{
-  font-size:14px;
-  line-height:1.4;
+  font-size:15px;
+  font-weight:600;
   text-align:center;
-  max-width:260px;
+  max-width:620px;
+  margin-bottom:25px;
 }
   
 .chat-icon{
@@ -2428,38 +2431,21 @@ body.auth-open #overlay{
   opacity:.15;
   margin-top:80px;
   margin-bottom:25px;
+  display:none;
 }
 
 .chat-login-btn{
   width:100%;
-  max-width:460px;
-
-  height:58px;
-
-  border:none;
-  border-radius:18px;
-
-  background:#111;
-  color:#fff;
-
-  font-size:18px;
-  font-weight:700;
-
-  margin-top:20px;
-  margin-bottom:15px;
+  height:56px;
+  border-radius:16px;
+  margin-top:0;
 }
 
 .chat-skip-btn{
-  margin-top:20px;
-
-  background:none;
-  border:none;
-
-  text-decoration:underline;
-
-  color:#9d9d9d;
-
+  margin-top:18px;
   font-size:16px;
+  color:#9a9a9a;
+  text-decoration:underline;
 }
 
 .chat-input-wrapper{
@@ -5121,7 +5107,7 @@ async function loadMessages(){
           <h3>Need Help?</h3>
 
           <p>
-            Login untuk menyimpan riwayat chat ke akun Anda.
+            Log in to save your chat and continue on any device.
           </p>
 
           <button class="chat-login-btn">
