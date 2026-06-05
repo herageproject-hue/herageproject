@@ -2243,33 +2243,24 @@ body.auth-open #overlay{
   padding-bottom:100px;
 }
 
+/* CHAT FLOAT */
 .chat-float{
   position:fixed;
-
   right:16px;
   bottom:16px;
-
   width:58px;
   height:58px;
-
   background:#111;
   border-radius:18px;
-
   display:flex;
-  justify-content:center;
   align-items:center;
-
-  cursor:pointer;
-
+  justify-content:center;
   z-index:99999;
-
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .chat-float img{
   width:28px;
   height:28px;
-  object-fit:contain;
 }
 
 /* OVERLAY */
@@ -2277,273 +2268,197 @@ body.auth-open #overlay{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.25);
-
   display:none;
   justify-content:center;
   align-items:center;
-
   z-index:10000;
 }
 
-/* POPUP */
+/* WINDOW */
 .live-chat-window{
   width:92%;
-  max-width:420px;
-  height:78vh;
-
-  background:#f6f6f6;
-
-  border-radius:22px;
-
+  height:86vh;
+  background:#f5f5f5;
+  border-radius:24px;
   overflow:hidden;
-
   display:flex;
   flex-direction:column;
-
   position:relative;
-
-  box-shadow:0 15px 40px rgba(0,0,0,.15);
 }
 
-/* TITLE */
-
-.live-chat-header div{
-  width:100%;
+/* HEADER */
+.live-chat-header{
   text-align:center;
-}
-
-.chat-status{
-  display:none;
+  font-size:30px;
+  font-weight:400;
+  color:#1d2738;
+  padding:28px 20px 20px;
 }
 
 /* BODY */
 .chat-messages{
   flex:1;
-
-  background:#f6f6f6;
-
+  overflow-y:auto;
   padding:20px;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  flex-direction:column;
 }
 
-/* EMPTY CHAT */
+/* EMPTY STATE */
 .chat-empty{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
 }
 
 .chat-empty img{
-  width:90px;
+  width:80px;
   opacity:.35;
   margin-bottom:20px;
 }
 
 .chat-empty h3{
-  font-size:22px;
+  font-size:28px;
+  font-weight:700;
+  color:#1d2738;
   margin-bottom:10px;
 }
 
 .chat-empty p{
   font-size:16px;
-  color:#555;
+  color:#444;
+  max-width:260px;
+  line-height:1.5;
 }
 
-/* INPUT */
+/* INPUT AREA */
 .chat-input-area{
   padding:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f5f5f5;
+}
 
-  border:none;
-
-  background:#f6f6f6;
-
-  gap:10px;
+.chat-input-wrapper{
+  flex:1;
+  position:relative;
 }
 
 .chat-input-area input{
-  height:58px;
-
-  border:2px solid #ddd;
-
-  border-radius:18px;
-
-  padding:0 18px;
-
+  width:100%;
+  height:60px;
+  border:2px solid #e4e4e4;
+  border-radius:20px;
+  padding:0 55px 0 18px;
+  font-size:18px;
   background:#fff;
 }
 
-.chat-input-area button{
-  width:58px;
-
+/* IMAGE BUTTON */
+.chat-image-btn{
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
   border:none;
-
-  border-radius:18px;
-
-  background:#d8d8d8;
-
-  color:#555;
-}
-
-.chat-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.25);
-
-  display:none;
-  justify-content:center;
-  align-items:center;
-
-  z-index:10000;
-}
-
-.live-chat-window{
-
-  width:92%;
-  height:92vh;
-
-  background:#f5f5f5;
-
-  border-radius:24px;
-
-  overflow:hidden;
-
-  display:flex;
-  flex-direction:column;
-}
-
-.live-chat-header{
-  padding:18px 0 8px;
   font-size:22px;
-  font-weight:400;
-  color:#1d2738;
+  color:#111;
+}
+
+/* SEND */
+.chat-input-area button.send-btn{
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:18px;
+  background:#d8d8d8;
+  color:#fff;
+}
+
+/* CLOSE */
+.chat-close{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  width:56px;
+  height:56px;
+  border:none;
+  border-radius:18px;
+  background:#111;
+  color:#fff;
+  font-size:22px;
+  z-index:10001;
 }
 
 .chat-body{
-
   flex:1;
 
   display:flex;
   flex-direction:column;
 
-  justify-content:flex-end;
+  justify-content:center;
   align-items:center;
 
-  padding:120px;
+  padding:40px 30px;
 }
 
 .chat-icon{
-  width:90px;
-  opacity:.35;
-  margin-bottom:25px;
-}
-
-.chat-body h3{
-  font-size:22px;
-  margin-bottom:8px;
-}
-
-.chat-body p{
-  text-align:center;
-  color:#555;
-  margin-bottom:20px;
+  width:140px;
+  margin-bottom:30px;
+  opacity:1;
 }
 
 .chat-login-btn{
-
   width:100%;
-  height:52px;
+  max-width:460px;
+
+  height:64px;
 
   border:none;
-
-  border-radius:14px;
+  border-radius:18px;
 
   background:#111;
   color:#fff;
 
-  font-size:16px;
+  font-size:18px;
   font-weight:700;
+
+  margin-top:20px;
 }
 
 .chat-skip-btn{
+  margin-top:20px;
+
+  background:none;
+  border:none;
 
   text-decoration:underline;
 
-  margin-top:16px;
-
-  border:none;
-
-  background:none;
-
-  color:#9a9a9a;
+  color:#9d9d9d;
 
   font-size:16px;
 }
 
-.chat-messages{
+.chat-input-wrapper{
   flex:1;
-  overflow:auto;
-  padding:20px;
+  position:relative;
 }
 
-.chat-empty{
-  text-align:center;
-  margin-top:100px;
-}
-
-.chat-input-area{
-  padding:14px 18px 18px;
-  display:flex;
-  gap:10px;
-}
-
-.chat-input-area input{
-
-  flex:1;
-
-  height:56px;
-
-  border:1px solid #d7d7d7;
-
-  border-radius:18px;
-
-  padding:0 18px;
-}
-
-.chat-input-area button{
-
-  width:56px;
-  height:56px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:#d3d3d3;
-}
-
-.chat-close{
-
-  position:fixed;
-
+.chat-image-btn{
+  position:absolute;
   right:16px;
-  bottom:16px;
+  top:50%;
+  transform:translateY(-50%);
 
-  width:52px;
-  height:52px;
-
+  background:none;
   border:none;
 
-  border-radius:16px;
-
-  background:#111;
-
-  color:#fff;
-
-  font-size:20px;
+  font-size:24px;
 }
+  
 </style>
 </head>
 
@@ -5157,11 +5072,17 @@ async function loadMessages(){
 
       <div class="chat-body">
 
+        <img
+          src="box.PNG"
+          class="chat-icon"
+          alt="box"
+        >
+
         <h3>Need Help?</h3>
 
         <p>
           Login untuk menyimpan riwayat chat ke akun Anda.
-        </p>
+        </p> 
 
         <button
           class="chat-login-btn"
@@ -5204,13 +5125,26 @@ async function loadMessages(){
 
       <div class="chat-input-area">
 
-        <input
-          id="chatInput"
-          type="text"
-          placeholder="Message"
-        >
+        <div class="chat-input-wrapper">
 
-        <button onclick="sendMessage()">
+          <input
+            id="chatInput"
+            type="text"
+            placeholder="Message"
+          >
+
+          <button
+            type="button"
+            class="chat-image-btn">
+            🖼️
+          </button>
+
+        </div>
+
+        <button
+          type="button"
+          class="send-btn"
+          onclick="sendMessage()">
           ➤
         </button>
 
