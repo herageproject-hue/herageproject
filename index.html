@@ -2278,7 +2278,7 @@ body.auth-open #overlay{
 .live-chat-window{
   width:92%;
   max-width:380px;
-  height:68vh;
+  height:72vh;
   max-height:680px;
   background:#f5f5f5;
   border-radius:24px;
@@ -2291,10 +2291,10 @@ body.auth-open #overlay{
 /* HEADER */
 .live-chat-header{
   text-align:center;
-  font-size:30px;
+  font-size:28px;
   font-weight:400;
   color:#1d2738;
-  padding:28px 20px 20px;
+  padding:24px 20px 12px;
 }
 
 /* BODY */
@@ -2318,16 +2318,16 @@ body.auth-open #overlay{
 }
 
 .chat-empty img{
-  width:80px;
-  opacity:.35;
-  margin-bottom:20px;
+  width:70px;
+  opacity:.25;
+  margin-bottom:14px;
 }
 
 .chat-empty h3{
   font-size:22px;
   font-weight:700;
   margin-top:10px;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .chat-empty p{
@@ -2401,7 +2401,7 @@ body.auth-open #overlay{
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:40px 30px;
+  padding:70px 30px 40px;
 }
 
 .chat-body .chat-icon{
@@ -2423,9 +2423,10 @@ body.auth-open #overlay{
 }
   
 .chat-icon{
-  width:140px;
-  margin-bottom:30px;
-  opacity:1;
+  width:95px;
+  height:auto;
+  opacity:.25;
+  margin-bottom:25px;
 }
 
 .chat-login-btn{
@@ -2474,6 +2475,22 @@ body.auth-open #overlay{
   border:none;
 
   font-size:24px;
+}
+
+.chat-screen{
+  display:none;
+  height:100%;
+  flex-direction:column;
+}
+
+.send-btn img{
+  width:26px;
+  height:26px;
+}
+
+.chat-image-btn img{
+  width:24px;
+  height:24px;
 }
   
 </style>
@@ -5118,7 +5135,7 @@ async function loadMessages(){
     </div>
 
     <!-- CHAT SCREEN -->
-    <div id="chatScreen" style="display:none;height:100%;flex-direction:column;">
+    <div id="chatScreen" class="chat-screen">
 
       <div class="live-chat-header">
         Chat Support
@@ -5152,7 +5169,10 @@ async function loadMessages(){
 
           <button
             type="button"
+            class="chat-image-btn">
+
             <img src="image.PNG" alt="image">
+
           </button>
 
         </div>
