@@ -2184,21 +2184,28 @@ body.auth-open #overlay{
   height:58px;
 
   min-width:58px;
+  min-height:58px;
 
   background:#111;
   border:none;
   border-radius:18px;
 
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  overflow:hidden;
+  flex-shrink:0;
 }
 
-.chat-float-btn img{
+.chat-float-btn img,
+.chat-float-btn svg{
   width:28px;
-  filter:brightness(0) invert(1);
+  height:28px;
+  max-width:28px;
+  max-height:28px;
+
+  object-fit:contain;
 }
 
 .chat-popup{
