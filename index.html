@@ -5084,11 +5084,33 @@ function chatLogin(){
 
 }
 
+function getGuestId(){
+
+  let guestId =
+    localStorage.getItem("guest_id");
+
+  if(!guestId){
+
+    guestId = crypto.randomUUID();
+
+    localStorage.setItem(
+      "guest_id",
+      guestId
+    );
+
+  }
+
+  return guestId;
+
+}
+
 let guestChat = false;
 
 function startGuestChat(){
 
   guestChat = true;
+
+  getGuestId();
 
   document.getElementById(
     "loginScreen"
@@ -5097,6 +5119,8 @@ function startGuestChat(){
   document.getElementById(
     "chatScreen"
   ).style.display = "flex";
+
+  loadGuestMessages();
 
 }
 
@@ -5145,6 +5169,16 @@ async function sendMessage(){
         message:text
       });
 
+  }else if(guestChat){
+
+    await supabaseClient
+      .from("guest_chat")
+      .insert({
+        guest_id:getGuestId(),
+        sender:"user",
+        message:text
+      });
+
   }
 
 }
@@ -5184,6 +5218,61 @@ async function loadMessages(){
     `;
 
     return;
+  }
+
+  data.forEach(msg=>{
+
+    box.innerHTML += `
+      <div class="${
+        msg.sender === "user"
+        ? "user-message"
+        : "admin-message"
+      }">
+        ${msg.message}
+      </div>
+    `;
+
+  });
+
+}
+
+async function loadGuestMessages(){
+
+  const guestId =
+    getGuestId();
+
+  const box =
+    document.getElementById(
+      "chatMessages"
+    );
+
+  box.innerHTML = "";
+
+  const { data } =
+    await supabaseClient
+      .from("guest_chat")
+      .select("*")
+      .eq("guest_id", guestId)
+      .order("created_at");
+
+  if(!data || data.length === 0){
+
+    box.innerHTML = `
+      <div class="chat-empty">
+
+        <img src="box.PNG">
+
+        <h3>No Messages Yet</h3>
+
+        <p>
+          Start a chat to get assistance or ask questions.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
   }
 
   data.forEach(msg=>{
