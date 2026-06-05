@@ -3722,6 +3722,12 @@ async function login(){
 
     closeAuth();
 
+    // BUKA CHAT LANGSUNG
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("chatScreen").style.display = "flex";
+
+    await loadMessages();
+
     loadUser();
     checkWishlist();
     renderWishlist();
@@ -5056,12 +5062,43 @@ function calculateShipping(event){
 
 }
 
-function openChat(){
+async function openChat(){
 
   document.getElementById("chatOverlay").style.display = "flex";
 
   document.querySelector(".chat-float").style.display = "none";
 
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
+
+  // JIKA SUDAH LOGIN
+  if(user){
+
+    document.getElementById("loginScreen").style.display = "none";
+
+    document.getElementById("chatScreen").style.display = "flex";
+
+    loadMessages();
+
+    return;
+  }
+
+  // JIKA GUEST SUDAH PERNAH CHAT
+  if(localStorage.getItem("guest_id")){
+
+    guestChat = true;
+
+    document.getElementById("loginScreen").style.display = "none";
+
+    document.getElementById("chatScreen").style.display = "flex";
+
+    loadGuestMessages();
+
+    return;
+  }
+
+  // BELUM LOGIN DAN BELUM PERNAH CHAT
   document.getElementById("loginScreen").style.display = "flex";
 
   document.getElementById("chatScreen").style.display = "none";
