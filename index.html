@@ -2277,7 +2277,9 @@ body.auth-open #overlay{
 /* WINDOW */
 .live-chat-window{
   width:92%;
-  height:86vh;
+  max-width:380px;
+  height:68vh;
+  max-height:680px;
   background:#f5f5f5;
   border-radius:24px;
   overflow:hidden;
@@ -2300,16 +2302,19 @@ body.auth-open #overlay{
   flex:1;
   overflow-y:auto;
   padding:20px;
+  display:flex;
+  flex-direction:column;
 }
 
 /* EMPTY STATE */
 .chat-empty{
-  height:100%;
+  flex:1;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
+  margin-top:-80px;
 }
 
 .chat-empty img{
@@ -2319,25 +2324,25 @@ body.auth-open #overlay{
 }
 
 .chat-empty h3{
-  font-size:28px;
+  font-size:22px;
   font-weight:700;
-  color:#1d2738;
-  margin-bottom:10px;
+  margin-top:10px;
+  margin-bottom:8px;
 }
 
 .chat-empty p{
-  font-size:16px;
+  font-size:15px;
   color:#444;
-  max-width:260px;
-  line-height:1.5;
+  max-width:280px;
+  line-height:1.4;
 }
 
 /* INPUT AREA */
 .chat-input-area{
-  padding:18px;
+  padding:14px;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
   background:#f5f5f5;
 }
 
@@ -2348,11 +2353,11 @@ body.auth-open #overlay{
 
 .chat-input-area input{
   width:100%;
-  height:60px;
-  border:2px solid #e4e4e4;
-  border-radius:20px;
-  padding:0 55px 0 18px;
-  font-size:18px;
+  height:54px;
+  border:2px solid #e5e5e5;
+  border-radius:18px;
+  padding:0 50px 0 16px;
+  font-size:16px;
   background:#fff;
 }
 
@@ -2370,12 +2375,10 @@ body.auth-open #overlay{
 
 /* SEND */
 .chat-input-area button.send-btn{
-  width:60px;
-  height:60px;
-  border:none;
-  border-radius:18px;
+  width:54px;
+  height:54px;
+  border-radius:16px;
   background:#d8d8d8;
-  color:#fff;
 }
 
 /* CLOSE */
@@ -2395,16 +2398,30 @@ body.auth-open #overlay{
 
 .chat-body{
   flex:1;
-
   display:flex;
   flex-direction:column;
-
-  justify-content:center;
   align-items:center;
-
   padding:40px 30px;
 }
 
+.chat-body .chat-icon{
+  width:110px;
+  margin-top:120px;
+  margin-bottom:30px;
+}
+
+.chat-body h3{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.chat-body p{
+  text-align:center;
+  font-size:15px;
+  max-width:260px;
+}
+  
 .chat-icon{
   width:140px;
   margin-bottom:30px;
