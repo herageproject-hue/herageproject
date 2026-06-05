@@ -5110,12 +5110,16 @@ async function sendMessage(){
 
   if(!text) return;
 
-  const {
-    data:{ user }
-  } = await supabaseClient.auth.getUser();
-
   const box =
     document.getElementById("chatMessages");
+
+  // HAPUS EMPTY STATE
+  const empty =
+    box.querySelector(".chat-empty");
+
+  if(empty){
+    empty.remove();
+  }
 
   box.innerHTML += `
     <div class="user-message">
@@ -5126,6 +5130,10 @@ async function sendMessage(){
   box.scrollTop = box.scrollHeight;
 
   input.value = "";
+
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
 
   if(user){
 
@@ -5140,7 +5148,7 @@ async function sendMessage(){
   }
 
 }
-
+  
 async function loadMessages(){
 
   const {
@@ -5158,10 +5166,25 @@ async function loadMessages(){
 
   const { data } =
     await supabaseClient
-    .from("chats")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at");
+      .from("chats")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at");
+
+  if(data.length === 0){
+
+    box.innerHTML = `
+      <div class="chat-empty">
+        <img src="box.PNG" alt="box">
+        <h3>No Messages Yet</h3>
+        <p>
+          Start a chat to get assistance or ask questions.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
 
   data.forEach(msg=>{
 
@@ -5176,8 +5199,6 @@ async function loadMessages(){
     `;
 
   });
-
-  box.scrollTop = box.scrollHeight;
 
 }
 </script>
