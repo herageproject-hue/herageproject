@@ -364,6 +364,48 @@ supabaseClient
         payload.new.user_id === selectedUserId
       ){
 
+        // otomatis tandai terbaca jika admin sedang membuka room ini
+        if(payload.new.sender === "user"){
+
+          await supabaseClient
+            .from("chats")
+            .update({
+              is_read:true
+            })
+            .eq("id", payload.new.id);
+
+        }
+
+        const box =
+          document.getElementById("messages");
+
+        box.innerHTML += `
+          <div class="${
+            payload.new.sender === "user"
+            ? "user-message"
+            : "admin-message"
+          }">
+
+            <div>
+              ${payload.new.message}
+            </div>
+
+            <div class="message-time">
+              ${formatTime(
+                payload.new.created_at
+              )}
+            </div>
+
+          </div>
+        `;
+
+        box.scrollTop =
+          box.scrollHeight;
+
+        // refresh sidebar supaya badge langsung hilang
+        loadUsers();
+      }
+
         const box =
           document.getElementById("messages");
 
