@@ -1,11 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Admin Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<style>
+body{
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#f5f5f5;
+}
+
+.box{
+  background:#fff;
+  padding:30px;
+  width:320px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  box-sizing:border-box;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#111;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Admin Login</h1>
+<div class="box">
+
+<h2>Admin Login</h2>
+
+<input
+id="email"
+type="email"
+placeholder="Email">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button onclick="loginAdmin()">
+Login
+</button>
+
+</div>
+
+<script>
+
+const supabaseUrl =
+"https://bxsrbfaecrmuaziakyvi.supabase.co";
+
+const supabaseKey =
+"PASTE_PUBLISHABLE_KEY_DISINI";
+
+const supabaseClient =
+supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+async function loginAdmin(){
+
+  const email =
+    document.getElementById("email").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const { error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
+
+  const { data } =
+    await supabaseClient
+      .from("admins")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+  if(!data){
+
+    alert("Bukan admin");
+
+    await supabaseClient.auth.signOut();
+
+    return;
+  }
+
+  location.href =
+    "admin.html";
+
+}
+
+</script>
 
 </body>
 </html>
