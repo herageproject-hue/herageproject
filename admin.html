@@ -186,7 +186,7 @@ async function logoutAdmin(){
 
 async function loadUsers(){
 
-  const { data, error } =
+  const { data: users } =
     await supabaseClient
       .from("profiles")
       .select("*");
@@ -196,7 +196,26 @@ async function loadUsers(){
 
   box.innerHTML = "";
 
-  data.forEach(user => {
+  for(const user of users){
+
+    const { data: lastChat } =
+      await supabaseClient
+        .from("chats")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", {
+          ascending:false
+        })
+        .limit(1);
+
+    let preview = "Belum ada chat";
+
+    if(lastChat && lastChat.length){
+
+      preview =
+        lastChat[0].message;
+
+    }
 
     box.innerHTML += `
       <div
@@ -204,12 +223,14 @@ async function loadUsers(){
         onclick="openUserChat('${user.id}')">
 
         <b>${user.full_name || "No Name"}</b><br>
-        ${user.email}
+
+        <small>
+          ${preview}
+        </small>
 
       </div>
     `;
-
-  });
+  }
 
 }
 
