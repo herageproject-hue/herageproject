@@ -5123,11 +5123,11 @@ async function openChat(){
       "chatScreen"
     ).style.display = "flex";
 
-    loadMessages();
+    await loadMessages();
 
-    subscribeChat(
-      user.id
-    );
+    subscribeChat(user.id);
+
+    return;
 
   }
 
@@ -5225,7 +5225,7 @@ async function transferGuestChat(userId){
 
 }
 
-function startGuestChat(){
+async function startGuestChat(){
 
   guestChat = true;
 
@@ -5239,7 +5239,9 @@ function startGuestChat(){
     "chatScreen"
   ).style.display = "flex";
 
-  loadGuestMessages();
+  await loadGuestMessages();
+
+  subscribeGuestChat();
 
 }
 
@@ -5456,6 +5458,10 @@ function subscribeChat(userId){
 
         const msg = payload.new;
 
+        if(msg.user_id !== userId){
+          return;
+        }
+
         if(msg.sender === "admin"){
 
           let unread =
@@ -5477,10 +5483,6 @@ function subscribeChat(userId){
         }
 
         if(msg.sender === "user"){
-          return;
-        }
-
-        if(msg.user_id !== userId){
           return;
         }
 
@@ -5529,6 +5531,82 @@ window.addEventListener("load",()=>{
   updateBadge(unread);
 
 });
+
+function subscribeGuestChat(){
+
+  const guestId =
+    getGuestId();
+
+  supabaseClient
+    .channel("guest-chat")
+
+    .on(
+      "postgres_changes",
+      {
+        event:"INSERT",
+        schema:"public",
+        table:"guest_chat"
+      },
+
+      payload => {
+
+        const msg =
+          payload.new;
+
+        if(msg.guest_id !== guestId){
+          return;
+        }
+
+        if(msg.sender === "user"){
+          return;
+        }
+
+        let unread =
+          Number(
+            localStorage.getItem(
+              "unread_chat"
+            ) || 0
+          );
+
+        unread++;
+
+        localStorage.setItem(
+          "unread_chat",
+          unread
+        );
+
+        updateBadge(unread);
+
+        const box =
+          document.getElementById(
+            "chatMessages"
+          );
+
+        const empty =
+          box.querySelector(
+            ".chat-empty"
+          );
+
+        if(empty){
+          empty.remove();
+        }
+
+        box.innerHTML += `
+          <div class="admin-message">
+            ${msg.message}
+          </div>
+        `;
+
+        box.scrollTop =
+          box.scrollHeight;
+
+      }
+
+    )
+
+    .subscribe();
+
+}
   
 </script>
 <div id="homeAccordion">
