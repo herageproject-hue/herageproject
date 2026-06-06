@@ -124,34 +124,26 @@ async function loadUsers(){
 
   const { data, error } =
     await supabaseClient
-      .from("chats")
+      .from("profiles")
       .select("*");
-
-  console.log(data);
 
   const box =
     document.getElementById("userList");
 
   box.innerHTML = "";
 
-  const users = {};
+  data.forEach(user => {
 
-  data.forEach(chat => {
+    box.innerHTML += `
+      <div
+        class="chat-list-item"
+        onclick="openUserChat('${user.id}')">
 
-    if(!users[chat.user_id]){
-      users[chat.user_id] = true;
+        <b>${user.full_name || "No Name"}</b><br>
+        ${user.email}
 
-      box.innerHTML += `
-        <div
-          class="chat-list-item"
-          onclick="openUserChat('${chat.user_id}')">
-
-          <b>User</b><br>
-          ${chat.user_id}
-
-        </div>
-      `;
-    }
+      </div>
+    `;
 
   });
 
