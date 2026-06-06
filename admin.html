@@ -430,6 +430,16 @@ async function openUserChat(userId){
       .eq("sender", "user")
       .eq("is_read", false);
 
+  const { data: unreadCheck } =
+    await supabaseClient
+      .from("chats")
+      .select("id,is_read")
+      .eq("user_id", userId)
+      .eq("sender", "user")
+      .eq("is_read", false);
+
+  console.log("UNREAD:", unreadCheck);
+
   console.log("UPDATE ERROR:", updateError);
 
   const { data: checkData } =
