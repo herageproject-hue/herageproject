@@ -301,7 +301,7 @@ async function loadUsers(){
         onclick="openUserChat('${id}')">
 
         ${
-          count > 0
+          count > 0 && selectedUserId !== id
           ? `<span class="badge">${count}</span>`
           : ""
         }
@@ -429,6 +429,7 @@ async function openUserChat(userId){
       .eq("user_id", userId)
       .eq("sender", "user")
       .eq("is_read", false);
+  await loadUsers();
 
   console.log("UPDATE ERROR:", updateError);
 
@@ -540,8 +541,6 @@ async function openUserChat(userId){
 
   box.scrollTop =
     box.scrollHeight;
-
-  loadUsers();
 
 }
 
