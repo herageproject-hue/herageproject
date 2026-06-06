@@ -225,14 +225,11 @@ async function logoutAdmin(){
 }  
 
 function formatTime(dateString){
-
   return new Date(dateString)
     .toLocaleTimeString("id-ID",{
-      timeZone:"Asia/Jakarta",
       hour:"2-digit",
       minute:"2-digit"
     });
-
 }
   
 async function loadUsers(){
