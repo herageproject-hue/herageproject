@@ -118,6 +118,45 @@ supabase.createClient(
   supabaseKey
 );
 
+checkAdmin();
+
+async function checkAdmin(){
+
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
+
+  if(!user){
+
+    location.href =
+      "admin-login.html";
+
+    return;
+  }
+
+  const { data, error } =
+    await supabaseClient
+      .from("admins")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+  if(error || !data){
+
+    alert("Access denied");
+
+    await supabaseClient.auth.signOut();
+
+    location.href =
+      "admin-login.html";
+
+    return;
+  }
+
+  loadUsers();
+
+}
+  
 let selectedUserId = null;
 
 async function loadUsers(){
@@ -148,8 +187,6 @@ async function loadUsers(){
   });
 
 }
-
-loadUsers();
 
 /* REALTIME USER LIST */
 supabaseClient
@@ -257,8 +294,6 @@ async function sendAdminMessage(){
 
   input.value = "";
 }
-
-loadUsers();
 </script>
 </body>
 </html>
