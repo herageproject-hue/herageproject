@@ -122,35 +122,13 @@ let selectedUserId = null;
 
 async function loadUsers(){
 
-  const { data } =
+  const { data, error } =
     await supabaseClient
       .from("chats")
       .select("user_id");
 
-  const uniqueUsers =
-    [...new Set(
-      data.map(x => x.user_id)
-    )];
-
-  const box =
-    document.getElementById("userList");
-
-  box.innerHTML = "";
-
-  uniqueUsers.forEach(userId => {
-
-    box.innerHTML += `
-      <div
-        class="chat-list-item"
-        onclick="openUserChat('${userId}')">
-
-        <b>User</b><br>
-        ${userId}
-
-      </div>
-    `;
-
-  });
+  console.log("DATA =", data);
+  console.log("ERROR =", error);
 
 }
 
