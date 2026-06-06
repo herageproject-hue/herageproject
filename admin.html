@@ -295,6 +295,13 @@ async function loadUsers(){
         .eq("sender", "user")
         .eq("is_read", false);
 
+    console.log(
+      "USER:",
+      id,
+      "COUNT:",
+      count
+    );
+
     box.innerHTML += `
       <div
         class="chat-list-item"
