@@ -429,7 +429,6 @@ async function openUserChat(userId){
       .eq("user_id", userId)
       .eq("sender", "user")
       .eq("is_read", false);
-  await loadUsers();
 
   console.log("UPDATE ERROR:", updateError);
 
@@ -541,7 +540,8 @@ async function openUserChat(userId){
 
   box.scrollTop =
     box.scrollHeight;
-
+  loadUsers();
+ 
 }
 
 async function sendAdminMessage(){
