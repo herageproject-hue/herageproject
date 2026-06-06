@@ -3686,7 +3686,27 @@ async function register(){
         }
       });
 
-    alert(error ? error.message : "REGISTER SUCCESS");
+    if(error){
+      alert(error.message);
+      return;
+    }
+
+    /* SIMPAN KE PROFILES */
+    if(data.user){
+
+      await supabaseClient
+        .from("profiles")
+        .insert({
+          id: data.user.id,
+          full_name: name,
+          email: email
+        });
+
+    }
+
+    alert("Register success. Check your email!");
+
+    showLogin();
     
     if(error){
       alert(error.message);
