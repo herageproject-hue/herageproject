@@ -137,6 +137,15 @@ body{
 
 <div class="chat-area">
 
+  <div id="chatHeader" style="
+    padding:15px;
+    border-bottom:1px solid #ddd;
+    background:white;
+    font-weight:bold;
+  ">
+    Pilih user...
+  </div>
+
   <div
     id="messages"
     class="messages">
@@ -383,6 +392,20 @@ supabaseClient
 async function openUserChat(userId){
 
   selectedUserId = userId;
+
+  const { data:userData } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+  document.getElementById(
+    "chatHeader"
+  ).innerHTML =
+    userData.full_name ||
+    userData.email ||
+    "Guest User";
 
   const { data, error } =
     await supabaseClient
