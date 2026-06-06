@@ -125,10 +125,35 @@ async function loadUsers(){
   const { data, error } =
     await supabaseClient
       .from("chats")
-      .select("user_id");
+      .select("*");
 
-  console.log("DATA =", data);
-  console.log("ERROR =", error);
+  console.log(data);
+
+  const box =
+    document.getElementById("userList");
+
+  box.innerHTML = "";
+
+  const users = {};
+
+  data.forEach(chat => {
+
+    if(!users[chat.user_id]){
+      users[chat.user_id] = true;
+
+      box.innerHTML += `
+        <div
+          class="chat-list-item"
+          onclick="openUserChat('${chat.user_id}')">
+
+          <b>User</b><br>
+          ${chat.user_id}
+
+        </div>
+      `;
+    }
+
+  });
 
 }
 
