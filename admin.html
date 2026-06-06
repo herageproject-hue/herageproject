@@ -124,26 +124,28 @@ async function loadUsers(){
 
   const { data } =
     await supabaseClient
-      .from("profiles")
-      .select("*");
+      .from("chats")
+      .select("user_id");
+
+  const uniqueUsers =
+    [...new Set(
+      data.map(x => x.user_id)
+    )];
 
   const box =
-    document.getElementById(
-      "userList"
-    );
+    document.getElementById("userList");
 
   box.innerHTML = "";
 
-  data.forEach(user=>{
+  uniqueUsers.forEach(userId => {
 
     box.innerHTML += `
       <div
         class="chat-list-item"
-        onclick="openUserChat('${user.id}')">
+        onclick="openUserChat('${userId}')">
 
-        <b>${user.full_name}</b><br>
-
-        ${user.email}
+        <b>User</b><br>
+        ${userId}
 
       </div>
     `;
