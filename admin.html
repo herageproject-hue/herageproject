@@ -423,7 +423,77 @@ async function openUserChat(userId){
 
   box.innerHTML = "";
 
+  let lastDate = "";
+
   data.forEach(msg => {
+
+    const msgDate =
+      new Date(msg.created_at);
+
+    const today =
+      new Date();
+
+    const yesterday =
+      new Date();
+
+    yesterday.setDate(
+      yesterday.getDate() - 1
+    );
+
+    let dateLabel;
+
+    if(
+      msgDate.toDateString() ===
+      today.toDateString()
+    ){
+
+      dateLabel = "Hari Ini";
+
+    }
+    else if(
+      msgDate.toDateString() ===
+      yesterday.toDateString()
+    ){
+
+      dateLabel = "Kemarin";
+
+    }
+    else{
+
+      dateLabel =
+        msgDate.toLocaleDateString(
+          "id-ID",
+          {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+          }
+        );
+
+    }
+
+    if(dateLabel !== lastDate){
+
+      box.innerHTML += `
+        <div style="
+          text-align:center;
+          margin:15px 0;
+        ">
+          <span style="
+            background:#ddd;
+            padding:6px 12px;
+            border-radius:20px;
+            font-size:12px;
+            color:#555;
+          ">
+            ${dateLabel}
+          </span>
+        </div>
+      `;
+
+      lastDate = dateLabel;
+
+    }
 
     box.innerHTML += `
       <div class="${
