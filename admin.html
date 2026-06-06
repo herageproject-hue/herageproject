@@ -226,12 +226,12 @@ async function logoutAdmin(){
 
 function formatTime(dateString){
 
-  const date = new Date(dateString);
-
-  return date.toLocaleTimeString("id-ID",{
-    hour:"2-digit",
-    minute:"2-digit"
-  });
+  return new Date(dateString)
+    .toLocaleTimeString("id-ID",{
+      timeZone:"Asia/Jakarta",
+      hour:"2-digit",
+      minute:"2-digit"
+    });
 
 }
   
