@@ -363,6 +363,15 @@ async function openUserChat(userId){
 
   console.log("UPDATE ERROR:", updateError);
 
+  const { data: checkData } =
+    await supabaseClient
+      .from("chats")
+      .select("id,is_read,sender")
+      .eq("user_id", userId)
+      .eq("sender","user");
+
+  console.log("CHECK:", checkData);
+
   const box =
     document.getElementById("messages");
 
