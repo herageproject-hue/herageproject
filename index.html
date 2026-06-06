@@ -3718,6 +3718,10 @@ async function login(){
       return;
     }
 
+    await transferGuestChat(
+      data.user.id
+    );
+
     alert("Login success");
 
     closeAuth();
@@ -3732,6 +3736,7 @@ async function login(){
     checkWishlist();
     renderWishlist();
     await checkNotificationStatus();
+    loadMessages();
 
   } catch(err){
 
@@ -5138,6 +5143,43 @@ function getGuestId(){
   }
 
   return guestId;
+
+}
+
+async function transferGuestChat(userId){
+
+  const guestId =
+    localStorage.getItem("guest_id");
+
+  if(!guestId) return;
+
+  const { data } =
+    await supabaseClient
+      .from("guest_chat")
+      .select("*")
+      .eq("guest_id", guestId);
+
+  if(!data || data.length === 0){
+    return;
+  }
+
+  const rows =
+    data.map(msg => ({
+      user_id: userId,
+      sender: msg.sender,
+      message: msg.message
+    }));
+
+  await supabaseClient
+    .from("chats")
+    .insert(rows);
+
+  await supabaseClient
+    .from("guest_chat")
+    .delete()
+    .eq("guest_id", guestId);
+
+  localStorage.removeItem("guest_id");
 
 }
 
