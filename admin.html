@@ -95,6 +95,24 @@ body{
   font-size:12px;
   margin-right:6px;
 }
+
+.message-time{
+  font-size:11px;
+  opacity:.7;
+  margin-top:4px;
+  text-align:right;
+}
+
+.chat-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chat-time{
+  font-size:11px;
+  color:#888;
+}
   
 </style>
 
@@ -206,6 +224,17 @@ async function logoutAdmin(){
 
 }  
 
+function formatTime(dateString){
+
+  const date = new Date(dateString);
+
+  return date.toLocaleTimeString("id-ID",{
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+
+}
+  
 async function loadUsers(){
 
   const { data: chats } =
@@ -271,7 +300,17 @@ async function loadUsers(){
           : ""
         }
 
-        <b>${user.full_name || "No Name"}</b><br>
+        <div class="chat-header">
+
+          <b>${user.full_name || "No Name"}</b>
+
+          <span class="chat-time">
+            ${formatTime(
+              latestUsers[id].created_at
+            )}
+          </span>
+
+        </div>
 
         <small>
           ${latestUsers[id].message}
@@ -321,7 +360,17 @@ supabaseClient
             ? "user-message"
             : "admin-message"
           }">
-            ${payload.new.message}
+
+            <div>
+              ${payload.new.message}
+            </div>
+
+            <div class="message-time">
+              ${formatTime(
+                payload.new.created_at
+              )}
+            </div>
+
           </div>
         `;
 
@@ -385,7 +434,15 @@ async function openUserChat(userId){
         ? "user-message"
         : "admin-message"
       }">
-        ${msg.message}
+
+        <div>
+          ${msg.message}
+        </div>
+
+        <div class="message-time">
+          ${formatTime(msg.created_at)}
+        </div>
+
       </div>
     `;
 
