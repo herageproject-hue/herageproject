@@ -74,6 +74,15 @@ body{
   padding:12px;
 }
 
+.chat-list-item small{
+  color:#777;
+  display:block;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+  
 </style>
 
 </head>
@@ -186,51 +195,62 @@ async function logoutAdmin(){
 
 async function loadUsers(){
 
+  const { data: chats } =
+    await supabaseClient
+      .from("chats")
+      .select("*")
+      .order("created_at", {
+        ascending:false
+      });
+
+  const latestUsers = {};
+
+  chats.forEach(chat => {
+
+    if(!latestUsers[chat.user_id]){
+
+      latestUsers[chat.user_id] = chat;
+
+    }
+
+  });
+
+  const userIds =
+    Object.keys(latestUsers);
+
   const { data: users } =
     await supabaseClient
       .from("profiles")
-      .select("*");
+      .select("*")
+      .in("id", userIds);
 
   const box =
     document.getElementById("userList");
 
   box.innerHTML = "";
 
-  for(const user of users){
+  userIds.forEach(id => {
 
-    const { data: lastChat } =
-      await supabaseClient
-        .from("chats")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", {
-          ascending:false
-        })
-        .limit(1);
+    const user =
+      users.find(u => u.id === id);
 
-    let preview = "Belum ada chat";
-
-    if(lastChat && lastChat.length){
-
-      preview =
-        lastChat[0].message;
-
-    }
+    if(!user) return;
 
     box.innerHTML += `
       <div
         class="chat-list-item"
-        onclick="openUserChat('${user.id}')">
+        onclick="openUserChat('${id}')">
 
         <b>${user.full_name || "No Name"}</b><br>
 
         <small>
-          ${preview}
+          ${latestUsers[id].message}
         </small>
 
       </div>
     `;
-  }
+
+  });
 
 }
 
