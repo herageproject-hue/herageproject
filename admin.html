@@ -338,13 +338,16 @@ async function openUserChat(userId){
 
   selectedUserId = userId;
 
-  await supabaseClient
-    .from("chats")
-    .update({
-      is_read:true
-    })
-    .eq("user_id", userId)
-    .eq("sender", "user");
+  const { error: updateError } =
+    await supabaseClient
+      .from("chats")
+      .update({
+        is_read:true
+      })
+      .eq("user_id", userId)
+      .eq("sender","user");
+
+  console.log(updateError);
 
   const { data, error } =
     await supabaseClient
