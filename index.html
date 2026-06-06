@@ -2609,6 +2609,31 @@ body.auth-open #overlay{
   height:100%;
   flex-direction:column;
 }
+
+#chatBadge{
+  position:absolute;
+
+  top:-5px;
+  right:-5px;
+
+  min-width:20px;
+  height:20px;
+
+  padding:0 6px;
+
+  background:red;
+  color:#fff;
+
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:700;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+}
   
 </style>
 </head>
@@ -5373,6 +5398,29 @@ async function loadGuestMessages(){
   });
 
 }
+
+function updateBadge(count){
+
+  const badge =
+    document.getElementById(
+      "chatBadge"
+    );
+
+  if(count <= 0){
+
+    badge.style.display =
+      "none";
+
+    return;
+
+  }
+
+  badge.innerText = count;
+
+  badge.style.display =
+    "flex";
+
+}
 </script>
 <div id="homeAccordion">
   <div class="accordion">
@@ -5405,6 +5453,9 @@ async function loadGuestMessages(){
 <!-- GLOBAL CHAT -->
 <div class="chat-float" onclick="openChat()">
   <img src="chat-icon.PNG" alt="Chat">
+  <span id="chatBadge">
+    0
+  </span>
 </div>
 
 <div id="chatOverlay" class="chat-overlay">
