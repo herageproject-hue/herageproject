@@ -80,7 +80,18 @@ body{
 
 <body>
 
-<div class="sidebar" id="userList">
+<div class="sidebar">
+
+  <div style="
+    padding:15px;
+    border-bottom:1px solid #ddd;
+  ">
+    <button onclick="logoutAdmin()">
+      Logout
+    </button>
+  </div>
+
+  <div id="userList"></div>
 
 </div>
 
@@ -158,6 +169,20 @@ async function checkAdmin(){
 }
   
 let selectedUserId = null;
+
+async function logoutAdmin(){
+
+  const confirmLogout =
+    confirm("Logout dari Admin?");
+
+  if(!confirmLogout) return;
+
+  await supabaseClient.auth.signOut();
+
+  location.href =
+    "admin-login.html";
+
+}  
 
 async function loadUsers(){
 
