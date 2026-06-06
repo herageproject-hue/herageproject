@@ -82,6 +82,19 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
+.badge{
+  background:red;
+  color:white;
+  border-radius:50%;
+  min-width:20px;
+  height:20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  margin-right:6px;
+}
   
 </style>
 
@@ -229,17 +242,34 @@ async function loadUsers(){
 
   box.innerHTML = "";
 
-  userIds.forEach(id => {
+  for(const id of userIds){
 
     const user =
       users.find(u => u.id === id);
 
-    if(!user) return;
+    if(!user) continue;
+
+    const { count } =
+      await supabaseClient
+        .from("chats")
+        .select("*", {
+          count:"exact",
+          head:true
+        })
+        .eq("user_id", id)
+        .eq("sender", "user")
+        .eq("is_read", false);
 
     box.innerHTML += `
       <div
         class="chat-list-item"
         onclick="openUserChat('${id}')">
+
+        ${
+          count > 0
+          ? `<span class="badge">${count}</span>`
+          : ""
+        }
 
         <b>${user.full_name || "No Name"}</b><br>
 
@@ -250,7 +280,7 @@ async function loadUsers(){
       </div>
     `;
 
-  });
+  }
 
 }
 
@@ -308,6 +338,14 @@ async function openUserChat(userId){
 
   selectedUserId = userId;
 
+  await supabaseClient
+    .from("chats")
+    .update({
+      is_read:true
+    })
+    .eq("user_id", userId)
+    .eq("sender", "user");
+
   const { data, error } =
     await supabaseClient
       .from("chats")
@@ -338,6 +376,7 @@ async function openUserChat(userId){
 
   box.scrollTop =
     box.scrollHeight;
+  loadUsers();
 
 }  
 
