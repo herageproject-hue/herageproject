@@ -78,6 +78,32 @@ supabase.createClient(
   supabaseKey
 );
 
+checkSession();
+
+async function checkSession(){
+
+  const {
+    data:{ user }
+  } = await supabaseClient.auth.getUser();
+
+  if(!user) return;
+
+  const { data } =
+    await supabaseClient
+      .from("admins")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+  if(data){
+
+    location.href =
+      "admin.html";
+
+  }
+
+}
+  
 async function loginAdmin(){
 
   const email =
