@@ -157,46 +157,61 @@ async function loadUsers(){
 
 }
 
-async function openUserChat(userId){
+loadUsers();
 
-  selectedUserId = userId;
+/* REALTIME USER LIST */
+supabaseClient
+  .channel("admin-users")
 
-  const { data } =
-    await supabaseClient
-      .from("chats")
-      .select("*")
-      .eq("user_id", userId)
-      .order("created_at");
+  .on(
+    "postgres_changes",
+    {
+      event: "INSERT",
+      schema: "public",
+      table: "chats"
+    },
+    payload => {
 
-  const box =
-    document.getElementById(
-      "messages"
-    );
+      // refresh daftar user
+      loadUsers();
 
-  box.innerHTML = "";
+      // jika chat yg sedang dibuka
+      if(
+        selectedUserId &&
+        payload.new.user_id === selectedUserId
+      ){
 
-  data.forEach(msg=>{
+        const box =
+          document.getElementById("messages");
 
-    box.innerHTML += `
-      <div class="${
-        msg.sender === "user"
-        ? "user-message"
-        : "admin-message"
-      }">
-        ${msg.message}
-      </div>
-    `;
+        box.innerHTML += `
+          <div class="${
+            payload.new.sender === "user"
+            ? "user-message"
+            : "admin-message"
+          }">
+            ${payload.new.message}
+          </div>
+        `;
 
-  });
+        box.scrollTop =
+          box.scrollHeight;
+      }
 
-}
+    }
+  )
+
+  .subscribe();
 
 async function sendAdminMessage(){
 
+  if(!selectedUserId){
+    alert("Pilih user dulu");
+    return;
+  }
+
   const input =
-    document.getElementById(
-      "adminMessage"
-    );
+    document.getElementById("adminMessage");
 
   const text =
     input.value.trim();
@@ -212,11 +227,6 @@ async function sendAdminMessage(){
     });
 
   input.value = "";
-
-  openUserChat(
-    selectedUserId
-  );
-
 }
 
 loadUsers();
