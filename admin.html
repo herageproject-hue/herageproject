@@ -339,7 +339,6 @@ async function loadUsers(){
 /* REALTIME USER LIST */
 supabaseClient
   .channel("admin-users")
-
   .on(
     "postgres_changes",
     {
@@ -347,7 +346,7 @@ supabaseClient
       schema: "public",
       table: "chats"
     },
-   payload => {
+    async payload => {
 
       if(payload.new.sender === "user"){
 
@@ -357,14 +356,11 @@ supabaseClient
 
       }
 
-      loadUsers();
-
       if(
         selectedUserId &&
         payload.new.user_id === selectedUserId
       ){
 
-        // otomatis tandai terbaca jika admin sedang membuka room ini
         if(payload.new.sender === "user"){
 
           await supabaseClient
@@ -402,40 +398,12 @@ supabaseClient
         box.scrollTop =
           box.scrollHeight;
 
-        // refresh sidebar supaya badge langsung hilang
-        loadUsers();
       }
 
-        const box =
-          document.getElementById("messages");
-
-        box.innerHTML += `
-          <div class="${
-            payload.new.sender === "user"
-            ? "user-message"
-            : "admin-message"
-          }">
-
-            <div>
-              ${payload.new.message}
-            </div>
-
-            <div class="message-time">
-              ${formatTime(
-                payload.new.created_at
-              )}
-            </div>
-
-          </div>
-        `;
-
-        box.scrollTop =
-          box.scrollHeight;
-      }
+      loadUsers();
 
     }
   )
-
   .subscribe();
 
 async function openUserChat(userId){
