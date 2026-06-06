@@ -224,12 +224,18 @@ supabaseClient
       schema: "public",
       table: "chats"
     },
-    payload => {
+   payload => {
 
-      // refresh daftar user
+      if(payload.new.sender === "user"){
+
+        new Audio(
+          "https://actions.google.com/sounds/v1/cartoon/pop.ogg"
+        ).play();
+
+      }
+
       loadUsers();
 
-      // jika chat yg sedang dibuka
       if(
         selectedUserId &&
         payload.new.user_id === selectedUserId
