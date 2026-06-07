@@ -16,8 +16,10 @@ body{
 }
 
 .sidebar{
-  width:300px;
-  border-right:1px solid #ddd;
+  width:320px;
+  background:#111b21;
+  color:white;
+  border-right:1px solid #222e35;
   overflow-y:auto;
 }
 
@@ -45,34 +47,50 @@ body{
 }
 
 .user-message{
-  background:#111;
-  color:#fff;
-  padding:10px 14px;
-  border-radius:16px;
-  margin-bottom:10px;
+  background:#005c4b;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
   margin-left:auto;
-  width:fit-content;
+  margin-bottom:8px;
+  max-width:70%;
 }
 
 .admin-message{
-  background:#fff;
-  border:1px solid #ddd;
-  padding:10px 14px;
-  border-radius:16px;
-  margin-bottom:10px;
-  width:fit-content;
+  background:white;
+  color:#111;
+  padding:8px 12px;
+  border-radius:8px;
+  margin-bottom:8px;
+  max-width:70%;
+  border:none;
 }
 
 .input-area{
-  display:flex;
+  background:#202c33;
   padding:10px;
-  border-top:1px solid #ddd;
+  display:flex;
+  gap:10px;
 }
 
 .input-area input{
   flex:1;
+  border:none;
+  outline:none;
+  background:#2a3942;
+  color:white;
+  border-radius:8px;
   padding:12px;
 }
+
+.input-area button{
+  background:#00a884;
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:0 20px;
+  cursor:pointer;
+}  
 
 .chat-list-item small{
   color:#777;
@@ -113,6 +131,32 @@ body{
   font-size:11px;
   color:#888;
 }
+
+.chat-top{
+  height:60px;
+  background:#202c33;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  font-weight:600;
+  border-bottom:1px solid #2a3942;
+}
+
+.search-box{
+  padding:10px;
+  background:#202c33;
+}
+
+.search-box input{
+  width:100%;
+  border:none;
+  outline:none;
+  background:#2a3942;
+  color:white;
+  padding:10px;
+  border-radius:8px;
+}
   
 </style>
 
@@ -131,18 +175,20 @@ body{
     </button>
   </div>
 
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchUser"
+      placeholder="Search chat...">
+  </div>
+
   <div id="userList"></div>
 
 </div>
 
 <div class="chat-area">
 
-  <div id="chatHeader" style="
-    padding:15px;
-    border-bottom:1px solid #ddd;
-    background:white;
-    font-weight:bold;
-  ">
+  <div id="chatHeader" class="chat-top">
     Pilih user...
   </div>
 
