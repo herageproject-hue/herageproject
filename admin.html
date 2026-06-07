@@ -83,19 +83,6 @@ body{
   text-overflow:ellipsis;
 }
 
-.badge{
-  background:red;
-  color:white;
-  border-radius:50%;
-  min-width:20px;
-  height:20px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  margin-right:6px;
-}
-
 .message-time{
   font-size:11px;
   opacity:.7;
@@ -135,21 +122,22 @@ body{
 .chat-preview{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:flex-start;
   margin-top:4px;
 }
 
 .chat-preview small{
   flex:1;
+  color:#777;
+  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  white-space:nowrap;
 }
 
 .badge{
-  background:#ff3b30;
+  background:#25d366;
   color:white;
-  min-width:20px;
+  width:20px;
   height:20px;
   border-radius:50%;
   display:flex;
@@ -157,7 +145,8 @@ body{
   justify-content:center;
   font-size:11px;
   font-weight:bold;
-  margin-left:8px;
+  flex-shrink:0;
+  margin-left:10px;
 }  
 </style>
 
