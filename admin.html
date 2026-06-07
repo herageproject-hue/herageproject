@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Admin Chat</title>
 
@@ -182,6 +183,32 @@ body{
 .filter-btn span{
   margin-left:5px;
 }  
+
+.chat-header-admin{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  border-bottom:1px solid #ddd;
+  background:white;
+  font-weight:bold;
+}
+
+.chat-header-actions button{
+  background:none;
+  border:none;
+  font-size:22px;
+  cursor:pointer;
+}
+
+#chatSearch{
+  width:100%;
+  box-sizing:border-box;
+  padding:12px 16px;
+  border:none;
+  border-radius:25px;
+  background:#f0f2f5;
+}  
 </style>
 
 </head>
@@ -223,13 +250,33 @@ body{
 
 <div class="chat-area">
 
-  <div id="chatHeader" style="
-    padding:15px;
-    border-bottom:1px solid #ddd;
-    background:white;
-    font-weight:bold;
-  ">
-    Pilih user...
+  <div id="chatHeader" class="chat-header-admin">
+
+    <div id="chatUserName">
+      Pilih user...
+    </div>
+
+    <div class="chat-header-actions">
+
+      <button onclick="toggleChatSearch()">
+        <span class="material-icons">search</span>
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    id="chatSearchBar"
+    style="display:none;padding:10px;border-bottom:1px solid #ddd;"
+  >
+
+    <input
+      type="text"
+      id="chatSearch"
+      placeholder="Cari pesan..."
+      onkeyup="searchChatMessages()">
+
   </div>
 
   <div
@@ -533,6 +580,46 @@ supabaseClient
   )
   .subscribe();
 
+function toggleChatSearch(){
+
+  const bar =
+    document.getElementById(
+      "chatSearchBar"
+    );
+
+  bar.style.display =
+    bar.style.display === "none"
+    ? "block"
+    : "none";
+
+}
+
+function searchChatMessages(){
+
+  const keyword =
+    document
+      .getElementById("chatSearch")
+      .value
+      .toLowerCase();
+
+  document
+    .querySelectorAll(
+      ".user-message, .admin-message"
+    )
+    .forEach(msg => {
+
+      const text =
+        msg.innerText.toLowerCase();
+
+      msg.style.display =
+        text.includes(keyword)
+        ? ""
+        : "none";
+
+    });
+
+}  
+
 async function openUserChat(userId){
 
   selectedUserId = userId;
@@ -545,8 +632,8 @@ async function openUserChat(userId){
       .single();
 
   document.getElementById(
-    "chatHeader"
-  ).innerHTML =
+    "chatUserName"
+  ).innerText =
     userData.full_name ||
     userData.email ||
     "Guest User";
