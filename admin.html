@@ -156,6 +156,32 @@ body{
   flex-shrink:0;
   margin-left:10px;
 }  
+
+.chat-filter{
+  display:flex;
+  gap:10px;
+  padding:0 12px 12px;
+}
+
+.filter-btn{
+  border:1px solid #2a2a2a;
+  background:transparent;
+  color:#aaa;
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.filter-btn.active{
+  background:#103d2f;
+  border-color:#1f6f54;
+  color:#dfffe8;
+}
+
+.filter-btn span{
+  margin-left:5px;
+}  
 </style>
 
 </head>
@@ -179,6 +205,16 @@ body{
       id="searchUser"
       placeholder="Search or start a new chat"
       onkeyup="loadUsers()">
+  </div>
+
+  <div class="chat-filter">
+    <button class="filter-btn active" onclick="setFilter('all')">
+      All
+    </button>
+
+    <button class="filter-btn" onclick="setFilter('unread')">
+      Unread <span id="unreadTotal">0</span>
+    </button>
   </div>
 
   <div id="userList"></div>
@@ -290,9 +326,26 @@ function formatTime(dateString){
       minute:"2-digit"
     });
 }
+
+let currentFilter = "all";
+
+function setFilter(filter){
+
+  currentFilter = filter;
+
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  event.target.classList.add("active");
+
+  loadUsers();
+}
   
 async function loadUsers(){
 
+  let totalUnread = 0;
+  
   const { data: chats } =
     await supabaseClient
       .from("chats")
@@ -361,6 +414,12 @@ async function loadUsers(){
         .eq("sender", "user")
         .eq("is_read", false);
 
+    totalUnread += count || 0;
+
+    if(currentFilter === "unread" && count === 0){
+      continue;
+    }
+    
     console.log(
       "USER:",
       id,
@@ -400,7 +459,8 @@ async function loadUsers(){
     `;
 
   }
-
+  document.getElementById("unreadTotal").innerText =
+  totalUnread;
 }
 
 /* REALTIME USER LIST */
