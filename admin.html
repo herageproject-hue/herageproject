@@ -287,6 +287,23 @@ body{
   <div class="input-area">
 
     <input
+      type="file"
+      id="imageInput"
+      accept="image/*"
+      style="display:none">
+
+    <button
+      class="image-btn"
+      onclick="document.getElementById('imageInput').click()">
+
+      <img
+        src="image.PNG"
+        alt="Upload"
+        class="upload-icon">
+
+    </button>
+
+    <input
       id="adminMessage"
       placeholder="Type message...">
 
@@ -557,7 +574,24 @@ supabaseClient
           }">
 
             <div>
-              ${payload.new.message}
+
+              ${
+                payload.new.image_url
+                ? `
+                  <img
+                    src="${payload.new.image_url}"
+                    style="
+                      max-width:250px;
+                      border-radius:10px;
+                      display:block;
+                      margin-bottom:8px;
+                    ">
+                `
+                : ""
+              }
+
+              ${payload.new.message || ""}
+
             </div>
 
             <div class="message-time">
@@ -767,7 +801,24 @@ async function openUserChat(userId){
       }">
 
         <div>
-          ${msg.message}
+
+          ${
+            msg.image_url
+            ? `
+              <img
+                src="${msg.image_url}"
+                style="
+                  max-width:250px;
+                  border-radius:10px;
+                  display:block;
+                  margin-bottom:8px;
+                ">
+            `
+            : ""
+          }
+
+          ${msg.message || ""}
+
         </div>
 
         <div class="message-time">
@@ -795,35 +846,60 @@ async function sendAdminMessage(){
   const input =
     document.getElementById("adminMessage");
 
+  const imageFile =
+    document.getElementById("imageInput")
+    .files[0];
+
   const text =
     input.value.trim();
 
-  if(!text) return;
+  let imageUrl = null;
+
+  if(imageFile){
+
+    const fileName =
+      Date.now() +
+      "_" +
+      imageFile.name;
+
+    const { error } =
+      await supabaseClient
+        .storage
+        .from("chat-images")
+        .upload(
+          fileName,
+          imageFile
+        );
+
+    if(error){
+      alert(error.message);
+      return;
+    }
+
+    imageUrl =
+      `${supabaseUrl}/storage/v1/object/public/chat-images/${fileName}`;
+
+  }
+
+  if(!text && !imageUrl){
+    return;
+  }
 
   await supabaseClient
     .from("chats")
     .insert({
       user_id:selectedUserId,
       sender:"admin",
-      message:text
+      message:text,
+      image_url:imageUrl
     });
 
   input.value = "";
+
+  document.getElementById(
+    "imageInput"
+  ).value = "";
 }
-
-document
-  .getElementById("adminMessage")
-  .addEventListener("keydown", function(e){
-
-    if(e.key === "Enter"){
-
-      e.preventDefault();
-
-      sendAdminMessage();
-
-    }
-
-  });
 </script>
 </body>
 </html>
