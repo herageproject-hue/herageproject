@@ -131,6 +131,34 @@ body{
   background:#fff;
   box-shadow:0 0 0 2px #25d36633;
 }  
+
+.chat-preview{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:4px;
+}
+
+.chat-preview small{
+  flex:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.badge{
+  background:#ff3b30;
+  color:white;
+  min-width:20px;
+  height:20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:bold;
+  margin-left:8px;
+}  
 </style>
 
 </head>
@@ -344,31 +372,32 @@ async function loadUsers(){
     );
 
     box.innerHTML += `
-      <div
-        class="chat-list-item"
+      <div class="chat-list-item"
         onclick="openUserChat('${id}')">
-
-        ${
-          count > 0 && selectedUserId !== id
-          ? `<span class="badge">${count}</span>`
-          : ""
-        }
 
         <div class="chat-header">
 
           <b>${user.full_name || "No Name"}</b>
 
           <span class="chat-time">
-            ${formatTime(
-              latestUsers[id].created_at
-            )}
+            ${formatTime(latestUsers[id].created_at)}
           </span>
 
         </div>
 
-        <small>
-          ${latestUsers[id].message}
-        </small>
+        <div class="chat-preview">
+
+          <small>
+            ${latestUsers[id].message}
+          </small>
+
+          ${
+            count > 0 && selectedUserId !== id
+            ? `<span class="badge">${count}</span>`
+            : ""
+          }
+
+        </div>
 
       </div>
     `;
