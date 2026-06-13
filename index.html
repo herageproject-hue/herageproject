@@ -2801,6 +2801,7 @@ body.auth-open #overlay{
           'ZIP UP HOODIE AMERICANS - BLACK',
           'Rp 649,000',
           ['black1.png','black2.png','black3.png']
+          'size-hoodie.png'
         )">
 
          <div class="product-image">
@@ -2817,6 +2818,7 @@ body.auth-open #overlay{
            'ZIP UP HOODIE AMERICANS - GREY',
            'Rp 649,000',
            ['grey1.png','grey2.png','grey3.png']
+           'size-hoodie.png'
          )">
 
          <div class="product-image">
@@ -2833,6 +2835,7 @@ body.auth-open #overlay{
            'ZIP UP HOODIE AMERICANS - WHITE',
            'Rp 649,000',
            ['white1.png','white2.png','white3.png']
+           'size-hoodie.png'
          )">
 
          <div class="product-image">
@@ -2849,6 +2852,7 @@ body.auth-open #overlay{
            'ZIP UP HOODIE AMERICANS - MAROON',
            'Rp 649,000',
            ['maroon1.PNG','maroon2.PNG','maroon3.PNG']
+           'size-hoodie.png'
          )">
 
          <div class="product-image">
@@ -2865,6 +2869,7 @@ body.auth-open #overlay{
            'KNITWEAR - BLACK ON BLACK',
            'Rp 349,000',
            ['knitblk1.png','knitblk2.png','knitblk3.png']
+           'size-knitwear.png'
          )">
 
          <div class="product-image">
@@ -2881,6 +2886,7 @@ body.auth-open #overlay{
            'KNITWEAR - WHITE ON WHITE',
            'Rp 349,000',
            ['knitwht1.png','knitwht2.png','knitwht3.png']
+           'size-knitwear.png'
          )">
 
          <div class="product-image">
@@ -2897,6 +2903,7 @@ body.auth-open #overlay{
            'KNITWEAR - BLACK ON WHITE',
            'Rp 349,000',
            ['knitblknwht1.png','knitblknwht2.png','knitblknwht3.png']
+           'size-knitwear.png'
          )">
 
          <div class="product-image">
@@ -2913,6 +2920,7 @@ body.auth-open #overlay{
            'LONGSLEEVE - LIPS',
            'Rp 149,000',
            ['longsleeve1.PNG','longsleeve2.PNG','longsleeve3.PNG']
+           'size-longsleeve.png'
          )">
 
          <div class="product-image">
@@ -2929,6 +2937,7 @@ body.auth-open #overlay{
            'JEANS BAGGY RAW DENIM - INSIDE OUT',
            'Rp 349,000',
            ['baggy1.png','baggy2.png','baggy3.png','baggy4.png']
+           'size-jeans.png'
          )">
 
          <div class="product-image">
@@ -3614,7 +3623,8 @@ body.auth-open #overlay{
     <div class="size-guide-content">
 
       <img
-        src="sizeguide.png"
+        id="sizeGuideImage"
+        src=""
         loading="lazy"
         alt="Size Guide">
 
@@ -4374,8 +4384,10 @@ let currentProduct = {
 };
 
 /* SAVE CURRENT PRODUCT */
-function openProduct(title, price, images, status = "coming"){
+function openProduct(title, price, images, status, sizeGuide = "coming"){
 
+  currentSizeGuide = sizeGuide;
+  
   closeAll();
 
   document.querySelectorAll('.page').forEach(p=>{
@@ -5726,11 +5738,15 @@ function subscribeGuestChat(){
 }
 
 function openSizeGuide(){
-  document
-    .getElementById("sizeGuideModal")
-    .classList.add("active");
 
-  document.body.style.overflow = "hidden";
+  document.getElementById('sizeGuideImage').src =
+  currentSizeGuide;
+
+  document
+    .getElementById('sizeGuideModal')
+    .classList.add('active');
+
+  document.body.style.overflow = 'hidden';
 }
 
 function closeSizeGuide(){
@@ -5751,6 +5767,8 @@ sizeGuideModal.addEventListener("click", e => {
   }
 
 });  
+
+let currentSizeGuide = "";
   
 </script>
 <div id="homeAccordion">
