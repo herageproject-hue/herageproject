@@ -4386,7 +4386,7 @@ let currentProduct = {
 
 /* SAVE CURRENT PRODUCT */
 let currentSizeGuide = "";
-function openProduct(title, price, images, status = "coming", sizeGuide){
+function openProduct(title, price, images, sizeGuide){
 
   currentSizeGuide = sizeGuide;
   
@@ -5741,14 +5741,16 @@ function subscribeGuestChat(){
 
 function openSizeGuide(){
 
-  document.getElementById('sizeGuideImage').src =
-  currentSizeGuide;
+  console.log("Size Guide:", currentSizeGuide);
+
+  document.getElementById("sizeGuideImage").src =
+    currentSizeGuide;
 
   document
-    .getElementById('sizeGuideModal')
-    .classList.add('active');
+    .getElementById("sizeGuideModal")
+    .classList.add("active");
 
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = "hidden";
 }
 
 function closeSizeGuide(){
