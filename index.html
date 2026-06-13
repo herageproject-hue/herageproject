@@ -4386,10 +4386,9 @@ let currentProduct = {
 
 /* SAVE CURRENT PRODUCT */
 let currentSizeGuide = "";
-function openProduct(title, price, images, status, sizeGuide){
+function openProduct(title, price, images, status = "coming", sizeGuide){
 
   currentSizeGuide = sizeGuide;
-  const status = "coming";
   
   closeAll();
 
