@@ -2634,6 +2634,78 @@ body.auth-open #overlay{
   align-items:center;
   justify-content:center;
 }
+
+.size-guide-link{
+  cursor:pointer;
+  font-weight:600;
+}
+
+.size-guide-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+
+  display:flex;
+  align-items:flex-end;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.3s;
+  z-index:99999;
+}
+
+.size-guide-modal.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.size-guide-sheet{
+  width:100%;
+  height:85vh;
+
+  background:#fff;
+
+  border-radius:30px 30px 0 0;
+
+  overflow-y:auto;
+
+  transform:translateY(100%);
+  transition:.35s ease;
+}
+
+.size-guide-modal.active .size-guide-sheet{
+  transform:translateY(0);
+}
+
+.size-guide-top{
+  position:sticky;
+  top:0;
+
+  background:#fff;
+
+  padding:20px;
+  z-index:5;
+}
+
+.size-guide-top button{
+  border:none;
+  background:none;
+  padding:0;
+}
+
+.size-guide-top img{
+  width:24px;
+}
+
+.size-guide-content{
+  padding:20px;
+}
+
+.size-guide-content img{
+  width:100%;
+  display:block;
+}
   
 </style>
 </head>
@@ -2958,7 +3030,10 @@ body.auth-open #overlay{
         </div>
         <div class="size-header">
           <h3>Size</h3>
-          <span>Size Guide</span>
+
+          <span onclick="openSizeGuide()" class="size-guide-link">
+            Size Guide
+          </span>
         </div>
 
         <div class="sizes">
@@ -3518,6 +3593,32 @@ body.auth-open #overlay{
     </div>
 
     <div class="province-list" id="pickupList"></div>
+
+  </div>
+
+</div>
+
+<!-- SIZE GUIDE MODAL -->
+<div id="sizeGuideModal" class="size-guide-modal">
+
+  <div class="size-guide-sheet">
+
+    <div class="size-guide-top">
+
+      <button onclick="closeSizeGuide()">
+        <img src="back.png" loading="lazy">
+      </button>
+
+    </div>
+
+    <div class="size-guide-content">
+
+      <img
+        src="sizeguide.png"
+        loading="lazy"
+        alt="Size Guide">
+
+    </div>
 
   </div>
 
@@ -5623,6 +5724,33 @@ function subscribeGuestChat(){
     .subscribe();
 
 }
+
+function openSizeGuide(){
+  document
+    .getElementById("sizeGuideModal")
+    .classList.add("active");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeSizeGuide(){
+  document
+    .getElementById("sizeGuideModal")
+    .classList.remove("active");
+
+  document.body.style.overflow = "";
+}
+
+const sizeGuideModal =
+document.getElementById("sizeGuideModal");
+
+sizeGuideModal.addEventListener("click", e => {
+
+  if(e.target === sizeGuideModal){
+    closeSizeGuide();
+  }
+
+});  
   
 </script>
 <div id="homeAccordion">
