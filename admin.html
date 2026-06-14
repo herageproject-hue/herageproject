@@ -319,6 +319,10 @@ body{
 
     </button>
 
+    <img
+      id="imagePreview"
+      style="display:none; max-width:120px; border-radius:10px; margin:0 10px;" />
+
     <input
       id="adminMessage"
       placeholder="Type message...">
@@ -958,6 +962,33 @@ document.getElementById(
   "imageInput"
 ).value = "";
 }
+
+document.getElementById("imagePreview").style.display = "none";
+document.getElementById("imagePreview").src = "";
+  
+document.getElementById("imageInput")
+.addEventListener("change", function(e){
+
+  const file = e.target.files[0];
+
+  const preview = document.getElementById("imagePreview");
+
+  if(!file){
+    preview.style.display = "none";
+    preview.src = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(ev){
+    preview.src = ev.target.result;
+    preview.style.display = "block";
+  };
+
+  reader.readAsDataURL(file);
+
+});
 </script>
 </body>
 </html>
