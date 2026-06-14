@@ -854,6 +854,8 @@ async function openUserChat(userId){
 
 async function sendAdminMessage(){
 
+  console.log("SEND DIKLIK");
+
   if(!selectedUserId){
     alert("Pilih user dulu");
     return;
@@ -861,8 +863,6 @@ async function sendAdminMessage(){
 
   const input =
     document.getElementById("adminMessage");
-
-  console.log("SEND DIKLIK");
 
   const imageFile =
     document.getElementById("imageInput")
@@ -877,12 +877,14 @@ async function sendAdminMessage(){
 
   if(imageFile){
 
+    console.log("ADA FILE");
+
     const fileName =
       Date.now() +
       "_" +
       imageFile.name;
 
-    const { error } =
+    const uploadResult =
       await supabaseClient
         .storage
         .from("chat-images")
@@ -890,6 +892,14 @@ async function sendAdminMessage(){
           fileName,
           imageFile
         );
+
+    console.log(
+      "UPLOAD RESULT:",
+      uploadResult
+    );
+
+    const error =
+      uploadResult.error;
 
     if(error){
       alert(error.message);
