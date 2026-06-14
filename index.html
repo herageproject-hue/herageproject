@@ -5241,7 +5241,7 @@ function calculateShipping(event){
   },700);
 
 }
-
+let selectedImageFile = null;
 async function openChat(){
 
   document.getElementById("chatOverlay").style.display = "flex";
@@ -5394,28 +5394,57 @@ async function startGuestChat(){
 
 async function sendMessage(){
 
-  const input =
-    document.getElementById("chatInput");
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
 
-  const text =
-    input.value.trim();
+  if(!text && !selectedImageFile) return;
 
-  if(!text) return;
+  const box = document.getElementById("chatMessages");
 
-  const box =
-    document.getElementById("chatMessages");
+  const empty = box.querySelector(".chat-empty");
+  if(empty) empty.remove();
 
-  // HAPUS EMPTY STATE
-  const empty =
-    box.querySelector(".chat-empty");
+  let imageUrl = null;
 
-  if(empty){
-    empty.remove();
+  // upload image kalau ada
+  if(selectedImageFile){
+
+    const fileName = Date.now() + "_" + selectedImageFile.name;
+
+    const upload = await supabaseClient
+      .storage
+      .from("chat-images")
+      .upload(fileName, selectedImageFile);
+
+    if(upload.error){
+      alert(upload.error.message);
+      return;
+    }
+
+    const { data } = supabaseClient
+      .storage
+      .from("chat-images")
+      .getPublicUrl(fileName);
+
+    imageUrl = data.publicUrl;
+  }
+
+  // tampilkan di UI langsung
+  let content = "";
+
+  if(imageUrl){
+    content += `
+      <img src="${imageUrl}" style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;">
+    `;
+  }
+
+  if(text){
+    content += `<div>${text}</div>`;
   }
 
   box.innerHTML += `
     <div class="user-message">
-      ${text}
+      ${content}
     </div>
   `;
 
@@ -5423,32 +5452,37 @@ async function sendMessage(){
 
   input.value = "";
 
-  const {
-    data:{ user }
-  } = await supabaseClient.auth.getUser();
+  // RESET IMAGE
+  selectedImageFile = null;
+
+  document.getElementById("chatImageInput").value = "";
+
+  const preview = document.getElementById("chatImagePreview");
+  preview.src = "";
+  preview.style.display = "none";
+
+  // SAVE TO DB
+  const { data:{ user } } = await supabaseClient.auth.getUser();
 
   if(user){
 
-    await supabaseClient
-      .from("chats")
-      .insert({
-        user_id:user.id,
-        sender:"user",
-        message:text
-      });
+    await supabaseClient.from("chats").insert({
+      user_id: user.id,
+      sender: "user",
+      message: text || null,
+      image_url: imageUrl || null
+    });
 
-  }else if(guestChat){
+  } else if(guestChat){
 
-    await supabaseClient
-      .from("guest_chat")
-      .insert({
-        guest_id:getGuestId(),
-        sender:"user",
-        message:text
-      });
+    await supabaseClient.from("guest_chat").insert({
+      guest_id: getGuestId(),
+      sender: "user",
+      message: text || null,
+      image_url: imageUrl || null
+    });
 
   }
-
 }
   
 async function loadMessages(){
@@ -5736,6 +5770,30 @@ function subscribeGuestChat(){
     .subscribe();
 }
 
+function uploadChatImage(event){
+
+  const file = event.target.files[0];
+  const preview = document.getElementById("chatImagePreview");
+
+  if(!file){
+    selectedImageFile = null;
+    preview.style.display = "none";
+    preview.src = "";
+    return;
+  }
+
+  selectedImageFile = file;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+
+  reader.readAsDataURL(file);
+}
+  
 function openSizeGuide(){
 
   console.log("Size Guide:", currentSizeGuide);
@@ -5971,6 +6029,14 @@ async function uploadChatImage(event){
             <img src="image.PNG" alt="image">
 
           </button>
+
+          <img id="chatImagePreview" style="
+            display:none;
+            max-width:80px;
+            border-radius:10px;
+            margin-left:10px;
+            vertical-align:middle;
+          " />
 
           <input
             type="file"
