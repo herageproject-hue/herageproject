@@ -935,7 +935,7 @@ async function sendAdminMessage(){
       .insert({
         user_id: selectedUserId,
         sender: "admin",
-        message: text || "",
+        message: text || null,
         image_url: imageUrl
       })
       .select();
