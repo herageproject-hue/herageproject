@@ -935,9 +935,10 @@ async function sendAdminMessage(){
       .insert({
         user_id:selectedUserId,
         sender:"admin",
-        message:text,
+        message:text || "",
         image_url:imageUrl
-      });
+      })
+      .select();
 
   console.log("INSERT RESULT:", result);
 
