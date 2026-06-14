@@ -933,14 +933,14 @@ async function sendAdminMessage(){
     await supabaseClient
       .from("chats")
       .insert({
-        user_id:selectedUserId,
-        sender:"admin",
-        message:text || "",
-        image_url:imageUrl
+        user_id: selectedUserId,
+        sender: "admin",
+        message: text || "",
+        image_url: imageUrl
       })
       .select();
 
-  console.log("INSERT RESULT:", result);
+  console.log(result);
 
 input.value = "";
 
