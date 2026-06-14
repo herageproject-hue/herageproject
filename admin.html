@@ -524,7 +524,13 @@ async function loadUsers(){
         <div class="chat-preview">
 
           <small>
-            ${latestUsers[id].message}
+            ${
+              latestUsers[id].message
+              ? latestUsers[id].message
+              : latestUsers[id].image_url
+                ? "📷 Gambar"
+                : ""
+            }
           </small>
 
           ${
@@ -606,7 +612,13 @@ supabaseClient
                 : ""
               }
 
-              ${payload.new.message || ""}
+              ${
+                payload.new.message
+                ? payload.new.message
+                : payload.new.image_url
+                  ? "📷 Gambar"
+                  : ""
+              }
 
             </div>
 
@@ -936,7 +948,7 @@ async function sendAdminMessage(){
         user_id: selectedUserId,
         sender: "admin",
         message: text || null,
-        image_url: imageUrl
+        image_url: imageUrl || null
       })
       .select();
 
