@@ -5493,21 +5493,18 @@ async function loadMessages(){
     let content = "";
 
     if(msg.image_url){
-
-      content = `
+      content += `
         <img
           src="${msg.image_url}"
-          style="
-            max-width:180px;
-            border-radius:12px;
-          "
+          style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
         >
       `;
+    }
 
-    }else{
-
-      content = msg.message;
-
+    if(msg.message){
+      content += `
+        <div>${msg.message}</div>
+      `;
     }
 
     box.innerHTML += `
@@ -5574,21 +5571,18 @@ async function loadGuestMessages(){
     let content = "";
 
     if(msg.image_url){
-
-      content = `
+      content += `
         <img
           src="${msg.image_url}"
-          style="
-            max-width:180px;
-            border-radius:12px;
-          "
+          style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
         >
       `;
+    }
 
-    }else{
-
-      content = msg.message;
-
+    if(msg.message){
+      content += `
+        <div>${msg.message}</div>
+      `;
     }
 
     box.innerHTML += `
@@ -5691,10 +5685,14 @@ function subscribeChat(userId){
             ? "user-message"
             : "admin-message"
           }">
-            ${
-              msg.image_url
-              ? `<img src="${msg.image_url}" style="max-width:180px;border-radius:12px;">`
-              : msg.message
+            let content = "";
+
+            if(msg.image_url){
+              content += `<img src="${msg.image_url}" style="max-width:180px;border-radius:12px;">`;
+            }
+
+            if(msg.message){
+              content += `${msg.message}`;
             }
           </div>
         `;
@@ -5784,10 +5782,14 @@ function subscribeGuestChat(){
 
         box.innerHTML += `
           <div class="admin-message">
-            ${
-              msg.image_url
-              ? `<img src="${msg.image_url}" style="max-width:180px;border-radius:12px;">`
-              : msg.message
+            let content = "";
+
+            if(msg.image_url){
+              content += `<img src="${msg.image_url}" style="max-width:180px;border-radius:12px;">`;
+            }
+
+            if(msg.message){
+              content += `${msg.message}`;
             }
           </div>
         `;
