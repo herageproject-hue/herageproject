@@ -862,9 +862,13 @@ async function sendAdminMessage(){
   const input =
     document.getElementById("adminMessage");
 
+  console.log("SEND DIKLIK");
+
   const imageFile =
     document.getElementById("imageInput")
     .files[0];
+
+  console.log("FILE:", imageFile);
 
   const text =
     input.value.trim();
