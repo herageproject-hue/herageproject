@@ -2466,15 +2466,12 @@ body.auth-open #overlay{
   width:92%;
   max-width:380px;
   height:78vh;
-
   background:#f5f5f5;
-
   border-radius:20px;
-
   overflow:hidden;
-
   display:flex;
   flex-direction:column;
+  min-height:0;
 }
 
 #loginScreen{
@@ -2599,15 +2596,18 @@ body.auth-open #overlay{
 
 .chat-messages{
   flex:1;
+  overflow-y:auto;
   display:flex;
   flex-direction:column;
   padding:20px;
+  min-height:0;
 }
 
 .chat-screen{
   display:none;
   height:100%;
   flex-direction:column;
+  min-height:0;
 }
 
 #chatBadge{
@@ -5552,6 +5552,9 @@ async function loadMessages(){
     `;
 
   });
+  requestAnimationFrame(() => {
+    box.scrollTop = box.scrollHeight;
+  });
 
 }
 
@@ -5630,7 +5633,9 @@ async function loadGuestMessages(){
     `;
 
   });
-
+  requestAnimationFrame(() => {
+    box.scrollTop = box.scrollHeight;
+  });
 }
 
 function updateBadge(count){
