@@ -5530,6 +5530,7 @@ async function loadMessages(){
       content += `
         <img
           src="${msg.image_url}"
+          onload="scrollChatBottom()"
           style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
         >
       `;
@@ -5611,6 +5612,7 @@ async function loadGuestMessages(){
       content += `
         <img
           src="${msg.image_url}"
+          onload="scrollChatBottom()"
           style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
         >
       `;
@@ -5699,7 +5701,11 @@ function subscribeChat(userId){
 
         if(msg.image_url){
           content += `
-            <img src="${msg.image_url}" style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;">
+            <img
+              src="${msg.image_url}"
+              onload="scrollChatBottom()"
+              style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
+            >
           `;
         }
 
@@ -5755,7 +5761,11 @@ function subscribeGuestChat(){
 
         if(msg.image_url){
           content += `
-            <img src="${msg.image_url}" style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;">
+            <img
+              src="${msg.image_url}"
+              onload="scrollChatBottom()"
+              style="max-width:180px;border-radius:12px;display:block;margin-bottom:6px;"
+            >
           `;
         }
 
@@ -5918,6 +5928,11 @@ async function uploadChatImage(event){
   box.scrollTop =
     box.scrollHeight;
 
+}
+
+function scrollChatBottom(){
+  const box = document.getElementById("chatMessages");
+  box.scrollTop = box.scrollHeight;
 }
   
 </script>
