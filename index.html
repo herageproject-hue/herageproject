@@ -2706,24 +2706,664 @@ body.auth-open #overlay{
   height:auto;
   display:block;
 }
+
+/* =====================================================
+   HERAGE MOBILE MENU
+   ===================================================== */
+
+#menuDrawer{
+  width: min(90vw, 380px);
+  height: 100dvh;
+
+  position: fixed;
+  top: 0;
+  left: -100%;
+
+  background: #fff;
+  color: #172333;
+
+  padding: 0;
+
+  z-index: 1002;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: left .35s ease;
+
+  box-sizing: border-box;
+}
+
+
+/* CLOSE BUTTON */
+
+.menu-close{
+  position: absolute;
+
+  top: 24px;
+  right: 24px;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  background: transparent;
+
+  font-size: 42px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  color: #172333;
+
+  cursor: pointer;
+}
+
+
+/* SEARCH */
+
+.menu-search{
+  margin: 110px 34px 30px;
+
+  height: 62px;
+
+  border: 1px solid #dedede;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 18px;
+
+  box-sizing: border-box;
+}
+
+
+.menu-search-icon{
+  font-size: 28px;
+
+  margin-right: 10px;
+
+  color: #172333;
+}
+
+
+.menu-search input{
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  font-size: 18px;
+
+  color: #172333;
+}
+
+
+.menu-search input::placeholder{
+  color: #999;
+}
+
+
+/* MENU */
+
+.menu-list{
+  margin: 0 34px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.menu-list p{
+  margin: 0;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #dedede;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  color: #172333;
+
+  cursor: pointer;
+}
+
+
+.menu-list p:hover{
+  color: #666;
+}
+
+
+/* BOTTOM */
+
+.menu-bottom{
+  margin-top: auto;
+
+  padding: 0 34px 28px;
+}
+
+
+.menu-currency{
+  border-top: 1px solid #dedede;
+
+  padding-top: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+
+
+.currency-left{
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.indonesia-flag{
+  font-size: 25px;
+}
+
+
+.currency-left strong{
+  font-size: 19px;
+  color: #172333;
+}
+
+
+.currency-arrow{
+  font-size: 38px;
+
+  line-height: 1;
+
+  color: #172333;
+}
+
+
+/* =====================================================
+   REGION SETTINGS POPUP
+   ===================================================== */
+
+#regionSettings{
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 10000;
+
+  display: none;
+
+  background: rgba(0,0,0,.25);
+
+  backdrop-filter: blur(3px);
+
+  align-items: flex-end;
+}
+
+
+#regionSettings.active{
+  display: flex;
+}
+
+
+.region-sheet{
+  width: 100%;
+
+  max-height: 90dvh;
+
+  overflow-y: auto;
+
+  background: #fff;
+
+  border-radius: 30px 30px 0 0;
+
+  padding: 28px 34px 34px;
+
+  box-sizing: border-box;
+}
+
+
+/* HEADER */
+
+.region-header{
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+
+.region-header h3{
+  margin: 0;
+
+  font-size: 22px;
+
+  font-weight: 700;
+
+  color: #172333;
+}
+
+
+.region-close{
+  border: none;
+
+  background: transparent;
+
+  font-size: 38px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  color: #172333;
+}
+
+
+/* SECTION */
+
+.region-section{
+  margin-top: 28px;
+
+  position: relative;
+}
+
+
+.region-label{
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #172333;
+
+  margin-bottom: 10px;
+}
+
+
+/* SELECT BOX */
+
+.region-select{
+  width: 100%;
+
+  min-height: 76px;
+
+  border: 1px solid #dedede;
+
+  border-radius: 20px;
+
+  padding: 0 22px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  cursor: pointer;
+
+  background: #fff;
+}
+
+
+.region-select:hover{
+  border-color: #aaa;
+}
+
+
+.region-value{
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  color: #172333;
+
+  font-size: 18px;
+}
+
+
+.region-arrow{
+  font-size: 27px;
+
+  color: #172333;
+}
+
+
+/* LANGUAGE OPTIONS */
+
+.language-options{
+  display: none;
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 100%;
+
+  margin-top: 8px;
+
+  background: #fff;
+
+  border: 1px solid #dedede;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  z-index: 10;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+
+.language-options.active{
+  display: block;
+}
+
+
+.language-option{
+  padding: 18px 22px;
+
+  font-size: 18px;
+
+  color: #172333;
+
+  cursor: pointer;
+
+  border-bottom: 1px solid #eee;
+}
+
+
+.language-option:last-child{
+  border-bottom: none;
+}
+
+
+.language-option:hover{
+  background: #f5f5f5;
+}
+
+
+/* SAVE */
+
+.region-save{
+  width: 100%;
+
+  height: 64px;
+
+  margin-top: 32px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #202020;
+
+  color: #fff;
+
+  font-size: 19px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.region-save:active{
+  transform: scale(.99);
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  #menuDrawer{
+    width: 90vw;
+  }
+
+  .menu-search{
+    margin-left: 34px;
+    margin-right: 34px;
+  }
+
+  .region-sheet{
+    padding-left: 34px;
+    padding-right: 34px;
+  }
+
+}
 </style>
 </head>
 
 <body>
 
-<!-- MENU -->
+<!-- MENU DRAWER -->
 <div id="menuDrawer">
-  <input
-    type="text"
-    placeholder="Search..."
-    class="search-box"
-    id="searchInput">
-  <div class="menu-list">
-    <p onclick="showPage('catalog')">Catalog</p>
-    <p onclick="showPage('community')">Community</p>
-    <p onclick="showPage('archives')">Archives</p>
-    <p onclick="showPage('about')">About</p>
+
+  <!-- CLOSE -->
+  <button class="menu-close" onclick="closeAll()">×</button>
+
+  <!-- SEARCH -->
+  <div class="menu-search">
+    <span class="menu-search-icon">⌕</span>
+
+    <input
+      type="text"
+      placeholder="Search..."
+      id="searchInput">
   </div>
+
+  <!-- MENU LIST -->
+  <div class="menu-list">
+
+    <p onclick="showPage('catalog'); closeAll();">
+      Catalog
+    </p>
+
+    <p onclick="showPage('community'); closeAll();">
+      Community
+    </p>
+
+    <p onclick="showPage('archives'); closeAll();">
+      Archives
+    </p>
+
+    <p onclick="showPage('about'); closeAll();">
+      About
+    </p>
+
+  </div>
+
+  <!-- COUNTRY / CURRENCY -->
+  <div class="menu-bottom">
+
+    <div
+      class="menu-currency"
+      onclick="openRegionSettings()">
+
+      <div class="currency-left">
+
+        <span class="indonesia-flag">
+          🇮🇩
+        </span>
+
+        <strong>IDR</strong>
+
+      </div>
+
+      <span class="currency-arrow">
+        ›
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- REGION SETTINGS POPUP -->
+<div id="regionSettings">
+
+  <div class="region-sheet">
+
+    <!-- HEADER -->
+    <div class="region-header">
+
+      <h3>Deliver to</h3>
+
+      <button
+        class="region-close"
+        onclick="closeRegionSettings()">
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- DELIVER TO -->
+    <div class="region-section">
+
+      <div class="region-label">
+        Deliver to
+      </div>
+
+      <div class="region-select fixed-select">
+
+        <div class="region-value">
+
+          <span class="indonesia-flag">
+            🇮🇩
+          </span>
+
+          <strong>Indonesia</strong>
+
+        </div>
+
+        <span class="region-arrow">
+          ˅
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- LANGUAGE -->
+    <div class="region-section">
+
+      <div class="region-label">
+        Language
+      </div>
+
+      <div
+        class="region-select"
+        onclick="toggleLanguage()">
+
+        <div class="region-value">
+
+          <span class="language-icon">
+            🌐
+          </span>
+
+          <strong id="selectedLanguage">
+            English
+          </strong>
+
+        </div>
+
+        <span
+          id="languageArrow"
+          class="region-arrow">
+          ˅
+        </span>
+
+      </div>
+
+
+      <!-- LANGUAGE OPTIONS -->
+      <div
+        id="languageOptions"
+        class="language-options">
+
+        <div
+          class="language-option"
+          onclick="selectLanguage('Bahasa')">
+
+          <span>Bahasa</span>
+
+        </div>
+
+        <div
+          class="language-option"
+          onclick="selectLanguage('English')">
+
+          <span>English</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CURRENCY -->
+    <div class="region-section">
+
+      <div class="region-label">
+        Currency
+      </div>
+
+      <div class="region-select fixed-select">
+
+        <div class="region-value">
+
+          <strong>
+            IDR - Indonesian Rupiah
+          </strong>
+
+        </div>
+
+        <span class="region-arrow">
+          ˅
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- SAVE -->
+    <button
+      class="region-save"
+      onclick="saveRegionSettings()">
+
+      Save
+
+    </button>
+
+  </div>
+
 </div>
 
 <!-- HEADER -->
@@ -3549,6 +4189,12 @@ function openAccount(){
 function closeAll(){
 
   document.getElementById('menuDrawer').style.left = '-300px';
+
+  document.getElementById('regionSettings')
+    .classList.remove('active');
+
+  document.getElementById('languageOptions')
+    .classList.remove('active');
 
   document.getElementById('cartDrawer').style.right = '-300px';
 
@@ -5880,7 +6526,146 @@ function scrollChatBottom(){
   const box = document.getElementById("chatMessages");
   box.scrollTop = box.scrollHeight;
 }
-  
+
+/* =====================================================
+   REGION / LANGUAGE SETTINGS
+   ===================================================== */
+
+let currentLanguage =
+  localStorage.getItem("herageLanguage") || "English";
+
+
+function openRegionSettings(){
+
+  const popup =
+    document.getElementById("regionSettings");
+
+  const menu =
+    document.getElementById("menuDrawer");
+
+  const overlay =
+    document.getElementById("overlay");
+
+
+  /* tutup menu */
+  menu.style.left = "-100%";
+
+  /* tampilkan popup */
+  popup.classList.add("active");
+
+  /* overlay utama tidak diperlukan */
+  overlay.style.display = "none";
+
+
+  /* tampilkan bahasa yang tersimpan */
+  document.getElementById(
+    "selectedLanguage"
+  ).textContent = currentLanguage;
+
+}
+
+
+function closeRegionSettings(){
+
+  const popup =
+    document.getElementById("regionSettings");
+
+  popup.classList.remove("active");
+
+}
+
+
+function toggleLanguage(){
+
+  const options =
+    document.getElementById("languageOptions");
+
+  const arrow =
+    document.getElementById("languageArrow");
+
+
+  options.classList.toggle("active");
+
+
+  if(options.classList.contains("active")){
+
+    arrow.textContent = "⌃";
+
+  }else{
+
+    arrow.textContent = "⌄";
+
+  }
+
+}
+
+
+function selectLanguage(language){
+
+  currentLanguage = language;
+
+
+  document.getElementById(
+    "selectedLanguage"
+  ).textContent = language;
+
+
+  document.getElementById(
+    "languageOptions"
+  ).classList.remove("active");
+
+
+  document.getElementById(
+    "languageArrow"
+  ).textContent = "⌄";
+
+}
+
+
+function saveRegionSettings(){
+
+  localStorage.setItem(
+    "herageLanguage",
+    currentLanguage
+  );
+
+
+  closeRegionSettings();
+
+}
+
+
+/* LOAD LANGUAGE */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    const language =
+      localStorage.getItem(
+        "herageLanguage"
+      );
+
+    if(language){
+
+      currentLanguage = language;
+
+      const selected =
+        document.getElementById(
+          "selectedLanguage"
+        );
+
+      if(selected){
+
+        selected.textContent =
+          language;
+
+      }
+
+    }
+
+  }
+);
 </script>
 <div id="homeAccordion">
   <div class="accordion">
