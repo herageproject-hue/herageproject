@@ -3069,10 +3069,25 @@ body.auth-open #overlay{
 }
 
 #regionSettings .country-name img{
-  width:30px;
-  height:20px;
+  width:27px;
+  height:18px;
   object-fit:cover;
   display:block;
+
+  border:1px solid #d9d9d9;
+  border-radius:2px;
+  box-sizing:border-box;
+}
+
+.menu-region .menu-flag{
+  width:22px;
+  height:15px;
+  object-fit:cover;
+  display:block;
+
+  border:1px solid #d9d9d9;
+  border-radius:2px;
+  box-sizing:border-box;
 }
   
 </style>
@@ -3094,11 +3109,11 @@ body.auth-open #overlay{
     <p onclick="showPage('about')">About</p>
   </div>
   <div class="menu-region" onclick="openRegionSettings()">
-    <span class="country-name">
-      <img src="indonesia.png" alt="Indonesia">
-      IDR
-    </span>
-    <span>›</span>
+      <span class="country-name">
+        <img class="menu-flag" src="indonesia.png" alt="Indonesia">
+        IDR
+      </span>
+      <span>›</span>
   </div>
 </div>
 
