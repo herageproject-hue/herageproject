@@ -2777,15 +2777,6 @@ body.auth-open #overlay{
   margin-bottom: 20px;
 }
 
-#regionSettings .region-header h2 {
-  margin: 0;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  color: #111;
-}
-
 #regionSettings .region-header span {
   cursor: pointer;
 
@@ -2837,6 +2828,11 @@ body.auth-open #overlay{
   cursor: pointer;
 }
 
+#regionSettings .region-box span {
+  font-size: 14px;
+  font-weight: 600;
+}
+  
 #regionSettings .region-box span:last-child {
   font-size: 20px;
 }
@@ -3368,9 +3364,7 @@ body.auth-open #overlay{
   <div class="region-sheet">
 
     <div class="region-header">
-      <h2>Deliver to</h2>
-
-      <span onclick="closeRegionSettings()">×</span>
+      <span onclick="closeRegion()">×</span>
     </div>
 
 
