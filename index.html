@@ -3547,17 +3547,34 @@ function openAccount(){
 }
 
 function closeAll(){
+
   document.getElementById('menuDrawer').style.left = '-300px';
+
   document.getElementById('cartDrawer').style.right = '-300px';
-  document.getElementById("accountDrawer").classList.remove("active");
 
-  document.getElementById('sortModal').style.bottom = '-100%';
-  document.getElementById('filterModal').style.bottom = '-100%';
+  document.getElementById("accountDrawer")
+    .classList.remove("active");
 
-  document.getElementById('overlay').style.display = 'none';
+  document.getElementById('sortModal')
+    .style.bottom = '-100%';
+
+  document.getElementById('filterModal')
+    .style.bottom = '-100%';
+
+  document.getElementById('pickupSheet')
+    .style.bottom = '-100%';
+
+  document.getElementById('overlay')
+    .style.display = 'none';
+
+  // KEMBALIKAN SCROLL
   document.body.classList.remove("no-scroll");
-  document.getElementById("authModal").style.display = "none";
-  document.getElementById('pickupSheet').style.bottom = '-100%';
+  document.body.classList.remove("auth-open");
+
+  document.body.style.overflow = "";
+
+  document.getElementById("authModal")
+    .style.display = "none";
 }
 
 /* OPEN AUTH */
@@ -3583,15 +3600,26 @@ function openAuth(type = "login"){
 /* CLOSE */
 function closeAuth(){
 
-  document.getElementById("authModal")
-  .classList.remove("active");
+  const authModal =
+    document.getElementById("authModal");
 
+  // Tutup animasi popup
+  authModal.classList.remove("active");
+
+  // PENTING:
+  // Kembalikan scroll halaman
   document.body.classList.remove("auth-open");
+  document.body.classList.remove("no-scroll");
+
+  // Pastikan overflow body kembali normal
+  document.body.style.overflow = "";
 
   setTimeout(()=>{
-    document.getElementById("authModal")
-    .style.display = "none";
+
+    authModal.style.display = "none";
+
   },300);
+
 }
   
 /* SHOW LOGIN */
