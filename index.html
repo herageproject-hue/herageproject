@@ -3061,6 +3061,19 @@ body.auth-open #overlay{
   line-height:1.2 !important;
   color:#111 !important;
 }
+
+#regionSettings .country-name{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+#regionSettings .country-name img{
+  width:30px;
+  height:20px;
+  object-fit:cover;
+  display:block;
+}
   
 </style>
 </head>
@@ -3081,7 +3094,10 @@ body.auth-open #overlay{
     <p onclick="showPage('about')">About</p>
   </div>
   <div class="menu-region" onclick="openRegionSettings()">
-    <span>🇮🇩 &nbsp; IDR</span>
+    <span class="country-name">
+      <img src="indonesia.png" alt="Indonesia">
+      IDR
+    </span>
     <span>›</span>
   </div>
 </div>
@@ -3540,7 +3556,10 @@ body.auth-open #overlay{
       <h3>Deliver to</h3>
 
       <div class="region-box">
-        <span>🇮🇩 &nbsp; Indonesia</span>
+        <span class="country-name">
+          <img src="indonesia.png" alt="Indonesia">
+          Indonesia
+        </span>
       </div>
     </div>
 
