@@ -2901,73 +2901,64 @@ body.auth-open #overlay{
 }
 
 /* =========================================
-   SAMAKAN FONT & UKURAN REGION DENGAN FILTER
-   HANYA TYPOGRAPHY - LAYOUT TIDAK DIUBAH
+   REGION SETTINGS - FINAL TYPOGRAPHY
 ========================================= */
 
-/* JUDUL: Deliver to / Language / Currency
-   disamakan dengan judul accordion Filter */
-#regionSettings .region-block h3 {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: #111;
+/* JUDUL */
+#regionSettings .region-block h3{
+  font-family:Arial,sans-serif !important;
+  font-size:15px !important;
+  font-weight:600 !important;
+  line-height:1.2 !important;
+  color:#111 !important;
 }
 
-/* ISI BOX: Indonesia / English / IDR */
-#regionSettings .region-box {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.2;
+/* SEMUA ISI BOX */
+#regionSettings .region-box{
+  font-family:Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:600 !important;
+  line-height:1.2 !important;
+  color:#111 !important;
 }
 
-/* Pastikan tulisan di dalam box juga sama */
-#regionSettings .region-box span:not(:last-child) {
-  font-family: Arial, sans-serif;
-  font-size: 14px !important;
-  font-weight: 600 !important;
+/* TEKS UTAMA:
+   Indonesia
+   English
+   IDR - Indonesian Rupiah
+*/
+#regionSettings .region-box > span:first-child{
+  font-family:Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:600 !important;
+  line-height:1.2 !important;
+  color:#111 !important;
 }
 
-/* Panah jangan ikut berubah */
-#regionSettings .region-box span:last-child {
-  font-family: Arial, sans-serif;
-  font-size: 20px !important;
-  font-weight: 400 !important;
+/* ENGLISH - WAJIB DIKUNCI 14PX */
+#regionSettings #currentLanguage{
+  font-family:Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:600 !important;
+  line-height:1.2 !important;
+  color:#111 !important;
 }
 
-/* PILIHAN LANGUAGE */
-#regionSettings .language-options div {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+/* PANAH SAJA */
+#regionSettings .region-box > span:last-child{
+  font-family:Arial,sans-serif !important;
+  font-size:20px !important;
+  font-weight:400 !important;
+  line-height:1 !important;
+  color:#111 !important;
 }
 
-/* FINAL - FONT & SIZE SAJA */
-#regionSettings .region-block h3,
-#regionSettings .region-box,
-#regionSettings .region-box span:not(:last-child) {
-  font-family: Arial, sans-serif;
-}
-
-#regionSettings .region-block h3 {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-#regionSettings .region-box,
-#regionSettings .region-box span:not(:last-child) {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-}
-
-/* SAMAKAN TEKS ENGLISH DENGAN INDONESIA & IDR */
-#regionSettings .region-box select {
-  font-family: Arial, sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #111 !important;
+/* PILIHAN BAHASA */
+#regionSettings .language-options div{
+  font-family:Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:500 !important;
+  color:#111 !important;
 }
   
 </style>
@@ -3440,7 +3431,7 @@ body.auth-open #overlay{
   <div class="region-sheet">
 
     <div class="region-header">
-      <span onclick="closeRegion()">×</span>
+      <span onclick="closeRegionSettings()">×</span>
     </div>
 
 
