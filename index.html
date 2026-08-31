@@ -2730,12 +2730,18 @@ body.auth-open #overlay{
 <header>
   <div style="display:flex;align-items:center;gap:15px;">
 
+<!-- NAVIGATION BUTTON -->
+
 <!-- BACK BUTTON -->
 <div id="backBtn" onclick="goHome()" style="display:none;cursor:pointer;">
   <img src="back.png" loading="lazy" style="width:24px;">
 </div>
 
-<div class="menu-icon" onclick="openMenu()">☰</div>
+<!-- MENU BUTTON -->
+<div id="menuBtn" class="menu-icon" onclick="openMenu()">
+  ☰
+</div>
+
 <img src="logo.png" loading="lazy" class="logo-img">
 </div>
 
@@ -3882,26 +3888,50 @@ function showPage(pageId){
 
   closeAll();
 
-  document.querySelectorAll('.page').forEach(p=>{
-    p.classList.remove('active');
+  // MATIKAN SEMUA PAGE
+  document.querySelectorAll('.page').forEach(page=>{
+    page.classList.remove('active');
   });
 
-  document.getElementById(pageId).classList.add('active');
+  // AKTIFKAN PAGE YANG DIPILIH
+  const targetPage = document.getElementById(pageId);
+
+  if(!targetPage) return;
+
+  targetPage.classList.add('active');
 
   const backBtn = document.getElementById('backBtn');
+  const menuBtn = document.getElementById('menuBtn');
 
+  // =========================
   // HOME
+  // =========================
+
   if(pageId === 'home'){
 
+    // Tampilkan MENU ☰
+    menuBtn.style.display = 'block';
+
+    // Sembunyikan BACK ←
     backBtn.style.display = 'none';
 
-  } else {
+  }
 
+  // =========================
+  // PAGE LAIN
+  // =========================
+
+  else{
+
+    // Sembunyikan MENU ☰
+    menuBtn.style.display = 'none';
+
+    // Tampilkan BACK ←
     backBtn.style.display = 'block';
 
   }
 
-  // scroll ke atas
+  // SCROLL KE ATAS
   window.scrollTo({
     top:0,
     behavior:'smooth'
@@ -3912,28 +3942,69 @@ function goHome(){
 
   closeAll();
 
-  // kalau sedang di halaman product detail
-  if(document.getElementById('productPage').classList.contains('active')){
+  const menuBtn = document.getElementById('menuBtn');
+  const backBtn = document.getElementById('backBtn');
 
-    document.querySelectorAll('.page').forEach(p=>{
-      p.classList.remove('active');
+  const productPage =
+    document.getElementById('productPage');
+
+  const catalog =
+    document.getElementById('catalog');
+
+  const home =
+    document.getElementById('home');
+
+
+  // =========================
+  // PRODUCT DETAIL → CATALOG
+  // =========================
+
+  if(productPage.classList.contains('active')){
+
+    document.querySelectorAll('.page').forEach(page=>{
+      page.classList.remove('active');
     });
 
-    document.getElementById('catalog').classList.add('active');
+    catalog.classList.add('active');
 
-    document.getElementById('backBtn').style.display = 'block';
+    // Catalog:
+    // ☰ HILANG
+    // ← MUNCUL
+
+    menuBtn.style.display = 'none';
+    backBtn.style.display = 'block';
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
 
     return;
   }
 
-  // selain product detail balik ke home
-  document.querySelectorAll('.page').forEach(p=>{
-    p.classList.remove('active');
+
+  // =========================
+  // PAGE LAIN → HOME
+  // =========================
+
+  document.querySelectorAll('.page').forEach(page=>{
+    page.classList.remove('active');
   });
 
-  document.getElementById('home').classList.add('active');
-  
-  document.getElementById('backBtn').style.display = 'none';
+  home.classList.add('active');
+
+  // Home:
+  // ☰ MUNCUL
+  // ← HILANG
+
+  menuBtn.style.display = 'block';
+  backBtn.style.display = 'none';
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
 }
 
 // STATE
