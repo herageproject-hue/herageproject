@@ -3023,6 +3023,35 @@ body.auth-open #overlay{
   font-weight: 400 !important;
   color: #fff !important;
 }
+
+/* LANGUAGE - SAMAKAN DENGAN ALL STATUS */
+#regionSettings #languageSelect{
+  width:150px;
+  height:52px;
+
+  padding:0 16px;
+
+  border:1px solid #e5e5e5;
+  border-radius:18px;
+
+  background:#fff;
+
+  font-size:14px;
+  font-weight:700;
+
+  color:#111;
+
+  outline:none;
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+}
   
 </style>
 </head>
@@ -3518,32 +3547,10 @@ body.auth-open #overlay{
 
       <h3>Language</h3>
 
-      <div
-        class="region-box"
-        onclick="toggleLanguageOptions()">
-
-        <span>
-          🌐 &nbsp;
-          <span id="currentLanguage">English</span>
-        </span>
-
-        <span id="languageArrow">⌄</span>
-
-      </div>
-
-
-      <div id="languageOptions" class="language-options">
-
-        <div onclick="selectLanguage('Bahasa')">
-          Bahasa
-        </div>
-
-        <div onclick="selectLanguage('English')" class="language-selected">
-          <span class="language-check">✓</span>
-          English
-        </div>
-
-      </div>
+      <select id="languageSelect" class="status-select">
+        <option value="Bahasa">Bahasa</option>
+        <option value="English" selected>English</option>
+      </select>
 
     </div>
 
@@ -6318,48 +6325,6 @@ function closeRegionSettings(){
   document
     .getElementById("regionSettings")
     .classList.remove("active");
-
-}
-
-
-/* LANGUAGE */
-
-function toggleLanguageOptions(){
-
-  const options =
-    document.getElementById("languageOptions");
-
-  const arrow =
-    document.getElementById("languageArrow");
-
-  options.classList.toggle("active");
-
-  if(options.classList.contains("active")){
-
-    arrow.textContent = "⌃";
-
-  }else{
-
-    arrow.textContent = "⌄";
-
-  }
-
-}
-
-
-function selectLanguage(language){
-
-  document
-    .getElementById("currentLanguage")
-    .textContent = language;
-
-  document
-    .getElementById("languageOptions")
-    .classList.remove("active");
-
-  document
-    .getElementById("languageArrow")
-    .textContent = "⌄";
 
 }
 
