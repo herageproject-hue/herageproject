@@ -2780,7 +2780,7 @@ body.auth-open #overlay{
 #regionSettings .region-header span {
   cursor: pointer;
 
-  font-size: 20px;
+  font-size: 20px !important;
   line-height: 1;
 
   color: #111;
@@ -2828,11 +2828,16 @@ body.auth-open #overlay{
   cursor: pointer;
 }
 
-#regionSettings .region-box span {
+#regionSettings .region-box span:not(:last-child) {
   font-size: 14px !important;
   font-weight: 600 !important;
 }
-  
+
+#regionSettings .region-box > *:not(:last-child) {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
 #regionSettings .region-box span:last-child {
   font-size: 20px !important;
   font-weight: 400 !important;
