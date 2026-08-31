@@ -2899,6 +2899,68 @@ body.auth-open #overlay{
 
   cursor: pointer;
 }
+
+/* =========================================
+   SAMAKAN FONT & UKURAN REGION DENGAN FILTER
+   HANYA TYPOGRAPHY - LAYOUT TIDAK DIUBAH
+========================================= */
+
+/* JUDUL: Deliver to / Language / Currency
+   disamakan dengan judul accordion Filter */
+#regionSettings .region-block h3 {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #111;
+}
+
+/* ISI BOX: Indonesia / English / IDR */
+#regionSettings .region-box {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Pastikan tulisan di dalam box juga sama */
+#regionSettings .region-box span:not(:last-child) {
+  font-family: Arial, sans-serif;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+/* Panah jangan ikut berubah */
+#regionSettings .region-box span:last-child {
+  font-family: Arial, sans-serif;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+
+/* PILIHAN LANGUAGE */
+#regionSettings .language-options div {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* FINAL - FONT & SIZE SAJA */
+#regionSettings .region-block h3,
+#regionSettings .region-box,
+#regionSettings .region-box span:not(:last-child) {
+  font-family: Arial, sans-serif;
+}
+
+#regionSettings .region-block h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#regionSettings .region-box,
+#regionSettings .region-box span:not(:last-child) {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
   
 </style>
 </head>
