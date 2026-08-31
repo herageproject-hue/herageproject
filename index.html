@@ -3096,6 +3096,17 @@ body.auth-open #overlay{
   font-weight:600 !important;
   line-height:1.2 !important;
 }
+
+.menu-region .country-name{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:8px;
+}
+
+.menu-region .menu-currency{
+  display:block;
+}
   
 </style>
 </head>
@@ -3118,7 +3129,7 @@ body.auth-open #overlay{
   <div class="menu-region" onclick="openRegionSettings()">
       <span class="country-name">
         <img class="menu-flag" src="indonesia.png" alt="Indonesia">
-        IDR
+        <span class="menu-currency">IDR</span>
       </span>
       <span>›</span>
   </div>
