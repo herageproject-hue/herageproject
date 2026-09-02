@@ -2232,14 +2232,26 @@ body.auth-open #overlay{
 }
 
 .account-btns button{
-  flex:0 0 auto;
-  width:138px;
-  height:78px;
-  border-radius:999px;
-  font-family:'Arial Narrow', Arial, sans-serif;
-  font-size:22px;
+  flex:0 0 138px !important;
+  width:138px !important;
+  height:78px !important;
+  padding:0 !important;
+  border-radius:999px !important;
+  font-family:Arial, sans-serif;
+  font-size:22px !important;
   font-weight:600;
-  cursor:pointer;
+}
+
+.account-btns .login-btn{
+  background:#fff !important;
+  color:#111 !important;
+  border:2px solid #222 !important;
+}
+
+.account-btns .signup-btn{
+  background:#111 !important;
+  color:#fff !important;
+  border:2px solid #111 !important;
 }
 
 /* LOGIN */
@@ -4394,13 +4406,13 @@ async function loadUser(){
       <div class="account-btns">
 
         <button
-          class="btn-outline"
+          class="login-btn"
           onclick="openAuth('login')">
           Login
         </button>
 
         <button
-          class="btn-dark"
+          class="signup-btn"
           onclick="openAuth('register')">
           Signup
         </button>
