@@ -3190,6 +3190,25 @@ header{
   width:100%;
   z-index:1000 !important;
 }
+
+#accountDrawer{
+  top:68px !important;
+  height:calc(100dvh - 68px) !important;
+  z-index:1001 !important;
+  padding:24px !important;
+  background:#fff !important;
+  filter:none !important;
+}
+
+body.auth-open #accountDrawer,
+body.auth-open header{
+  filter:none !important;
+}
+
+header{
+  z-index:1002 !important;
+  filter:none !important;
+}
   
 </style>
 </head>
@@ -3563,9 +3582,8 @@ header{
 </div>
 
 <div id="accountDrawer">
-  <div style="display:flex; justify-content:space-between; align-items:center;">
+  <div class="account-title">
     <h2>My Account</h2>
-    <span onclick="closeAll()" style="cursor:pointer; font-size:18px;">✕</span>
   </div>
   <div class="account-box">
     <h3>Enjoy Special Discounts and Stay Connected</h3>
@@ -4091,8 +4109,25 @@ function openCart(){
 }
 
 function openAccount(){
+
   document.getElementById("accountDrawer").classList.add("active");
-  document.getElementById("overlay").style.display = "block";
+
+  // ACCOUNT MENGGUNAKAN HEADER GLOBAL
+  const menuBtn = document.getElementById("menuBtn");
+  const backBtn = document.getElementById("backBtn");
+
+  // Sembunyikan hamburger
+  menuBtn.style.display = "none";
+
+  // Tampilkan tombol BACK
+  backBtn.style.display = "block";
+
+  // Tidak menggunakan overlay
+  document.getElementById("overlay").style.display = "none";
+
+  // Kunci scroll halaman belakang
+  document.body.classList.add("no-scroll");
+
   loadUser();
 }
 
@@ -4517,6 +4552,35 @@ function showPage(pageId){
 
 }
 function goHome(){
+
+  const accountDrawer = document.getElementById('accountDrawer');
+
+  if(accountDrawer.classList.contains('active')){
+    accountDrawer.classList.remove('active');
+
+    document.body.classList.remove('no-scroll');
+    document.body.classList.remove('auth-open');
+
+    document.getElementById('overlay').style.display = 'none';
+
+    // Kembali ke HOME
+    document.querySelectorAll('.page').forEach(page=>{
+      page.classList.remove('active');
+    });
+
+    document.getElementById('home').classList.add('active');
+
+    // HOME = hamburger
+    document.getElementById('menuBtn').style.display = 'block';
+    document.getElementById('backBtn').style.display = 'none';
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+
+    return;
+  }
 
   closeAll();
 
