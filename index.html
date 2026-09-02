@@ -1653,18 +1653,20 @@ header{
 }
 
 /* BLUR BACKGROUND SAAT LOGIN */
-body.auth-open #accountDrawer,
 body.auth-open #home,
 body.auth-open #catalog,
 body.auth-open #productPage,
 body.auth-open #community,
 body.auth-open #archives,
-body.auth-open #about,
-body.auth-open header{
+body.auth-open #about{
   filter:blur(2px);
   transition:.25s;
 }
 
+body.auth-open header{
+  filter:none !important;
+}
+  
 /* OVERLAY */
 body.auth-open #overlay{
   display:block;
@@ -3156,14 +3158,36 @@ body.auth-open #overlay{
   transform:rotate(180deg);
 }
 
-/* ACCOUNT - HEADER TETAP DI ATAS */
+/* ACCOUNT PAGE */
 #accountDrawer{
-  padding-top:82px !important;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100dvh;
+
+  background:#fff;
+  color:#000;
+
+  padding:82px 24px 24px !important;
+
   z-index:999 !important;
+  overflow-y:auto;
+
+  transform:translateX(100%);
+  transition:transform .35s ease;
 }
 
-/* HEADER TETAP DI ATAS ACCOUNT */
+#accountDrawer.active{
+  transform:translateX(0);
+}
+
+/* HEADER SELALU DI ATAS ACCOUNT */
 header{
+  position:fixed !important;
+  top:0;
+  left:0;
+  width:100%;
   z-index:1000 !important;
 }
   
