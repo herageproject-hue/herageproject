@@ -435,16 +435,19 @@ body.no-scroll{
   margin-bottom:16px;
 }
 
-/* BIRTHDAY - SAMAKAN DENGAN FILTER */
-.birthday-row select{
+.birthday-select{
+  position:relative;
   flex:1;
+}
+
+.birthday-select select{
+  width:100%;
   height:54px;
 
   border:1.5px solid #e8e8e8;
   border-radius:16px;
 
-  padding:0 14px;
-  padding-right:42px;
+  padding:0 42px 0 14px;
 
   background:#fff;
 
@@ -454,11 +457,29 @@ body.no-scroll{
 
   appearance:none;
   -webkit-appearance:none;
+}
 
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+.birthday-arrow{
+  position:absolute;
+  right:16px;
+  top:50%;
 
-  background-repeat:no-repeat;
-  background-position:right 16px center;
+  width:9px;
+  height:9px;
+
+  border-right:2px solid #111;
+  border-bottom:2px solid #111;
+
+  transform:translateY(-65%) rotate(45deg);
+
+  transition:.3s ease;
+
+  pointer-events:none;
+}
+
+/* SAAT DIBUKA */
+.birthday-select.active .birthday-arrow{
+  transform:translateY(-20%) rotate(225deg);
 }
 
 /* BUTTON */
@@ -3841,20 +3862,26 @@ header{
     <h3 class="birthday-title">My Birthday</h3>
     <div class="birthday-row">
 
-      <!-- DAY -->
-      <select id="daySelect">
-        <option value="">Day</option>
-      </select>
+      <div class="birthday-select">
+        <select id="daySelect">
+          <option value="">Day</option>
+        </select>
+        <span class="birthday-arrow"></span>
+      </div>
 
-      <!-- MONTH -->
-      <select id="monthSelect">
-        <option value="">Month</option>
-      </select>
+      <div class="birthday-select">
+        <select id="monthSelect">
+          <option value="">Month</option>
+        </select>
+        <span class="birthday-arrow"></span>
+      </div>
 
-      <!-- YEAR -->
-      <select id="yearSelect">
-        <option value="">Year</option>
-      </select>
+      <div class="birthday-select">
+        <select id="yearSelect">
+          <option value="">Year</option>
+        </select>
+        <span class="birthday-arrow"></span>
+      </div>
 
     </div>
 
@@ -6563,6 +6590,18 @@ function saveRegionSettings(){
   closeRegionSettings();
 
 }
+
+document.querySelectorAll('.birthday-select select').forEach(select => {
+
+  select.addEventListener('focus', function(){
+    this.parentElement.classList.add('active');
+  });
+
+  select.addEventListener('blur', function(){
+    this.parentElement.classList.remove('active');
+  });
+
+});
   
 </script>
 <div id="homeAccordion">
