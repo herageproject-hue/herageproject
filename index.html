@@ -461,25 +461,31 @@ body.no-scroll{
 
 .birthday-arrow{
   position:absolute;
+
+  width:18px !important;
+  height:18px !important;
+
   right:16px;
   top:50%;
 
-  width:9px;
-  height:9px;
+  display:block;
 
-  border-right:2px solid #111;
-  border-bottom:2px solid #111;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 
-  transform:translateY(-65%) rotate(45deg);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:18px 18px;
 
-  transition:.3s ease;
+  transform:translateY(-50%) rotate(0deg);
+
+  transition:.3s;
 
   pointer-events:none;
 }
 
 /* SAAT DIBUKA */
 .birthday-select.active .birthday-arrow{
-  transform:translateY(-20%) rotate(225deg);
+  transform:translateY(-50%) rotate(180deg);
 }
 
 /* BUTTON */
