@@ -3400,17 +3400,13 @@ header{
 /* SEARCH BOX */
 
 .search-main-box{
-  width:100%;
+  flex:1;
   height:52px;
-
   border:1.8px solid #222;
   border-radius:20px;
-
   display:flex;
   align-items:center;
-
   padding:0 20px;
-
   margin-bottom:28px;
 }
 
@@ -3746,6 +3742,27 @@ header{
   width:auto;
   height:auto;
 }
+
+.search-box-row{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.search-popup-close-x{
+  flex-shrink:0;
+  cursor:pointer;
+  font-size:20px;
+  font-weight:400;
+  line-height:1;
+  border:none;
+  background:transparent;
+  color:#111;
+  padding:0;
+  width:20px;
+  height:20px;
+}
   
 </style>
 </head>
@@ -3816,30 +3833,30 @@ header{
   </div>
 
   <div class="search-popup-content">
+    <div class="search-box-row">
+      <div class="search-main-box">
 
-    <div class="search-main-box">
+        <input
+          type="text"
+          id="mainSearchInput"
+          placeholder="Search our products"
+          autocomplete="off">
 
-      <input
-        type="text"
-        id="mainSearchInput"
-        placeholder="Search our products"
-        autocomplete="off">
+        <button
+          class="search-clear"
+          id="searchClear"
+          onclick="clearSearch()">
+          ✕
+        </button>
+
+      </div>
 
       <button
-        class="search-clear"
-        id="searchClear"
-        onclick="clearSearch()">
+        class="search-popup-close-x"
+        onclick="closeSearch()">
         ✕
       </button>
-
     </div>
-
-    <button
-      class="search-popup-close-x"
-      onclick="closeSearch()">
-      ✕
-    </button>
-
     <div id="searchDefaultContent">
 
       <h3 class="search-section-title">
