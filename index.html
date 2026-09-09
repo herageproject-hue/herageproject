@@ -3325,6 +3325,294 @@ header{
   font-size: 20px;
   font-weight: 400;
   cursor: pointer;
+}
+
+/* =========================
+   SEARCH POPUP
+========================= */
+
+#searchPopup{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  background:#fff;
+  z-index:11000;
+  display:none;
+  overflow-y:auto;
+  font-family:inherit;
+}
+
+#searchPopup.active{
+  display:block;
+}
+
+.search-popup-top{
+  height:90px;
+  padding:24px 24px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.search-popup-close,
+.search-popup-more{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+  background:#f7f7f7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#111;
+  font-family:inherit;
+}
+
+.search-popup-close{
+  font-size:38px;
+  font-weight:300;
+  line-height:1;
+}
+
+.search-popup-more{
+  font-size:25px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+.search-popup-content{
+  padding:15px 30px 40px;
+}
+
+.search-main-box{
+  width:100%;
+  height:94px;
+  border:1.8px solid #222;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  padding:0 18px 0 22px;
+  margin-bottom:28px;
+}
+
+.search-main-box input{
+  flex:1;
+  min-width:0;
+  height:100%;
+  border:none;
+  outline:none;
+  background:transparent;
+
+  font-family:inherit;
+  font-size:25px;
+  font-weight:700;
+  color:#111;
+}
+
+.search-main-box input::placeholder{
+  color:#999;
+  font-family:inherit;
+}
+
+.search-clear{
+  width:35px;
+  height:35px;
+  border:none;
+  background:transparent;
+  color:#777;
+
+  font-family:inherit;
+  font-size:35px;
+  font-weight:300;
+
+  cursor:pointer;
+  display:none;
+}
+
+.search-section-title{
+  font-family:inherit;
+  font-size:21px;
+  font-weight:800;
+  color:#1a2233;
+  margin-bottom:16px;
+}
+
+.popular-searches{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 14px;
+  margin-bottom:40px;
+}
+
+.popular-searches button{
+  border:none;
+  background:#333;
+  color:#fff;
+  border-radius:30px;
+  padding:9px 17px;
+
+  font-family:inherit;
+  font-size:19px;
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.popular-searches button:active{
+  transform:scale(.97);
+}
+
+.recent-viewed{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px 12px;
+}
+
+.recent-search-item{
+  cursor:pointer;
+  min-width:0;
+}
+
+.recent-search-image{
+  width:100%;
+  aspect-ratio:1/1;
+  background:#f5f5f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+
+.recent-search-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.recent-search-name{
+  font-family:inherit;
+  font-size:14px;
+  line-height:1.2;
+  font-weight:800;
+  color:#111;
+  text-transform:uppercase;
+}
+
+.recent-search-price{
+  margin-top:6px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:700;
+  color:#333;
+}
+
+.search-results{
+  display:none;
+  margin-top:10px;
+}
+
+.search-results.active{
+  display:block;
+}
+
+.search-result-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.search-result-image{
+  width:70px;
+  height:70px;
+  background:#f5f5f5;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.search-result-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.search-result-info{
+  min-width:0;
+}
+
+.search-result-name{
+  font-family:inherit;
+  font-size:15px;
+  font-weight:800;
+  line-height:1.2;
+  text-transform:uppercase;
+}
+
+.search-result-price{
+  margin-top:5px;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:600;
+  color:#777;
+}
+
+.search-no-result{
+  text-align:center;
+  padding:35px 10px;
+  color:#999;
+
+  font-family:inherit;
+  font-size:15px;
+  font-weight:700;
+}
+
+@media(max-width:768px){
+
+  .search-popup-top{
+    height:88px;
+    padding:22px 20px 10px;
+  }
+
+  .search-popup-content{
+    padding:15px 30px 35px;
+  }
+
+  .search-main-box{
+    height:94px;
+    border-radius:20px;
+  }
+
+  .search-main-box input{
+    font-size:23px;
+  }
+
+  .search-section-title{
+    font-size:20px;
+  }
+
+  .popular-searches{
+    gap:10px 12px;
+  }
+
+  .popular-searches button{
+    font-size:18px;
+    padding:8px 15px;
+  }
+
+  .recent-viewed{
+    grid-template-columns:repeat(3,1fr);
+    gap:18px 10px;
+  }
+}
   
 </style>
 </head>
@@ -3334,7 +3622,7 @@ header{
 <!-- MENU -->
 <div id="menuDrawer">
   <div class="menu-close" onclick="closeAll()">✕</div>
-  <div class="menu-search-icon"></div>
+  <div class="menu-search-icon" onclick="openSearch()"></div>
   <div class="menu-list">
     <p onclick="showPage('catalog')">Catalog</p>
     <p onclick="showPage('community')">Community</p>
@@ -3374,6 +3662,98 @@ header{
     <img src="user.png" loading="lazy" onclick="openAccount()">
   </div>
 </header>
+
+<!-- SEARCH POPUP -->
+<div id="searchPopup">
+
+  <div class="search-popup-top">
+
+    <button
+      class="search-popup-close"
+      onclick="closeSearch()">
+      ×
+    </button>
+
+    <button
+      class="search-popup-more"
+      type="button">
+      ···
+    </button>
+
+  </div>
+
+  <div class="search-popup-content">
+
+    <div class="search-main-box">
+
+      <input
+        type="text"
+        id="mainSearchInput"
+        placeholder="Search our products"
+        autocomplete="off">
+
+      <button
+        class="search-clear"
+        id="searchClear"
+        onclick="clearSearch()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="searchDefaultContent">
+
+      <h3 class="search-section-title">
+        Popular Search Terms
+      </h3>
+
+      <div class="popular-searches">
+
+        <button onclick="searchPopular('hoodie')">
+          hoodie
+        </button>
+
+        <button onclick="searchPopular('t-shirt')">
+          t-shirt
+        </button>
+
+        <button onclick="searchPopular('longsleeve')">
+          longsleeve
+        </button>
+
+        <button onclick="searchPopular('jeans')">
+          jeans
+        </button>
+
+        <button onclick="searchPopular('jorts')">
+          jorts
+        </button>
+
+        <button onclick="searchPopular('herage')">
+          herage
+        </button>
+
+      </div>
+
+      <h3 class="search-section-title">
+        Recent Viewed
+      </h3>
+
+      <div
+        class="recent-viewed"
+        id="recentViewed">
+      </div>
+
+    </div>
+
+    <div
+      class="search-results"
+      id="searchResults">
+    </div>
+
+  </div>
+
+</div>
 
 <!-- HERO -->
 <div id="home" class="page active">
@@ -6664,6 +7044,386 @@ document.querySelectorAll('.birthday-select select').forEach(select => {
   });
 
 });
+
+/* =========================
+   SEARCH POPUP
+========================= */
+
+function openSearch(){
+
+  const popup =
+    document.getElementById("searchPopup");
+
+  popup.classList.add("active");
+
+  document.body.classList.add("no-scroll");
+
+  const input =
+    document.getElementById("mainSearchInput");
+
+  input.value = "";
+
+  document.getElementById("searchClear")
+    .style.display = "none";
+
+  document.getElementById("searchResults")
+    .classList.remove("active");
+
+  document.getElementById("searchDefaultContent")
+    .style.display = "block";
+
+  renderRecentViewed();
+
+  setTimeout(()=>{
+    input.focus();
+  },150);
+}
+
+
+function closeSearch(){
+
+  document.getElementById("searchPopup")
+    .classList.remove("active");
+
+  document.body.classList.remove("no-scroll");
+
+}
+
+
+function clearSearch(){
+
+  const input =
+    document.getElementById("mainSearchInput");
+
+  input.value = "";
+
+  document.getElementById("searchClear")
+    .style.display = "none";
+
+  document.getElementById("searchResults")
+    .classList.remove("active");
+
+  document.getElementById("searchDefaultContent")
+    .style.display = "block";
+
+  input.focus();
+}
+
+
+/* POPULAR SEARCH */
+
+function searchPopular(keyword){
+
+  const input =
+    document.getElementById("mainSearchInput");
+
+  input.value = keyword;
+
+  document.getElementById("searchClear")
+    .style.display = "block";
+
+  performSearch(keyword);
+}
+
+
+/* SEARCH PRODUCT */
+
+function performSearch(keyword){
+
+  const results =
+    document.getElementById("searchResults");
+
+  const defaultContent =
+    document.getElementById("searchDefaultContent");
+
+  const products =
+    Array.from(document.querySelectorAll(".product"));
+
+  const query =
+    keyword.toLowerCase().trim();
+
+  if(!query){
+
+    results.classList.remove("active");
+    defaultContent.style.display = "block";
+
+    return;
+  }
+
+  defaultContent.style.display = "none";
+  results.classList.add("active");
+
+  const matched =
+    products.filter(product => {
+
+      const title =
+        product.querySelector("h4")
+          ?.innerText
+          .toLowerCase() || "";
+
+      return title.includes(query);
+
+    });
+
+  if(matched.length === 0){
+
+    results.innerHTML = `
+      <div class="search-no-result">
+        No products found for "${keyword}"
+      </div>
+    `;
+
+    return;
+  }
+
+  results.innerHTML = "";
+
+  matched.forEach(product => {
+
+    const img =
+      product.querySelector("img");
+
+    const title =
+      product.querySelector("h4")
+        ?.innerText || "";
+
+    const price =
+      product.querySelector("p")
+        ?.innerText || "";
+
+    const item =
+      document.createElement("div");
+
+    item.className =
+      "search-result-item";
+
+    item.innerHTML = `
+      <div class="search-result-image">
+        <img
+          src="${img ? img.src : ""}"
+          loading="lazy">
+      </div>
+
+      <div class="search-result-info">
+
+        <div class="search-result-name">
+          ${title}
+        </div>
+
+        <div class="search-result-price">
+          ${price}
+        </div>
+
+      </div>
+    `;
+
+    item.onclick = function(){
+
+      saveRecentViewed(product);
+
+      closeSearch();
+
+      product.click();
+
+    };
+
+    results.appendChild(item);
+
+  });
+
+}
+
+
+/* INPUT LISTENER */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const input =
+    document.getElementById("mainSearchInput");
+
+  if(!input) return;
+
+  input.addEventListener("input", function(){
+
+    const value =
+      this.value.trim();
+
+    document.getElementById("searchClear")
+      .style.display =
+      value ? "block" : "none";
+
+    if(value){
+
+      performSearch(value);
+
+    }else{
+
+      document.getElementById("searchResults")
+        .classList.remove("active");
+
+      document.getElementById("searchDefaultContent")
+        .style.display = "block";
+
+      renderRecentViewed();
+
+    }
+
+  });
+
+});
+
+
+/* =========================
+   RECENT VIEWED
+========================= */
+
+function saveRecentViewed(product){
+
+  const title =
+    product.querySelector("h4")
+      ?.innerText || "";
+
+  const price =
+    product.querySelector("p")
+      ?.innerText || "";
+
+  const img =
+    product.querySelector("img")
+      ?.src || "";
+
+  if(!title || !img) return;
+
+  let recent =
+    JSON.parse(
+      localStorage.getItem("herageRecentViewed") || "[]"
+    );
+
+  recent =
+    recent.filter(item =>
+      item.title !== title
+    );
+
+  recent.unshift({
+    title:title,
+    price:price,
+    image:img
+  });
+
+  recent =
+    recent.slice(0,6);
+
+  localStorage.setItem(
+    "herageRecentViewed",
+    JSON.stringify(recent)
+  );
+
+  renderRecentViewed();
+}
+
+
+function renderRecentViewed(){
+
+  const container =
+    document.getElementById("recentViewed");
+
+  if(!container) return;
+
+  let recent =
+    JSON.parse(
+      localStorage.getItem("herageRecentViewed") || "[]"
+    );
+
+  container.innerHTML = "";
+
+  if(recent.length === 0){
+
+    container.innerHTML = `
+      <div style="
+        grid-column:1/-1;
+        color:#999;
+        font-size:14px;
+        font-weight:700;
+        padding:10px 0;
+      ">
+        No recently viewed products
+      </div>
+    `;
+
+    return;
+  }
+
+  recent.forEach(item => {
+
+    const product =
+      Array.from(
+        document.querySelectorAll(".product")
+      ).find(p => {
+
+        const title =
+          p.querySelector("h4")
+            ?.innerText || "";
+
+        return title === item.title;
+
+      });
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "recent-search-item";
+
+    card.innerHTML = `
+
+      <div class="recent-search-image">
+
+        <img
+          src="${item.image}"
+          loading="lazy">
+
+      </div>
+
+      <div class="recent-search-name">
+        ${item.title}
+      </div>
+
+      <div class="recent-search-price">
+        ${item.price}
+      </div>
+
+    `;
+
+    card.onclick = function(){
+
+      if(product){
+
+        closeSearch();
+
+        product.click();
+
+      }
+
+    };
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* SAVE PRODUCT WHEN OPENED */
+
+document.addEventListener("click", function(event){
+
+  const product =
+    event.target.closest(".product");
+
+  if(!product) return;
+
+  saveRecentViewed(product);
+
+}, true);
   
 </script>
 <div id="homeAccordion">
