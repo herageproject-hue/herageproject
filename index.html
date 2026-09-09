@@ -3733,6 +3733,19 @@ header{
 #searchPopup .search-popup-top{
   display:none !important;
 }
+
+.search-popup-close-x{
+  cursor:pointer;
+  font-size:20px;
+  font-weight:400;
+  line-height:1;
+  border:none;
+  background:transparent;
+  color:#111;
+  padding:0;
+  width:auto;
+  height:auto;
+}
   
 </style>
 </head>
@@ -3816,10 +3829,16 @@ header{
         class="search-clear"
         id="searchClear"
         onclick="clearSearch()">
-        ×
+        ✕
       </button>
 
     </div>
+
+    <button
+      class="search-popup-close-x"
+      onclick="closeSearch()">
+      ✕
+    </button>
 
     <div id="searchDefaultContent">
 
