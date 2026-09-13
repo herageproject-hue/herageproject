@@ -7230,7 +7230,19 @@ function openSearch(){
   },150);
 }
 
+function openSearch(){
 
+  // TUTUP MENU HAMBURGER
+  document.getElementById('menuDrawer').style.left = '-300px';
+  document.getElementById('overlay').style.display = 'none';
+
+  const popup =
+    document.getElementById("searchPopup");
+
+  popup.classList.add("active");
+
+  document.body.classList.add("no-scroll");
+ 
 function closeSearch(){
 
   document.getElementById("searchPopup")
