@@ -287,27 +287,13 @@ body{
 }
 
 .menu-search-icon {
-  width: 19px;
-  height: 19px;
-  border: 2.5px solid #1a2233;
-  border-radius: 50%;
-  position: relative;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
   margin-bottom: 55px;
-  margin-left: 5px;
-  box-sizing: border-box;
-}
-
-.menu-search-icon::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 2.5px;
-  background: #1a2233;
-  border-radius: 2px;
-  right: -6px;
-  bottom: -3px;
-  transform: rotate(45deg);
-  transform-origin: left center;
+  margin-left: 0;
 }
   
 .menu-list p {
@@ -3772,7 +3758,10 @@ header{
 <!-- MENU -->
 <div id="menuDrawer">
   <div class="menu-close" onclick="closeAll()">✕</div>
-  <div class="menu-search-icon" onclick="openSearch()"></div>
+  <img src="search.PNG"
+     class="menu-search-icon"
+     onclick="openSearch()"
+     alt="Search">
   <div class="menu-list">
     <p onclick="showPage('catalog')">Catalog</p>
     <p onclick="showPage('community')">Community</p>
