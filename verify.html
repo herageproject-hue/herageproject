@@ -290,14 +290,9 @@ async function verifyProduct(){
 
   try{
 
-    const {
-      data,
-      error
-    } = await supabaseClient.rpc(
-      'cashier_get_product',
-      {
-        p_code: code
-      }
+    const { data, error } = await supabaseClient.rpc(
+      'verify_product',
+      { p_code: code }
     );
 
 
