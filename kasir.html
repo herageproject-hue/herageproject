@@ -655,7 +655,8 @@
 
       if (
         result &&
-        result.result === "SOLD"
+        result.success === true &&
+        result.status === "SOLD"
       ) {
 
         document
@@ -663,19 +664,7 @@
           .textContent =
             "Berhasil! Produk tercatat sebagai SOLD.";
 
-        checkProduct();
-
-      }
-
-      else if (
-        result &&
-        result.result === "ALREADY_SOLD"
-      ) {
-
-        document
-          .getElementById("saleMessage")
-          .textContent =
-            "Produk ini sudah pernah terjual.";
+        await checkProduct();
 
       }
 
@@ -684,7 +673,7 @@
         document
           .getElementById("saleMessage")
           .textContent =
-            "Transaksi gagal.";
+      "Transaksi gagal.";
 
       }
 
