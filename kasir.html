@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HERAGE PROJECT — Kasir</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: #000;
+      font-family: "Roboto Condensed", Arial, sans-serif;
+    }
+
+    .topbar {
+      height: 70px;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      border: 1px solid #000;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      height: 45px;
+      padding: 0 20px;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 45px;
+      border: 1px solid #000;
+      padding: 0 12px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 15px 0 7px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 500px;
+      margin: 15px auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="logo">HERAGE PROJECT</div>
+    <div>CASIR</div>
+  </header>
+
+  <main class="page">
+
+    <h1>Kasir</h1>
+
+    <div class="subtitle">
+      Scan QR produk HERAGE PROJECT
+    </div>
+
+    <!-- LOGIN -->
+    <section class="card" id="loginSection">
+
+      <h2>Login Staff</h2>
+
+      <label>Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Email staff"
+      >
+
+      <label>Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+      >
+
+      <br><br>
+
+      <button onclick="login()">
+        LOGIN
+      </button>
+
+      <p id="loginMessage"></p>
+
+    </section>
+
+
+    <!-- KASIR -->
+    <section class="hidden" id="kasirSection">
+
+      <div class="card">
+
+        <h2>Scan QR</h2>
+
+        <p>
+          Tekan tombol di bawah lalu arahkan kamera HP
+          ke QR produk.
+        </p>
+
+        <div id="reader"></div>
+
+        <button onclick="startScanner()">
+          START CAMERA
+        </button>
+
+        <button
+          class="secondary"
+          onclick="stopScanner()"
+        >
+          STOP
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>Kode Produk</h2>
+
+        <label>Masukkan kode secara manual</label>
+
+        <input
+          type="text"
+          id="productCode"
+          placeholder="Contoh: HG-HOODIE-00001"
+        >
+
+        <br><br>
+
+        <button onclick="checkProduct()">
+          CHECK PRODUCT
+        </button>
+
+      </div>
+
+
+      <div class="card hidden" id="productSection">
+
+        <h2>Product</h2>
+
+        <p>
+          <strong>Nama:</strong>
+          <span id="productName"></span>
+        </p>
+
+        <p>
+          <strong>Kode:</strong>
+          <span id="displayCode"></span>
+        </p>
+
+        <p>
+          <strong>Warna:</strong>
+          <span id="productColor"></span>
+        </p>
+
+        <p>
+          <strong>Size:</strong>
+          <span id="productSize"></span>
+        </p>
+
+        <p>
+          <strong>Harga:</strong>
+          <span id="productPrice"></span>
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          <span id="productStatus"></span>
+        </p>
+
+        <hr>
+
+        <label>Payment Method</label>
+
+        <select id="paymentMethod">
+
+          <option value="QRIS">
+            QRIS
+          </option>
+
+          <option value="CASH">
+            CASH
+          </option>
+
+          <option value="TRANSFER">
+            TRANSFER
+          </option>
+
+          <option value="GOPAY">
+            GOPAY
+          </option>
+
+          <option value="DANA">
+            DANA
+          </option>
+
+          <option value="SHOPEEPAY">
+            SHOPEEPAY
+          </option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="markAsSold()">
+          MARK AS SOLD
+        </button>
+
+        <p id="saleMessage"></p>
+
+      </div>
+
+
+      <div class="card">
+
+        <button
+          class="secondary"
+          onclick="logout()"
+        >
+          LOGOUT
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- QR SCANNER -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+
+  <script>
+
+    /*
+      ==========================================
+      SUPABASE CONFIG
+      ==========================================
+    */
+
+    const SUPABASE_URL =
+      "MASUKKAN_SUPABASE_URL_KAMU";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "MASUKKAN_SUPABASE_PUBLISHABLE_KEY_KAMU";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    let scanner = null;
+
+
+    /*
+      ==========================================
+      LOGIN
+      ==========================================
+    */
+
+    async function login() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+          email: email,
+          password: password
+
+        });
+
+
+      if (error) {
+
+        document.getElementById("loginMessage").textContent =
+          error.message;
+
+        return;
+
+      }
+
+
+      document
+        .getElementById("loginSection")
+        .classList.add("hidden");
+
+      document
+        .getElementById("kasirSection")
+        .classList.remove("hidden");
+
+    }
+
+
+    /*
+      ==========================================
+      LOGOUT
+      ==========================================
+    */
+
+    async function logout() {
+
+      await supabaseClient.auth.signOut();
+
+      location.reload();
+
+    }
+
+
+    /*
+      ==========================================
+      QR SCANNER
+      ==========================================
+    */
+
+    async function startScanner() {
+
+      if (scanner) return;
+
+
+      scanner = new Html5Qrcode("reader");
+
+
+      try {
+
+        const cameras =
+          await Html5Qrcode.getCameras();
+
+
+        if (!cameras.length) {
+
+          alert("Kamera tidak ditemukan.");
+
+          return;
+
+        }
+
+
+        let cameraId =
+          cameras[0].id;
+
+
+        await scanner.start(
+
+          cameraId,
+
+          {
+            fps: 10,
+
+            qrbox: {
+              width: 250,
+              height: 250
+            }
+          },
+
+          function(decodedText) {
+
+            document
+              .getElementById("productCode")
+              .value = decodedText;
+
+            checkProduct();
+
+          },
+
+          function(errorMessage) {
+
+            // Tidak perlu melakukan apa-apa
+            // ketika kamera belum menemukan QR
+
+          }
+
+        );
+
+      } catch (error) {
+
+        alert(
+          "Kamera gagal dibuka. Pastikan izin kamera diberikan."
+        );
+
+      }
+
+    }
+
+
+    async function stopScanner() {
+
+      if (!scanner) return;
+
+
+      try {
+
+        await scanner.stop();
+        await scanner.clear();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+      scanner = null;
+
+    }
+
+
+    /*
+      ==========================================
+      CHECK PRODUCT
+      ==========================================
+    */
+
+    async function checkProduct() {
+
+      const code =
+        document
+          .getElementById("productCode")
+          .value
+          .trim()
+          .toUpperCase();
+
+
+      if (!code) {
+
+        alert("Masukkan kode produk.");
+
+        return;
+
+      }
+
+
+      const { data, error } =
+        await supabaseClient.rpc(
+          "cashier_get_product",
+          {
+            p_code: code
+          }
+        );
+
+
+      if (error) {
+
+        alert(error.message);
+
+        return;
+
+      }
+
+
+      const product =
+        Array.isArray(data)
+          ? data[0]
+          : data;
+
+
+      if (!product) {
+
+        alert("Produk tidak ditemukan.");
+
+        return;
+
+      }
+
+
+      document
+        .getElementById("productSection")
+        .classList.remove("hidden");
+
+
+      document
+        .getElementById("productName")
+        .textContent =
+          product.product_name || "-";
+
+
+      document
+        .getElementById("displayCode")
+        .textContent =
+          product.product_code || "-";
+
+
+      document
+        .getElementById("productColor")
+        .textContent =
+          product.color || "-";
+
+
+      document
+        .getElementById("productSize")
+        .textContent =
+          product.size || "-";
+
+
+      document
+        .getElementById("productPrice")
+        .textContent =
+          new Intl.NumberFormat(
+            "id-ID",
+            {
+              style: "currency",
+              currency: "IDR",
+              maximumFractionDigits: 0
+            }
+          ).format(product.price || 0);
+
+
+      document
+        .getElementById("productStatus")
+        .textContent =
+          product.status || "-";
+
+    }
+
+
+    /*
+      ==========================================
+      MARK AS SOLD
+      ==========================================
+    */
+
+    async function markAsSold() {
+
+      const code =
+        document
+          .getElementById("productCode")
+          .value
+          .trim()
+          .toUpperCase();
+
+
+      const payment =
+        document
+          .getElementById("paymentMethod")
+          .value;
+
+
+      if (!code) return;
+
+
+      const { data, error } =
+        await supabaseClient.rpc(
+          "cashier_mark_sold",
+          {
+            p_code: code,
+
+            p_payment_method:
+              payment,
+
+            p_note: null
+          }
+        );
+
+
+      if (error) {
+
+        document
+          .getElementById("saleMessage")
+          .textContent =
+            error.message;
+
+        return;
+
+      }
+
+
+      const result =
+        Array.isArray(data)
+          ? data[0]
+          : data;
+
+
+      if (
+        result &&
+        result.result === "SOLD"
+      ) {
+
+        document
+          .getElementById("saleMessage")
+          .textContent =
+            "Berhasil! Produk tercatat sebagai SOLD.";
+
+        checkProduct();
+
+      }
+
+      else if (
+        result &&
+        result.result === "ALREADY_SOLD"
+      ) {
+
+        document
+          .getElementById("saleMessage")
+          .textContent =
+            "Produk ini sudah pernah terjual.";
+
+      }
+
+      else {
+
+        document
+          .getElementById("saleMessage")
+          .textContent =
+            "Transaksi gagal.";
+
+      }
+
+    }
+
+
+    /*
+      ==========================================
+      AUTO LOGIN CHECK
+      ==========================================
+    */
+
+    async function checkSession() {
+
+      const { data } =
+        await supabaseClient.auth.getSession();
+
+
+      if (data.session) {
+
+        document
+          .getElementById("loginSection")
+          .classList.add("hidden");
+
+        document
+          .getElementById("kasirSection")
+          .classList.remove("hidden");
+
+      }
+
+    }
+
+
+    checkSession();
+
+  </script>
+
+</body>
+</html>
