@@ -414,9 +414,15 @@
         }
 
 
-        let cameraId =
-          cameras[0].id;
+        let cameraId = cameras[0].id;
 
+        const backCamera = cameras.find(camera =>
+          /back|rear|environment/i.test(camera.label || "")
+        );
+
+        if (backCamera) {
+          cameraId = backCamera.id;
+        }
 
         await scanner.start(
 
