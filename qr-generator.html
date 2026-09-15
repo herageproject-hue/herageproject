@@ -234,30 +234,22 @@ body{
 @media print{
 
   @page{
-
     size:A4;
-
-    margin:8mm;
-
+    margin:7mm;
   }
 
   body{
-
     background:#fff;
-
   }
 
   .topbar,
   .info{
-
     display:none;
-
   }
 
   .qr-grid{
-
+    max-width:none;
     margin:0;
-
     padding:0;
 
     display:grid;
@@ -265,69 +257,69 @@ body{
     grid-template-columns:
       repeat(3, 1fr);
 
-    gap:5mm;
+    grid-template-rows:
+      repeat(8, 33mm);
 
+    gap:2.5mm;
   }
 
   .qr-card{
-
     border:1px solid #ddd;
 
     border-radius:0;
 
     min-height:0;
 
-    height:58mm;
+    height:33mm;
 
-    padding:4mm;
+    padding:2mm;
 
     break-inside:avoid;
-
     page-break-inside:avoid;
 
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
   }
 
-  .qr-card-title{
+  .qr-brand{
+    font-size:7px;
+    letter-spacing:.6px;
 
-    font-size:10px;
-
-    margin-bottom:2mm;
-
+    margin-bottom:1mm;
   }
 
   .qr{
-
-    width:39mm;
-
-    height:39mm;
-
+    width:22mm;
+    height:22mm;
   }
 
   .qr img,
   .qr canvas{
-
-    width:39mm !important;
-
-    height:39mm !important;
-
+    width:22mm !important;
+    height:22mm !important;
   }
 
   .code{
+    font-size:6.2px;
 
-    font-size:8px;
+    letter-spacing:.25px;
 
-    margin-top:2mm;
-
-    letter-spacing:.5px;
-
+    margin-top:1mm;
   }
 
   .product{
+    font-size:5.5px;
 
-    font-size:7px;
+    line-height:1.1;
 
-    margin-top:1mm;
+    margin-top:.6mm;
 
+    max-width:35mm;
   }
 
 }
