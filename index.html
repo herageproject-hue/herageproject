@@ -1099,7 +1099,7 @@ html {
 }
 
 /* DIAGONAL LINE */
-.sizes button::after{
+.sizes button.coming-soon-size::after{
   content:"";
 
   position:absolute;
@@ -5222,7 +5222,10 @@ function closeSheet(){
 }
 function addCurrentProductToCart(){
 
-  if(currentProduct.status !== "available"){
+  if(
+    currentProduct.status !== "available" &&
+    currentProduct.status !== "preorder"
+  ){
     return;
   }
 
@@ -5887,6 +5890,10 @@ document.addEventListener("click", function(e){
 
   if(e.target.matches('.sizes button')){
 
+    if(e.target.disabled){
+      return;
+    }
+
     document
       .querySelectorAll('.sizes button')
       .forEach(b=>{
@@ -5897,7 +5904,7 @@ document.addEventListener("click", function(e){
 
   }
 
-});
+});  
 /* =========================
    WISHLIST SYSTEM
 ========================= */
@@ -5927,7 +5934,7 @@ function openProduct(title, price, images, sizeGuide, status = "coming"){
   document.getElementById('productTitle').innerText = title;
   document.getElementById("productStatus").innerText =
     status === "sold" ? "SOLD OUT"
-    : status === "available" ? "AVAILABLE"
+    : status === "preorder" ? "PRE-ORDER"
     : "COMING SOON";
   document.getElementById('productPrice').innerText = price;
   updateWaitingCount(title);
@@ -5941,10 +5948,25 @@ function openProduct(title, price, images, sizeGuide, status = "coming"){
     status
   };
 
+  document.querySelectorAll('.sizes button')
+  .forEach(btn => {
+
+    btn.classList.remove('coming-soon-size');
+    btn.classList.remove('active');
+
+    if(status === "coming" || status === "sold"){
+      btn.classList.add('coming-soon-size');
+      btn.disabled = true;
+    }else{
+      btn.disabled = false;
+    }
+
+  });
+
   const actionBtn =
     document.getElementById("notifyBtn");
 
-  if(status === "available"){
+  if(status === "preorder" || status === "available"){
 
     actionBtn.innerText = "Add to Cart";
     actionBtn.disabled = false;
@@ -6438,6 +6460,13 @@ async function checkNotificationStatus(){
 
   const btn =
     document.getElementById("notifyBtn");
+  if(
+    currentProduct.status === "preorder" ||
+    currentProduct.status === "available" ||
+    currentProduct.status === "sold"
+  ){
+    return;
+  }
 
   const {
     data:{ user }
