@@ -5227,18 +5227,15 @@ async function addCurrentProductToCart(){
   ========================= */
 
   const {
-    data: { user },
-    error
+    data:{ user }
   } = await supabaseClient.auth.getUser();
 
-  if(error){
-    console.log("Cart auth check error:", error);
-    alert("Please login first");
-    return;
-  }
-
   if(!user){
+
     alert("Please login first");
+
+    openAuth("login");
+
     return;
   }
 
@@ -5251,7 +5248,9 @@ async function addCurrentProductToCart(){
     currentProduct.status !== "available" &&
     currentProduct.status !== "preorder"
   ){
+
     return;
+
   }
 
 
@@ -5265,6 +5264,7 @@ async function addCurrentProductToCart(){
   if(!activeSize){
 
     alert("Please select a size");
+
     return;
 
   }
@@ -5281,7 +5281,7 @@ async function addCurrentProductToCart(){
 
 
   /* =========================
-     PRODUCT DATA
+     PRODUCT SIZE
   ========================= */
 
   const size =
