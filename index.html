@@ -4006,7 +4006,8 @@ header{
            'LONGSLEEVE TEE - LIFE HURTS',
            'Rp 149,000',
            ['lifehurts1.png','lifehurts2.png','lifehurts3.png'],
-           'size-longsleeve.png'
+           'size-longsleeve.png',
+           'available'
          )">
 
          <div class="product-image">
@@ -4023,7 +4024,8 @@ header{
            'JORTS SWEATPANTS  - HERAGE',
            'Rp 179,000',
            ['jorts1.png','jorts2.png','jorts3.png'],
-           'size-jorts.png'
+           'size-jorts.png',
+           'coming'
          )">
 
          <div class="product-image">
@@ -4812,6 +4814,8 @@ async function openCart(){
   document.getElementById('cartDrawer').style.right = '0';
   document.getElementById('overlay').style.display = 'block';
 
+  renderCart();
+
   await updateCartLoginState();
 }
 
@@ -5216,8 +5220,215 @@ function closeSheet(){
   document.getElementById('filterModal').style.bottom = '-100%';
   document.getElementById('overlay').style.display = 'none';
 }
-function addToCart(name){
-  alert(name + ' ditambahkan ke keranjang');
+function addCurrentProductToCart(){
+
+  if(currentProduct.status !== "available"){
+    return;
+  }
+
+  const activeSize =
+    document.querySelector(".sizes button.active");
+
+  if(!activeSize){
+
+    alert("Please select a size");
+    return;
+
+  }
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  const size =
+    activeSize.innerText;
+
+  const existing =
+    cart.find(item =>
+      item.title === currentProduct.title &&
+      item.size === size
+    );
+
+  if(existing){
+
+    existing.quantity += qty;
+
+  }else{
+
+    cart.push({
+
+      title: currentProduct.title,
+
+      price: currentProduct.price,
+
+      image: currentProduct.image,
+
+      size: size,
+
+      quantity: qty
+
+    });
+
+  }
+
+  localStorage.setItem(
+    "herageCart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+
+  openCart();
+
+}
+function renderCart(){
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  const drawer =
+    document.getElementById("cartDrawer");
+
+  if(!drawer) return;
+
+  const empty =
+    drawer.querySelector(".cart-empty");
+
+  if(cart.length === 0){
+
+    empty.style.display = "block";
+
+    return;
+
+  }
+
+  empty.style.display = "none";
+
+  let old =
+    drawer.querySelector(".cart-items");
+
+  if(old){
+    old.remove();
+  }
+
+  const cartItems =
+    document.createElement("div");
+
+  cartItems.className = "cart-items";
+
+  cart.forEach((item, index) => {
+
+    cartItems.innerHTML += `
+
+      <div class="cart-item">
+
+        <img
+          src="${item.image}"
+          class="cart-item-image"
+        >
+
+        <div class="cart-item-info">
+
+          <h3>
+            ${item.title}
+          </h3>
+
+          <p>
+            ${item.size}
+          </p>
+
+          <strong>
+            ${item.price}
+          </strong>
+
+          <div class="cart-item-actions">
+
+            <button
+              onclick="changeCartQty(${index}, -1)">
+              −
+            </button>
+
+            <span>
+              ${item.quantity}
+            </span>
+
+            <button
+              onclick="changeCartQty(${index}, 1)">
+              +
+            </button>
+
+          </div>
+
+          <div class="cart-links">
+
+            <button
+              onclick="removeCartItem(${index})">
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  const recent =
+    drawer.querySelector(".recent");
+
+  drawer.insertBefore(
+    cartItems,
+    recent
+  );
+
+}  
+function changeCartQty(index, change){
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  if(!cart[index]) return;
+
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index, 1);
+
+  }
+
+  localStorage.setItem(
+    "herageCart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+
+}
+function removeCartItem(index){
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  cart.splice(index, 1);
+
+  localStorage.setItem(
+    "herageCart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+
 }
 function comingSoon(menu){
   document.getElementById('comingModal').style.display = 'flex';
@@ -5699,7 +5910,7 @@ let currentProduct = {
 
 /* SAVE CURRENT PRODUCT */
 let currentSizeGuide = "";
-function openProduct(title, price, images, sizeGuide){
+function openProduct(title, price, images, sizeGuide, status = "coming"){
 
   currentSizeGuide = sizeGuide;
   
@@ -5729,6 +5940,34 @@ function openProduct(title, price, images, sizeGuide){
     image:images[0],
     status
   };
+
+  const actionBtn =
+    document.getElementById("notifyBtn");
+
+  if(status === "available"){
+
+    actionBtn.innerText = "Add to Cart";
+    actionBtn.disabled = false;
+    actionBtn.style.background = "#111";
+    actionBtn.onclick = addCurrentProductToCart;
+
+  }
+  else if(status === "sold"){
+
+    actionBtn.innerText = "Sold Out";
+    actionBtn.disabled = true;
+    actionBtn.style.background = "#bdbdbd";
+    actionBtn.onclick = null;
+
+  }
+  else{
+
+    actionBtn.innerText = "Notify Me";
+    actionBtn.disabled = false;
+    actionBtn.style.background = "#bdbdbd";
+    actionBtn.onclick = notifyMe;
+
+  }
 
   checkWishlist();
   checkNotificationStatus();
