@@ -5220,7 +5220,33 @@ function closeSheet(){
   document.getElementById('filterModal').style.bottom = '-100%';
   document.getElementById('overlay').style.display = 'none';
 }
-function addCurrentProductToCart(){
+async function addCurrentProductToCart(){
+
+  /* =========================
+     CHECK LOGIN
+  ========================= */
+
+  const {
+    data: { user },
+    error
+  } = await supabaseClient.auth.getUser();
+
+  if(error){
+    console.log("Auth check error:", error);
+    return;
+  }
+
+  if(!user){
+
+    openAuth("login");
+
+    return;
+  }
+
+
+  /* =========================
+     CHECK PRODUCT STATUS
+  ========================= */
 
   if(
     currentProduct.status !== "available" &&
@@ -5229,15 +5255,25 @@ function addCurrentProductToCart(){
     return;
   }
 
+
+  /* =========================
+     CHECK SIZE
+  ========================= */
+
   const activeSize =
     document.querySelector(".sizes button.active");
 
   if(!activeSize){
 
     alert("Please select a size");
-    return;
 
+    return;
   }
+
+
+  /* =========================
+     ADD TO CART
+  ========================= */
 
   let cart =
     JSON.parse(
