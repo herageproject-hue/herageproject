@@ -5624,30 +5624,11 @@ async function addCurrentProductToCart(){
 }
 function renderCart(){
 
-  const cart =
-    JSON.parse(
-      localStorage.getItem("herageCart") || "[]"
-    );
-
-  const drawer =
-    document.getElementById("cartDrawer");
+  const drawer = document.getElementById("cartDrawer");
 
   if(!drawer) return;
 
-  const empty =
-    drawer.querySelector(".cart-empty");
-
-  if(cart.length === 0){
-
-    empty.style.display = "block";
-
-    return;
-
-  }
-
-  empty.style.display = "none";
-
-  let old =
+  const old =
     drawer.querySelector(".cart-items");
 
   if(old){
@@ -5716,17 +5697,28 @@ function renderCart(){
       </div>
 
     `;
+
   });
 
   const recent =
     drawer.querySelector(".recent");
 
-  drawer.insertBefore(
-    cartItems,
-    recent
-  );
+  if(recent){
 
-}  
+    drawer.insertBefore(
+      cartItems,
+      recent
+    );
+
+  }else{
+
+    drawer.appendChild(
+      cartItems
+    );
+
+  }
+
+}
 function changeCartQty(index, change){
 
   let cart =
