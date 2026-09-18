@@ -4264,7 +4264,11 @@ header{
       Continue Shopping
     </button>
 
-    <button class="btn-dark" onclick="openAuth()">
+    <button
+      id="cartLoginBtn"
+      class="btn-dark"
+      onclick="openAuth('login')"
+    >
       Login
     </button>
   </div>
@@ -4803,11 +4807,44 @@ function openMenu(){
   document.getElementById('overlay').style.display = 'block';
 }
 
-function openCart(){
+async function openCart(){
+
   document.getElementById('cartDrawer').style.right = '0';
   document.getElementById('overlay').style.display = 'block';
+
+  await updateCartLoginState();
 }
 
+async function updateCartLoginState(){
+
+  const loginBtn =
+    document.getElementById("cartLoginBtn");
+
+  if(!loginBtn) return;
+
+  const {
+    data:{ user },
+    error
+  } = await supabaseClient.auth.getUser();
+
+  if(error){
+    console.log("Cart auth check error:", error);
+    return;
+  }
+
+  if(user){
+
+    // SUDAH LOGIN
+    loginBtn.style.display = "none";
+
+  }else{
+
+    // BELUM LOGIN
+    loginBtn.style.display = "block";
+
+  }
+}
+  
 function openAccount(){
 
   document.getElementById("accountDrawer").classList.add("active");
