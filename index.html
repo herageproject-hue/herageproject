@@ -5232,14 +5232,13 @@ async function addCurrentProductToCart(){
   } = await supabaseClient.auth.getUser();
 
   if(error){
-    console.log("Auth check error:", error);
+    console.log("Cart auth check error:", error);
+    alert("Please login first");
     return;
   }
 
   if(!user){
-
-    openAuth("login");
-
+    alert("Please login first");
     return;
   }
 
@@ -5266,13 +5265,13 @@ async function addCurrentProductToCart(){
   if(!activeSize){
 
     alert("Please select a size");
-
     return;
+
   }
 
 
   /* =========================
-     ADD TO CART
+     GET CART
   ========================= */
 
   let cart =
@@ -5280,14 +5279,25 @@ async function addCurrentProductToCart(){
       localStorage.getItem("herageCart") || "[]"
     );
 
+
+  /* =========================
+     PRODUCT DATA
+  ========================= */
+
   const size =
     activeSize.innerText;
+
+
+  /* =========================
+     CHECK EXISTING PRODUCT
+  ========================= */
 
   const existing =
     cart.find(item =>
       item.title === currentProduct.title &&
       item.size === size
     );
+
 
   if(existing){
 
@@ -5311,10 +5321,20 @@ async function addCurrentProductToCart(){
 
   }
 
+
+  /* =========================
+     SAVE CART
+  ========================= */
+
   localStorage.setItem(
     "herageCart",
     JSON.stringify(cart)
   );
+
+
+  /* =========================
+     UPDATE CART
+  ========================= */
 
   renderCart();
 
