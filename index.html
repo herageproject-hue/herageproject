@@ -5624,15 +5624,38 @@ async function addCurrentProductToCart(){
 }
 function renderCart(){
 
-  const drawer = document.getElementById("cartDrawer");
+  const cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  const drawer =
+    document.getElementById("cartDrawer");
 
   if(!drawer) return;
 
-  const old =
+  const empty =
+    drawer.querySelector(".cart-empty");
+
+  let old =
     drawer.querySelector(".cart-items");
 
   if(old){
     old.remove();
+  }
+
+  if(cart.length === 0){
+
+    if(empty){
+      empty.style.display = "block";
+    }
+
+    return;
+
+  }
+
+  if(empty){
+    empty.style.display = "none";
   }
 
   const cartItems =
@@ -5649,25 +5672,21 @@ function renderCart(){
         <img
           src="${item.image}"
           class="cart-item-image"
+          alt="${item.title}"
         >
 
         <div class="cart-item-info">
 
-          <h3>
-            ${item.title}
-          </h3>
+          <h3>${item.title}</h3>
 
-          <p>
-            ${item.size}
-          </p>
+          <p>${item.size}</p>
 
-          <strong>
-            ${item.price}
-          </strong>
+          <strong>${item.price}</strong>
 
           <div class="cart-links">
 
             <button
+              type="button"
               onclick="removeCartItem(${index})">
               Remove
             </button>
@@ -5679,15 +5698,15 @@ function renderCart(){
         <div class="cart-item-actions">
 
           <button
+            type="button"
             onclick="changeCartQty(${index}, -1)">
             −
           </button>
 
-          <span>
-            ${item.quantity}
-          </span>
+          <span>${item.quantity}</span>
 
           <button
+            type="button"
             onclick="changeCartQty(${index}, 1)">
             +
           </button>
