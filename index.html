@@ -3970,12 +3970,16 @@ header{
 
 /* QUANTITY */
 #cartDrawer .cart-item-actions {
-  position: static;
+  position: relative;
+
+  grid-column: 2;
+  grid-row: 2;
 
   width: 108px;
   height: 38px;
 
-  margin-top: 18px;
+  margin-top: 0;
+  margin-bottom: 20px;
 
   border: 1px solid #e5e5e5;
   border-radius: 16px;
@@ -3988,6 +3992,7 @@ header{
 
   box-sizing: border-box;
 }
+
 
 #cartDrawer .cart-item-actions button {
   width: 32px;
