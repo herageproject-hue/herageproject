@@ -4483,6 +4483,228 @@ header{
   }
 
 }  
+
+/* =========================================
+   CART - SMALL / COMPACT MOBILE
+   MATCH REFERENCE
+========================================= */
+
+@media (max-width:768px){
+
+  /* CART DRAWER */
+  #cartDrawer{
+    width:calc(100% - 42px) !important;
+    right:-100%;
+    padding:0 !important;
+  }
+
+  /* HEADER */
+  #cartDrawer > div:first-child{
+    height:90px !important;
+    padding:25px 16px 15px !important;
+  }
+
+  #cartDrawer > div:first-child h2{
+    font-size:32px !important;
+    line-height:1 !important;
+  }
+
+  #cartDrawer > div:first-child span{
+    font-size:28px !important;
+  }
+
+
+  /* =========================
+     PRODUCT CART
+  ========================= */
+
+  #cartDrawer .cart-item{
+    grid-template-columns:110px minmax(0,1fr) !important;
+    column-gap:18px !important;
+
+    padding:28px 16px 22px !important;
+
+    min-height:0 !important;
+  }
+
+  /* PRODUCT IMAGE */
+  #cartDrawer .cart-item-image{
+    width:110px !important;
+    height:110px !important;
+    aspect-ratio:1 / 1 !important;
+    object-fit:contain !important;
+  }
+
+  /* PRODUCT INFO */
+  #cartDrawer .cart-item-info{
+    min-width:0 !important;
+  }
+
+  #cartDrawer .cart-item-info h3{
+    width:100% !important;
+
+    margin:0 0 8px !important;
+
+    font-size:15px !important;
+    line-height:1.2 !important;
+    font-weight:800 !important;
+
+    overflow-wrap:normal !important;
+    word-break:normal !important;
+  }
+
+  #cartDrawer .cart-item-info p{
+    margin:0 0 10px !important;
+
+    font-size:14px !important;
+    line-height:1.2 !important;
+  }
+
+  #cartDrawer .cart-item-info strong{
+    font-size:17px !important;
+    line-height:1.2 !important;
+  }
+
+
+  /* REMOVE */
+  #cartDrawer .cart-links{
+    left:144px !important;
+    bottom:20px !important;
+  }
+
+  #cartDrawer .cart-links button{
+    font-size:14px !important;
+    font-weight:700 !important;
+  }
+
+
+  /* QUANTITY */
+  #cartDrawer .cart-item-actions{
+    right:16px !important;
+    bottom:18px !important;
+
+    width:92px !important;
+    height:42px !important;
+
+    border:1px solid #e5e5e5 !important;
+    border-radius:18px !important;
+  }
+
+  #cartDrawer .cart-item-actions button{
+    width:28px !important;
+    height:32px !important;
+
+    font-size:20px !important;
+  }
+
+  #cartDrawer .cart-item-actions span{
+    min-width:18px !important;
+    font-size:16px !important;
+  }
+
+
+  /* =========================
+     SECURITY
+  ========================= */
+
+  #cartDrawer .cart-security{
+    min-height:120px !important;
+    height:120px !important;
+  }
+
+  #cartDrawer .security-icon{
+    width:38px !important;
+    height:38px !important;
+    margin-bottom:10px !important;
+  }
+
+  #cartDrawer .security-item span{
+    font-size:15px !important;
+    line-height:1.2 !important;
+  }
+
+
+  /* =========================
+     RECENTLY ORDERED
+  ========================= */
+
+  #cartDrawer .recent{
+    padding:32px 16px 18px !important;
+  }
+
+  #cartDrawer .recent h4{
+    margin:0 0 28px !important;
+
+    font-size:22px !important;
+    line-height:1.1 !important;
+  }
+
+  #cartDrawer .recent-items{
+    grid-template-columns:1fr 1fr !important;
+    gap:16px !important;
+  }
+
+  #cartDrawer .recent-cart-product img{
+    width:100% !important;
+    aspect-ratio:1 / 1 !important;
+  }
+
+  #cartDrawer .recent-cart-name{
+    margin-top:7px !important;
+    font-size:13px !important;
+    line-height:1.2 !important;
+  }
+
+  #cartDrawer .recent-cart-price{
+    margin-top:4px !important;
+    font-size:13px !important;
+  }
+
+  #cartDrawer .recent-cart-add{
+    width:28px !important;
+    height:28px !important;
+
+    right:0 !important;
+    bottom:0 !important;
+
+    font-size:23px !important;
+  }
+
+
+  /* =========================
+     TOTAL PRICE
+  ========================= */
+
+  #cartDrawer .cart-summary{
+    padding:26px 16px 24px !important;
+  }
+
+  #cartDrawer .cart-total-row{
+    margin-bottom:22px !important;
+  }
+
+  #cartDrawer .cart-total-label{
+    font-size:17px !important;
+    line-height:1.2 !important;
+  }
+
+  #cartDrawer .cart-total-price{
+    font-size:27px !important;
+    line-height:1.1 !important;
+  }
+
+
+  /* CHECKOUT */
+  #cartDrawer .checkout-btn{
+    width:100% !important;
+    height:54px !important;
+
+    border-radius:20px !important;
+
+    font-size:19px !important;
+  }
+
+}  
 </style>
 </head>
 
