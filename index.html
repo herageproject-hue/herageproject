@@ -68,6 +68,46 @@ header {
   margin-left:18px;
 }
 
+.cart-icon-wrapper{
+  position:relative;
+  display:inline-block;
+  margin-left:18px;
+}
+
+.cart-icon-wrapper img{
+  width:26px !important;
+  margin-left:0 !important;
+  display:block;
+  cursor:pointer;
+}
+
+#cartBadge{
+  position:absolute;
+  top:-9px;
+  right:-9px;
+
+  min-width:20px;
+  height:20px;
+
+  padding:0 5px;
+
+  background:#222;
+  color:#fff;
+
+  border-radius:50%;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+
+  box-sizing:border-box;
+}  
+  
 /* HERO */
 .hero{
   width:100%;
@@ -4772,7 +4812,10 @@ header{
 </div>
 
   <div class="icons">
-    <img src="cart.png" loading="lazy" onclick="openCart()">
+    <div class="cart-icon-wrapper">
+      <img src="cart.png" loading="lazy" onclick="openCart()">
+      <span id="cartBadge">0</span>
+    </div>
     <img src="user.png" loading="lazy" onclick="openAccount()">
   </div>
 </header>
@@ -6265,6 +6308,41 @@ async function addCurrentProductToCart(){
   openCart();
 
 }
+
+function updateCartBadge(){
+
+  const badge =
+    document.getElementById("cartBadge");
+
+  if(!badge) return;
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("herageCart") || "[]"
+    );
+
+  let totalQty = 0;
+
+  cart.forEach(item => {
+
+    totalQty +=
+      Number(item.quantity || 1);
+
+  });
+
+  if(totalQty > 0){
+
+    badge.textContent = totalQty;
+    badge.style.display = "flex";
+
+  }else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+  
 function renderCart(){
 
   const cart =
@@ -6272,6 +6350,8 @@ function renderCart(){
       localStorage.getItem("herageCart") || "[]"
     );
 
+  updateCartBadge();
+  
   const drawer =
     document.getElementById("cartDrawer");
 
