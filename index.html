@@ -4794,73 +4794,143 @@ header{
 
 }  
 
-/* =========================
-   HERAGE HEADER - FINAL
-========================= */
+/* =========================================
+   HERAGE HEADER — MATCH CALLE REFERENCE
+========================================= */
 
 header{
-  height:68px !important;
-  padding:0 16px !important;
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+
+  width:100% !important;
+  height:101px !important;
+
+  padding:0 30px !important;
+
   background:#fff !important;
+  border-bottom:none !important;
+
   backdrop-filter:none !important;
   -webkit-backdrop-filter:none !important;
 
   display:flex !important;
   align-items:center !important;
   justify-content:space-between !important;
+
+  z-index:1002 !important;
 }
 
-/* KIRI */
+
+/* =========================
+   BAGIAN KIRI
+========================= */
+
 header > div:first-child{
   display:flex !important;
   align-items:center !important;
+
   gap:20px !important;
 }
 
-/* HAMBURGER */
+
+/* =========================
+   HAMBURGER
+========================= */
+
 .menu-icon{
-  width:38px !important;
-  height:38px !important;
+  width:40px !important;
+  height:40px !important;
+
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
+
+  flex-shrink:0 !important;
 }
 
 .menu-icon img{
-  width:38px !important;
-  height:38px !important;
-  object-fit:contain !important;
-}
+  width:40px !important;
+  height:40px !important;
 
-/* LOGO HERAGE */
-.logo-img{
-  width:230px !important;
-  height:auto !important;
-  max-height:32px !important;
   object-fit:contain !important;
   display:block !important;
 }
 
-/* KANAN */
+
+/* =========================
+   LOGO HERAGE
+========================= */
+
+.logo-img{
+  width:220px !important;
+  height:auto !important;
+
+  max-width:220px !important;
+  max-height:none !important;
+
+  object-fit:contain !important;
+  display:block !important;
+}
+
+
+/* =========================
+   BAGIAN KANAN
+========================= */
+
 .icons{
   display:flex !important;
   align-items:center !important;
-  gap:22px !important;
+
+  gap:26px !important;
 }
 
-/* CART + USER */
-.cart-icon-wrapper,
-.cart-icon-wrapper img,
+
+/* CART */
+
+.cart-icon-wrapper{
+  width:38px !important;
+  height:38px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  position:relative !important;
+}
+
+.cart-icon-wrapper img{
+  width:38px !important;
+  height:38px !important;
+
+  object-fit:contain !important;
+  display:block !important;
+}
+
+
+/* USER */
+
 .icons > img{
   width:38px !important;
   height:38px !important;
+
   object-fit:contain !important;
+  display:block !important;
 }
 
-/* BADGE */
+
+/* =========================
+   CART BADGE
+========================= */
+
 #cartBadge{
   top:-7px !important;
   right:-7px !important;
+
+  min-width:20px !important;
+  height:20px !important;
+
+  font-size:12px !important;
 }
   
 </style>
