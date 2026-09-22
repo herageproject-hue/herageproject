@@ -58,45 +58,14 @@ header {
   height:32px;
 }
 
-/* =========================
-   HERAGE HEADER ICON SYSTEM
-========================= */
-
-.menu-icon{
-  width:38px;
-  height:30px;
-  cursor:pointer;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.menu-icon svg{
-  width:38px;
-  height:30px;
-  display:block;
-}
-
-.header-icon{
-  width:28px;
-  height:32px;
-
-  display:block;
-
-  color:#000;
-  stroke:currentColor;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-
+.menu-icon {
+  font-size:26px;
   cursor:pointer;
 }
 
-.icons{
-  display:flex;
-  align-items:center;
-  gap:18px;
+.icons img{
+  width:26px;
+  margin-left:18px;
 }
 
 .cart-icon-wrapper{
@@ -4835,18 +4804,8 @@ header{
 </div>
 
 <!-- MENU BUTTON -->
-<div id="menuBtn" class="menu-icon" onclick="openMenu()">
-
-  <svg viewBox="0 0 38 30"
-       fill="none"
-       xmlns="http://www.w3.org/2000/svg">
-
-    <line x1="1" y1="3" x2="37" y2="3"/>
-    <line x1="1" y1="15" x2="37" y2="15"/>
-    <line x1="1" y1="27" x2="37" y2="27"/>
-
-  </svg>
-
+<div class="menu-icon-wrapper">
+  <img src="menu.png" loading="lazy" onclick="openMenu()">
 </div>
 
 <img src="logo.png" loading="lazy" class="logo-img">
@@ -4854,30 +4813,10 @@ header{
 
   <div class="icons">
     <div class="cart-icon-wrapper">
-      <svg class="header-icon cart-icon"
-           viewBox="0 0 32 36"
-           fill="none"
-           xmlns="http://www.w3.org/2000/svg"
-           onclick="openCart()">
-
-        <path d="M5 11H27V31H5V11Z"/>
-
-        <path d="M10 11V8C10 4.7 12.7 2 16 2C19.3 2 22 4.7 22 8V11"/>
-
-      </svg>
+      <img src="cart.png" loading="lazy" onclick="openCart()">
       <span id="cartBadge">0</span>
     </div>
-    <svg class="header-icon user-icon"
-         viewBox="0 0 32 36"
-         fill="none"
-         xmlns="http://www.w3.org/2000/svg"
-         onclick="openAccount()">
-
-      <circle cx="16" cy="9" r="7"/>
-
-      <path d="M4 34C4 25.5 8.8 20 16 20C23.2 20 28 25.5 28 34"/>
-
-    </svg>
+    <img src="user.png" loading="lazy" onclick="openAccount()">
   </div>
 </header>
 
