@@ -55,12 +55,14 @@ header {
 }
   
 .logo-img {
-  height:32px;
+  height:38px;
+  width:auto;
+  display:block;
 }
 
 .menu-icon{
-  width:32px;
-  height:32px;
+  width:30px;
+  height:30px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -69,32 +71,41 @@ header {
 }
 
 .menu-icon img{
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
   object-fit:contain;
   display:block;
+}
+
+.icons{
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
 
 .icons img{
   width:32px;
   height:32px;
   object-fit:contain;
-  margin-left:18px;
+  margin:0;
+  display:block;
+}
+
+.cart-icon-wrapper{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0;
 }
 
 .cart-icon-wrapper img{
   width:32px !important;
   height:32px !important;
   object-fit:contain;
-  margin-left:0 !important;
+  margin:0 !important;
   display:block;
   cursor:pointer;
-}
-
-.cart-icon-wrapper{
-  position:relative;
-  display:inline-block;
-  margin-left:18px;
 }
 
 #cartBadge{
@@ -4810,7 +4821,7 @@ header{
 
 <!-- HEADER -->
 <header>
-  <div style="display:flex;align-items:center;gap:15px;">
+  <div style="display:flex;align-items:center;gap:20px;">
 
 <!-- NAVIGATION BUTTON -->
 
