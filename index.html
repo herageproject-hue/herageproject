@@ -58,27 +58,43 @@ header {
   height:32px;
 }
 
-.menu-icon {
-  font-size:26px;
+.menu-icon{
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
+  flex-shrink:0;
+}
+
+.menu-icon img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  display:block;
 }
 
 .icons img{
-  width:26px;
+  width:32px;
+  height:32px;
+  object-fit:contain;
   margin-left:18px;
+}
+
+.cart-icon-wrapper img{
+  width:32px !important;
+  height:32px !important;
+  object-fit:contain;
+  margin-left:0 !important;
+  display:block;
+  cursor:pointer;
 }
 
 .cart-icon-wrapper{
   position:relative;
   display:inline-block;
   margin-left:18px;
-}
-
-.cart-icon-wrapper img{
-  width:26px !important;
-  margin-left:0 !important;
-  display:block;
-  cursor:pointer;
 }
 
 #cartBadge{
