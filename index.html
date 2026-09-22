@@ -4794,17 +4794,6 @@ header{
 
 }  
 
-#menuBtn{
-  position:relative !important;
-  top:3px !important;
-  transform:translateY(0) !important;
-}
-
-#menuBtn img{
-  position:relative !important;
-  top:0 !important;
-  transform:translateY(0) !important;
-}  
 </style>
 </head>
 
@@ -6817,7 +6806,7 @@ function showPage(pageId){
   if(pageId === 'home'){
 
     // Tampilkan MENU ☰
-    menuBtn.style.display = 'block';
+    menuBtn.style.display = 'flex';
 
     // Sembunyikan BACK ←
     backBtn.style.display = 'none';
@@ -6865,7 +6854,7 @@ function goHome(){
     document.getElementById('home').classList.add('active');
 
     // HOME = hamburger
-    document.getElementById('menuBtn').style.display = 'block';
+    document.getElementById('menuBtn').style.display = 'flex';
     document.getElementById('backBtn').style.display = 'none';
 
     window.scrollTo({
@@ -6933,7 +6922,7 @@ function goHome(){
   // ☰ MUNCUL
   // ← HILANG
 
-  menuBtn.style.display = 'block';
+  menuBtn.style.display = 'flex';
   backBtn.style.display = 'none';
 
   window.scrollTo({
