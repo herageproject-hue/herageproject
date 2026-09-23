@@ -1112,7 +1112,8 @@ body{
   <div class="payment-modal-footer">
     <button
       type="button"
-      class="payment-confirm-btn">
+      class="payment-confirm-btn"
+      onclick="confirmPaymentMethod()">
       Confirm
     </button>
   </div>
@@ -1655,6 +1656,20 @@ function selectPaymentMethod(element){
 
   element.classList.add("active");
   element.querySelector(".payment-radio").classList.add("checked");
+}  
+
+function confirmPaymentMethod(){
+  const selected = document.querySelector(".payment-method-item.active");
+
+  if(!selected) return;
+
+  const name = selected.querySelector(".payment-method-name").textContent.trim();
+  const logo = selected.querySelector(".payment-method-left img").getAttribute("src");
+
+  document.getElementById("selectedPaymentName").textContent = name;
+  document.getElementById("selectedPaymentLogo").src = logo;
+
+  closePaymentModal();
 }  
 </script>
 
