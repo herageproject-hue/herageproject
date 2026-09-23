@@ -574,113 +574,275 @@ body{
 }
 
 @media(max-width:768px){
+
+  /* HEADER */
   .checkout-header{
-    height:82px;
+    height:60px;
   }
 
   .checkout-logo{
-    height:48px;
-    max-width:230px;
+    height:42px;
+    max-width:210px;
   }
 
+  .checkout-header .back{
+    left:16px;
+    width:30px;
+    height:30px;
+  }
+
+  .checkout-header .back img{
+    width:22px;
+    height:22px;
+  }
+
+
+  /* CHECKOUT CONTAINER */
   .checkout{
-    padding:34px 20px 55px;
+    width:100%;
+    padding:30px 26px 55px;
   }
 
+
+  /* SECTION */
   .section{
     margin-bottom:54px;
   }
 
   .section h2{
-    font-size:36px;
-    margin-bottom:26px;
+    font-size:22px;
+    line-height:1.1;
+    letter-spacing:-.3px;
+    margin-bottom:20px;
   }
 
+
+  /* FIELD */
   .field{
-    min-height:78px;
-    border-radius:21px;
-    padding:13px 24px;
+    min-height:56px;
+    height:56px;
+    border-radius:16px;
+    border:1.5px solid #e7e7e7;
+    padding:9px 14px;
+    margin-bottom:10px;
   }
 
   .field label{
-    font-size:17px;
+    font-size:13px;
+    line-height:1.1;
+    margin-bottom:3px;
   }
 
   .field input,
   .field select{
-    font-size:22px;
+    font-size:14px;
+    line-height:1.1;
   }
 
-  .field textarea{
-    font-size:20px;
+  .field input::placeholder,
+  .field textarea::placeholder{
+    color:#737983;
+    opacity:1;
   }
 
-  .field.address-field{
-    min-height:195px;
+
+  /* EMAIL NOTE */
+  .email-hint{
+    color:#737983;
+    font-size:10px;
+    line-height:1.2;
+    font-weight:700;
+    margin:-2px 0 10px 14px;
   }
 
+
+  /* COUNTRY */
+  .field.select-field{
+    min-height:56px;
+    height:56px;
+  }
+
+  .field .arrow{
+    right:16px;
+    width:10px;
+    height:10px;
+    border-right:2.5px solid #1a2233;
+    border-bottom:2.5px solid #1a2233;
+  }
+
+
+  /* LOCATION SEARCH */
   .field.search-field{
-    min-height:78px;
+    min-height:56px;
+    height:56px;
+    padding:0 14px;
   }
 
   .field.search-field .search-text{
-    font-size:20px;
+    font-size:13px;
   }
 
+  .search-icon{
+    width:24px;
+    height:24px;
+    border-width:2.5px;
+  }
+
+  .search-icon:after{
+    width:10px;
+    height:2.5px;
+    right:-8px;
+    bottom:-4px;
+  }
+
+
+  /* ADDRESS */
+  .field.address-field{
+    height:110px;
+    min-height:110px;
+    padding:13px 14px;
+  }
+
+  .field.address-field textarea{
+    min-height:65px;
+    height:65px;
+    font-size:14px;
+  }
+
+  .field.address-field .hint{
+    font-size:10px;
+    text-align:right;
+    margin-top:2px;
+  }
+
+
+  /* DROPSHIP */
   .dropship{
-    font-size:19px;
+    margin-top:18px;
+    font-size:13px;
+    gap:15px;
   }
 
+  .checkbox{
+    width:16px;
+    height:16px;
+    border-width:1.5px;
+    border-radius:2px;
+  }
+
+  .checkbox:checked:after{
+    font-size:11px;
+    left:2px;
+    top:-2px;
+  }
+
+
+  /* SHIPMENT */
   .shipment-empty{
-    padding:30px;
-    font-size:20px;
+    padding:20px;
+    font-size:13px;
+    border-radius:16px;
   }
 
+  .shipment-option{
+    min-height:60px;
+    border-radius:16px;
+    padding:10px 14px;
+  }
+
+  .shipment-logo{
+    width:38px;
+    height:38px;
+  }
+
+  .shipment-name{
+    font-size:14px;
+  }
+
+  .shipment-est{
+    font-size:10px;
+  }
+
+  .shipment-price{
+    font-size:13px;
+  }
+
+
+  /* PAYMENT */
+  .payment-option{
+    min-height:65px;
+    border-radius:16px;
+    padding:10px 14px;
+  }
+
+  .payment-logo{
+    width:40px;
+    height:40px;
+  }
+
+  .payment-name{
+    font-size:15px;
+  }
+
+
+  /* ORDER */
   .order-item{
-    grid-template-columns:95px 1fr auto;
-    gap:13px;
+    grid-template-columns:70px 1fr auto;
+    gap:10px;
   }
 
   .order-item img{
-    width:95px;
-    height:95px;
+    width:70px;
+    height:70px;
   }
 
   .order-info h3{
-    font-size:20px;
+    font-size:15px;
   }
 
   .order-info p{
-    font-size:17px;
+    font-size:12px;
   }
 
   .order-price{
-    font-size:20px;
+    font-size:14px;
   }
+
 
   .action-row{
-    font-size:19px;
-    min-height:72px;
-    padding:0 20px;
+    font-size:13px;
+    min-height:55px;
+    padding:0 14px;
+    border-radius:16px;
   }
 
+
+  /* SUMMARY */
   .summary-row{
-    font-size:20px;
+    font-size:13px;
   }
 
   .summary-row.total{
-    font-size:25px;
+    font-size:16px;
+  }
+
+  .secure{
+    font-size:11px;
   }
 
   .tax-note{
-    font-size:18px;
-    padding:22px 24px;
+    font-size:12px;
+    padding:15px 16px;
   }
 
   .order-btn{
-    height:68px;
-    font-size:22px;
-    border-radius:20px;
+    height:55px;
+    font-size:15px;
+    border-radius:16px;
+  }
+
+  .terms{
+    font-size:11px;
   }
 }
 </style>
@@ -774,7 +936,10 @@ function renderCheckout(){
         <div class="field">
           <label>Email Address (Optional)</label>
           <input id="email" type="email" placeholder="Email Address">
-          <div class="hint">We will send your order detail to your email</div>
+        </div>
+
+        <div class="email-hint">
+          We will send your order detail to your email
         </div>
 
         <div class="field">
@@ -802,7 +967,7 @@ function renderCheckout(){
 
         <div class="field address-field">
           <label>Address Details</label>
-          <textarea id="address" maxlength="250" placeholder="Address Details"></textarea>
+          <textarea id="address" maxlength="250" placeholder=""></textarea>
           <div class="hint" id="charCount">0 / 250</div>
         </div>
 
