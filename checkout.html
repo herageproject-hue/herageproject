@@ -1222,7 +1222,7 @@ function renderCheckout(){
           <select id="country">
             <option>Indonesia</option>
           </select>
-          <span class="arrow country-arrow"></span>
+          <span class="country-arrow">⌄</span>
         </div>
 
         <div class="field search-field" onclick="openProvincePicker()">
@@ -1712,16 +1712,13 @@ function confirmPaymentMethod(){
   closePaymentModal();
 }  
 
-const countrySelect = document.getElementById("country");
-const countryArrow = document.querySelector(".country-arrow");
-
 countrySelect.addEventListener("focus", function(){
   countryArrow.classList.add("open");
 });
 
 countrySelect.addEventListener("blur", function(){
   countryArrow.classList.remove("open");
-});  
+});
 </script>
 
 </body>
