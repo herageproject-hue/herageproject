@@ -1043,7 +1043,7 @@ body{
   <div class="payment-modal-content">
 
     <!-- BCA -->
-    <div class="payment-method-item active">
+    <div class="payment-method-item active" onclick="selectPaymentMethod(this)">
       <div class="payment-method-left">
         <img src="bca.png" alt="BCA">
         <div>
@@ -1056,7 +1056,7 @@ body{
 
 
     <!-- QRIS -->
-    <div class="payment-method-item">
+    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
       <div class="payment-method-left">
         <img src="qris.png" alt="QRIS">
         <div>
@@ -1069,7 +1069,7 @@ body{
 
 
     <!-- GOPAY -->
-    <div class="payment-method-item">
+    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
       <div class="payment-method-left">
         <img src="gopay.png" alt="GoPay">
         <div>
@@ -1082,7 +1082,7 @@ body{
 
 
     <!-- SHOPEEPAY -->
-    <div class="payment-method-item">
+    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
       <div class="payment-method-left">
         <img src="spay.png" alt="ShopeePay">
         <div>
@@ -1095,7 +1095,7 @@ body{
 
 
     <!-- DANA -->
-    <div class="payment-method-item">
+    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
       <div class="payment-method-left">
         <img src="dana.png" alt="DANA">
         <div>
@@ -1645,6 +1645,16 @@ function openPaymentModal(){
 
 function closePaymentModal(){
   document.getElementById("paymentModal").classList.remove("active");
+}  
+
+function selectPaymentMethod(element){
+  document.querySelectorAll(".payment-method-item").forEach(item => {
+    item.classList.remove("active");
+    item.querySelector(".payment-radio").classList.remove("checked");
+  });
+
+  element.classList.add("active");
+  element.querySelector(".payment-radio").classList.add("checked");
 }  
 </script>
 
