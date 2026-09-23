@@ -697,8 +697,14 @@ body{
     border-right:2.5px solid #1a2233;
     border-bottom:2.5px solid #1a2233;
   }
+  
+  .country-arrow{
+    transition:transform .25s ease;
+  }
 
-
+  .country-arrow.open{
+    transform:translateY(-65%) rotate(225deg);
+  }
   /* LOCATION SEARCH */
   .field.search-field{
     min-height:56px;
@@ -1210,12 +1216,12 @@ function renderCheckout(){
           <input id="phone" type="tel" placeholder="Phone Number">
         </div>
 
-        <div class="field select-field">
+        <div class="field select-field"> 
           <label>Country</label>
           <select id="country">
             <option>Indonesia</option>
           </select>
-          <span class="arrow"></span>
+          <span class="arrow country-arrow"></span>
         </div>
 
         <div class="field search-field" onclick="openProvincePicker()">
@@ -1704,6 +1710,17 @@ function confirmPaymentMethod(){
 
   closePaymentModal();
 }  
+
+const countrySelect = document.getElementById("country");
+const countryArrow = document.querySelector(".country-arrow");
+
+countrySelect.addEventListener("focus", function(){
+  countryArrow.classList.add("open");
+});
+
+countrySelect.addEventListener("blur", function(){
+  countryArrow.classList.remove("open");
+});  
 </script>
 
 </body>
