@@ -699,8 +699,7 @@ body{
   }
   
   .country-arrow{
-    font-size:20px;
-    transition:.3s;
+    transition:transform .3s ease;
   }
 
   .country-arrow.open{
@@ -1217,12 +1216,12 @@ function renderCheckout(){
           <input id="phone" type="tel" placeholder="Phone Number">
         </div>
 
-        <div class="field select-field"> 
+        <div class="field select-field">
           <label>Country</label>
           <select id="country">
             <option>Indonesia</option>
           </select>
-          <span class="country-arrow">⌄</span>
+          <span class="arrow country-arrow"></span>
         </div>
 
         <div class="field search-field" onclick="openProvincePicker()">
@@ -1711,6 +1710,9 @@ function confirmPaymentMethod(){
 
   closePaymentModal();
 }  
+
+const countrySelect = document.getElementById("country");
+const countryArrow = document.querySelector(".country-arrow");
 
 countrySelect.addEventListener("focus", function(){
   countryArrow.classList.add("open");
