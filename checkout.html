@@ -1640,13 +1640,29 @@ function placeOrder(){
 
 renderCheckout();
 
+let confirmedPayment = {
+  name: "BCA",
+  logo: "bca.png"
+};
+
 function openPaymentModal(){
   document.getElementById("paymentModal").classList.add("active");
+
+  // Kembalikan pilihan ke payment yang sudah dikonfirmasi
+  document.querySelectorAll(".payment-method-item").forEach(item => {
+    const name = item.querySelector(".payment-method-name").textContent.trim();
+    const radio = item.querySelector(".payment-radio");
+
+    const isConfirmed = name === confirmedPayment.name;
+
+    item.classList.toggle("active", isConfirmed);
+    radio.classList.toggle("checked", isConfirmed);
+  });
 }
 
 function closePaymentModal(){
   document.getElementById("paymentModal").classList.remove("active");
-}  
+}
 
 function selectPaymentMethod(element){
   document.querySelectorAll(".payment-method-item").forEach(item => {
@@ -1656,7 +1672,7 @@ function selectPaymentMethod(element){
 
   element.classList.add("active");
   element.querySelector(".payment-radio").classList.add("checked");
-}  
+}
 
 function confirmPaymentMethod(){
   const selected = document.querySelector(".payment-method-item.active");
@@ -1666,6 +1682,13 @@ function confirmPaymentMethod(){
   const name = selected.querySelector(".payment-method-name").textContent.trim();
   const logo = selected.querySelector(".payment-method-left img").getAttribute("src");
 
+  // Simpan pilihan yang sudah dikonfirmasi
+  confirmedPayment = {
+    name: name,
+    logo: logo
+  };
+
+  // Update payment utama
   document.getElementById("selectedPaymentName").textContent = name;
   document.getElementById("selectedPaymentLogo").src = logo;
 
