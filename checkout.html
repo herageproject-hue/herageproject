@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Checkout — HERAGE PROJECT</title>
+<link rel="icon" type="image/png" href="herage-logo.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700;800&display=swap');
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:"Roboto Condensed",sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#fff;
+  color:#1a2233;
+  overflow-x:hidden;
+}
+
+.checkout-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  height:82px;
+  background:#fff;
+  border-bottom:1px solid #e5e5e5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.checkout-header .back{
+  position:absolute;
+  left:20px;
+  top:50%;
+  transform:translateY(-50%);
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.checkout-header .back img{
+  width:24px;
+  height:24px;
+  object-fit:contain;
+}
+
+.checkout-logo{
+  width:auto;
+  height:54px;
+  object-fit:contain;
+}
+
+.checkout{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:48px 24px 70px;
+}
+
+.section{
+  margin-bottom:62px;
+}
+
+.section h2{
+  font-size:42px;
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-.8px;
+  margin-bottom:30px;
+}
+
+.field{
+  position:relative;
+  width:100%;
+  min-height:86px;
+  border:2px solid #e7e7e7;
+  border-radius:22px;
+  background:#fff;
+  margin-bottom:14px;
+  padding:15px 24px;
+}
+
+.field label{
+  display:block;
+  color:#737983;
+  font-size:18px;
+  line-height:1.1;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#1a2233;
+  font-size:24px;
+  font-weight:700;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#737983;
+  opacity:1;
+}
+
+.field textarea{
+  min-height:150px;
+  resize:none;
+  line-height:1.25;
+}
+
+.field.address-field{
+  min-height:205px;
+}
+
+.field .hint{
+  color:#737983;
+  font-size:17px;
+  font-weight:700;
+  margin-top:8px;
+}
+
+.field.select-field{
+  min-height:86px;
+  cursor:pointer;
+}
+
+.field select{
+  appearance:none;
+  -webkit-appearance:none;
+  padding-right:38px;
+  cursor:pointer;
+}
+
+.field .arrow{
+  position:absolute;
+  right:24px;
+  top:50%;
+  width:14px;
+  height:14px;
+  border-right:3px solid #1a2233;
+  border-bottom:3px solid #1a2233;
+  transform:translateY(-65%) rotate(45deg);
+  pointer-events:none;
+}
+
+.field.search-field{
+  display:flex;
+  align-items:center;
+  min-height:86px;
+  cursor:pointer;
+}
+
+.field.search-field .search-text{
+  color:#737983;
+  font-size:23px;
+  font-weight:700;
+  flex:1;
+}
+
+.search-icon{
+  width:30px;
+  height:30px;
+  border:3px solid #1a2233;
+  border-radius:50%;
+  position:relative;
+  flex-shrink:0;
+}
+
+.search-icon:after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:3px;
+  background:#1a2233;
+  right:-9px;
+  bottom:-5px;
+  transform:rotate(48deg);
+  border-radius:2px;
+}
+
+.dropship{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:26px;
+  font-size:22px;
+  font-weight:700;
+}
+
+.checkbox{
+  width:28px;
+  height:28px;
+  border:2px solid #1a2233;
+  border-radius:4px;
+  background:#fff;
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.checkbox:checked{
+  background:#1a2233;
+  position:relative;
+}
+
+.checkbox:checked:after{
+  content:"✓";
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+  position:absolute;
+  left:4px;
+  top:-1px;
+}
+
+.shipment-empty{
+  background:#f5f5f5;
+  border-radius:22px;
+  padding:32px;
+  color:#737983;
+  font-size:22px;
+  line-height:1.45;
+  font-weight:700;
+}
+
+.shipment-options{
+  display:none;
+  gap:12px;
+  flex-direction:column;
+}
+
+.shipment-option{
+  border:2px solid #e3e3e3;
+  border-radius:20px;
+  min-height:88px;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.shipment-option.active{
+  border-color:#1a2233;
+  background:#fafafa;
+}
+
+.shipment-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.shipment-logo{
+  width:54px;
+  height:54px;
+  object-fit:contain;
+}
+
+.shipment-name{
+  font-size:21px;
+  font-weight:800;
+}
+
+.shipment-est{
+  color:#737983;
+  font-size:15px;
+  font-weight:600;
+  margin-top:2px;
+}
+
+.shipment-price{
+  font-size:20px;
+  font-weight:800;
+}
+
+.payment-option{
+  width:100%;
+  min-height:100px;
+  border:2px solid #e3e3e3;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 24px;
+  cursor:pointer;
+}
+
+.payment-option.active{
+  border-color:#1a2233;
+}
+
+.payment-left{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.payment-logo{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+}
+
+.payment-name{
+  font-size:24px;
+  font-weight:800;
+}
+
+.chevron{
+  width:14px;
+  height:14px;
+  border-top:3px solid #1a2233;
+  border-right:3px solid #1a2233;
+  transform:rotate(45deg);
+}
+
+.order-item{
+  display:grid;
+  grid-template-columns:110px 1fr auto;
+  gap:18px;
+  align-items:center;
+  margin-bottom:35px;
+}
+
+.order-item img{
+  width:110px;
+  height:110px;
+  object-fit:contain;
+}
+
+.order-info h3{
+  font-size:24px;
+  line-height:1.1;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.order-info p{
+  color:#8a8f97;
+  font-size:20px;
+  font-weight:700;
+  line-height:1.35;
+}
+
+.order-price{
+  font-size:24px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.action-row{
+  width:100%;
+  min-height:82px;
+  border:2px solid #e3e3e3;
+  border-radius:20px;
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+  cursor:pointer;
+  color:#737983;
+  font-size:22px;
+  font-weight:700;
+}
+
+.action-row .tag{
+  width:30px;
+  height:22px;
+  border:2px solid #737983;
+  border-radius:5px;
+  transform:rotate(-45deg);
+  position:relative;
+}
+
+.action-row .tag:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  border:2px solid #737983;
+  border-radius:50%;
+  left:4px;
+  top:5px;
+}
+
+.summary{
+  margin-top:52px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:23px;
+  font-weight:700;
+  margin-bottom:22px;
+}
+
+.summary-row.total{
+  border-top:1px solid #d9d9d9;
+  padding-top:28px;
+  margin-top:28px;
+  font-size:28px;
+  font-weight:800;
+}
+
+.secure{
+  text-align:center;
+  color:#7d838c;
+  font-size:18px;
+  font-weight:700;
+  margin:30px 0 24px;
+}
+
+.tax-note{
+  background:#eef0f9;
+  border-radius:14px;
+  padding:25px 30px;
+  color:#737b91;
+  font-size:20px;
+  line-height:1.45;
+  font-weight:700;
+  margin-bottom:28px;
+}
+
+.order-btn{
+  width:100%;
+  height:76px;
+  border:0;
+  border-radius:22px;
+  background:#1a2233;
+  color:#fff;
+  font-size:25px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.terms{
+  text-align:center;
+  color:#7d838c;
+  font-size:18px;
+  font-weight:700;
+  margin-top:16px;
+}
+
+.terms u{
+  color:#5f6268;
+}
+
+.empty-checkout{
+  text-align:center;
+  padding:100px 20px;
+}
+
+.empty-checkout h2{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.empty-checkout button{
+  border:0;
+  background:#1a2233;
+  color:#fff;
+  border-radius:18px;
+  padding:15px 28px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.25);
+  backdrop-filter:blur(4px);
+  align-items:flex-end;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-card{
+  width:100%;
+  max-height:82vh;
+  background:#fff;
+  border-radius:28px 28px 0 0;
+  padding:24px 22px 34px;
+  overflow-y:auto;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h3{
+  font-size:24px;
+  font-weight:800;
+}
+
+.modal-close{
+  border:0;
+  background:none;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.location-search{
+  width:100%;
+  height:52px;
+  border:1px solid #ddd;
+  border-radius:16px;
+  padding:0 16px;
+  outline:0;
+  font-size:17px;
+  font-weight:600;
+  margin-bottom:14px;
+}
+
+.location-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.location-item{
+  padding:15px 4px;
+  border-bottom:1px solid #eee;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  background:#1a2233;
+  color:#fff;
+  padding:13px 18px;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:700;
+  z-index:5000;
+  display:none;
+}
+
+@media(max-width:768px){
+  .checkout-header{
+    height:82px;
+  }
+
+  .checkout-logo{
+    height:48px;
+    max-width:230px;
+  }
+
+  .checkout{
+    padding:34px 20px 55px;
+  }
+
+  .section{
+    margin-bottom:54px;
+  }
+
+  .section h2{
+    font-size:36px;
+    margin-bottom:26px;
+  }
+
+  .field{
+    min-height:78px;
+    border-radius:21px;
+    padding:13px 24px;
+  }
+
+  .field label{
+    font-size:17px;
+  }
+
+  .field input,
+  .field select{
+    font-size:22px;
+  }
+
+  .field textarea{
+    font-size:20px;
+  }
+
+  .field.address-field{
+    min-height:195px;
+  }
+
+  .field.search-field{
+    min-height:78px;
+  }
+
+  .field.search-field .search-text{
+    font-size:20px;
+  }
+
+  .dropship{
+    font-size:19px;
+  }
+
+  .shipment-empty{
+    padding:30px;
+    font-size:20px;
+  }
+
+  .order-item{
+    grid-template-columns:95px 1fr auto;
+    gap:13px;
+  }
+
+  .order-item img{
+    width:95px;
+    height:95px;
+  }
+
+  .order-info h3{
+    font-size:20px;
+  }
+
+  .order-info p{
+    font-size:17px;
+  }
+
+  .order-price{
+    font-size:20px;
+  }
+
+  .action-row{
+    font-size:19px;
+    min-height:72px;
+    padding:0 20px;
+  }
+
+  .summary-row{
+    font-size:20px;
+  }
+
+  .summary-row.total{
+    font-size:25px;
+  }
+
+  .tax-note{
+    font-size:18px;
+    padding:22px 24px;
+  }
+
+  .order-btn{
+    height:68px;
+    font-size:22px;
+    border-radius:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="checkout-header">
+  <div class="back" onclick="goBack()">
+    <img src="back.png" alt="Back">
+  </div>
+  <img class="checkout-logo" src="logo.png" alt="HERAGE PROJECT">
+</header>
+
+<main id="checkoutApp"></main>
+
+<div class="modal" id="locationModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="locationTitle">1. Pick Province</h3>
+      <button class="modal-close" onclick="closeLocation()">×</button>
+    </div>
+    <input class="location-search" id="locationSearch" placeholder="Search">
+    <div class="location-list" id="locationList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("herageCart") || "[]");
+
+let selectedProvinceId = "";
+let selectedProvinceName = "";
+let selectedCityId = "";
+let selectedCityName = "";
+let selectedDistrictId = "";
+let selectedDistrictName = "";
+
+let shippingCost = 0;
+let shippingEstimate = "";
+let selectedCourier = "";
+let selectedPayment = "BCA";
+
+const checkoutApp = document.getElementById("checkoutApp");
+
+function rupiah(value){
+  return "Rp " + Number(value || 0).toLocaleString("id-ID");
+}
+
+function showToast(message){
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.style.display = "block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    toast.style.display = "none";
+  }, 2200);
+}
+
+function goBack(){
+  if(history.length > 1){
+    history.back();
+  }else{
+    location.href = "index.html";
+  }
+}
+
+function renderEmpty(){
+  checkoutApp.innerHTML = `
+    <div class="empty-checkout">
+      <h2>Your cart is empty</h2>
+      <p style="color:#777;margin-bottom:24px;">Add a product before checking out.</p>
+      <button onclick="location.href='index.html'">Continue Shopping</button>
+    </div>
+  `;
+}
+
+function renderCheckout(){
+  if(!cart.length){
+    renderEmpty();
+    return;
+  }
+
+  checkoutApp.innerHTML = `
+    <div class="checkout">
+
+      <section class="section">
+        <h2>Address Details</h2>
+
+        <div class="field">
+          <label>Email Address (Optional)</label>
+          <input id="email" type="email" placeholder="Email Address">
+          <div class="hint">We will send your order detail to your email</div>
+        </div>
+
+        <div class="field">
+          <label>Recipient Full Name</label>
+          <input id="fullName" type="text" placeholder="Full Name">
+        </div>
+
+        <div class="field">
+          <label>Recipient Phone Number</label>
+          <input id="phone" type="tel" placeholder="Phone Number">
+        </div>
+
+        <div class="field select-field">
+          <label>Country</label>
+          <select id="country">
+            <option>Indonesia</option>
+          </select>
+          <span class="arrow"></span>
+        </div>
+
+        <div class="field search-field" onclick="openProvincePicker()">
+          <div class="search-text" id="locationText">Sub-district, District, City</div>
+          <span class="search-icon"></span>
+        </div>
+
+        <div class="field address-field">
+          <label>Address Details</label>
+          <textarea id="address" maxlength="250" placeholder="Address Details"></textarea>
+          <div class="hint" id="charCount">0 / 250</div>
+        </div>
+
+        <label class="dropship">
+          <span>Make as a dropship order</span>
+          <input class="checkbox" id="dropship" type="checkbox">
+        </label>
+      </section>
+
+      <section class="section">
+        <h2>Shipment Method</h2>
+
+        <div class="shipment-empty" id="shipmentEmpty">
+          Complete address detail to see available shipping methods.
+        </div>
+
+        <div class="shipment-options" id="shipmentOptions">
+          <div class="shipment-option" data-courier="JNE" onclick="selectCourier('JNE')">
+            <div class="shipment-left">
+              <img class="shipment-logo" src="jne.png" alt="JNE">
+              <div>
+                <div class="shipment-name">JNE</div>
+                <div class="shipment-est" id="jneEst">Estimated delivery</div>
+              </div>
+            </div>
+            <div class="shipment-price" id="jnePrice">-</div>
+          </div>
+
+          <div class="shipment-option" data-courier="J&T" onclick="selectCourier('J&T')">
+            <div class="shipment-left">
+              <img class="shipment-logo" src="jnt.png" alt="J&T">
+              <div>
+                <div class="shipment-name">J&T</div>
+                <div class="shipment-est" id="jntEst">Estimated delivery</div>
+              </div>
+            </div>
+            <div class="shipment-price" id="jntPrice">-</div>
+          </div>
+
+          <div class="shipment-option" data-courier="SiCepat" onclick="selectCourier('SiCepat')">
+            <div class="shipment-left">
+              <img class="shipment-logo" src="sicepat.png" alt="SiCepat">
+              <div>
+                <div class="shipment-name">SiCepat</div>
+                <div class="shipment-est" id="sicepatEst">Estimated delivery</div>
+              </div>
+            </div>
+            <div class="shipment-price" id="sicepatPrice">-</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Payment Method</h2>
+
+        <div class="payment-option active" onclick="selectPayment('BCA')">
+          <div class="payment-left">
+            <img class="payment-logo" src="bca.png" alt="BCA">
+            <div class="payment-name">BCA</div>
+          </div>
+          <span class="chevron"></span>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="payment-option" onclick="selectPayment('QRIS')">
+          <div class="payment-left">
+            <img class="payment-logo" src="qris.png" alt="QRIS">
+            <div class="payment-name">QRIS</div>
+          </div>
+          <span class="chevron"></span>
+        </div>
+      </section>
+
+      <section class="section" style="margin-bottom:0;">
+        <h2>Order Summary</h2>
+
+        <div id="orderItems"></div>
+
+        <div class="action-row" onclick="deliveryMessage()">
+          <span>Leave a message for delivery (Optional)</span>
+          <span class="chevron"></span>
+        </div>
+
+        <div class="action-row" onclick="showToast('Voucher feature will be connected next.')">
+          <span style="display:flex;align-items:center;gap:22px;">
+            <span class="tag"></span>
+            <span>Vouchers</span>
+          </span>
+          <span class="chevron"></span>
+        </div>
+
+        <div class="summary">
+          <div class="summary-row">
+            <span id="subtotalLabel">Subtotal • 0 items</span>
+            <span id="subtotalValue">Rp 0</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="shippingValue">-</span>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total Payment</span>
+            <span id="totalValue">Rp 0</span>
+          </div>
+
+          <div class="secure">♙ &nbsp; Secure Payment | Your payment is encrypted.</div>
+
+          <div class="tax-note">
+            Import duty or tax might be charged depending on your delivery country.
+          </div>
+
+          <button class="order-btn" onclick="placeOrder()">Order Now</button>
+
+          <div class="terms">
+            By placing your order, you agree to our <u>Terms &amp; Conditions</u>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  `;
+
+  document.getElementById("address").addEventListener("input", function(){
+    document.getElementById("charCount").innerText = this.value.length + " / 250";
+  });
+
+  renderOrderItems();
+}
+
+function renderOrderItems(){
+  const box = document.getElementById("orderItems");
+  let subtotal = 0;
+  let qty = 0;
+
+  box.innerHTML = "";
+
+  cart.forEach(item => {
+    const price = Number(String(item.price).replace(/[^\d]/g,"")) || 0;
+    const quantity = Number(item.quantity || 1);
+
+    subtotal += price * quantity;
+    qty += quantity;
+
+    box.innerHTML += `
+      <div class="order-item">
+        <img src="${item.image}" alt="${item.title}">
+        <div class="order-info">
+          <h3>${item.title}</h3>
+          <p>${item.size || ""}</p>
+          <p>Quantity: ${quantity}</p>
+        </div>
+        <div class="order-price">${rupiah(price * quantity)}</div>
+      </div>
+    `;
+  });
+
+  window.checkoutSubtotal = subtotal;
+
+  document.getElementById("subtotalLabel").innerText =
+    "Subtotal • " + qty + " " + (qty === 1 ? "item" : "items");
+
+  document.getElementById("subtotalValue").innerText = rupiah(subtotal);
+  updateTotal();
+}
+
+function updateTotal(){
+  const total = (window.checkoutSubtotal || 0) + shippingCost;
+  document.getElementById("shippingValue").innerText =
+    shippingCost ? rupiah(shippingCost) : "-";
+  document.getElementById("totalValue").innerText = rupiah(total);
+}
+
+function getShippingInfo(){
+  const province = selectedProvinceName.toLowerCase();
+
+  let base = 18000;
+  let est = "2-3 Days";
+
+  if(province.includes("jawa barat")){
+    base = 12000;
+    est = "1-2 Days";
+  }else if(province.includes("dki jakarta")){
+    base = 15000;
+    est = "1-2 Days";
+  }else if(province.includes("banten")){
+    base = 16000;
+    est = "2-3 Days";
+  }else if(province.includes("jawa tengah")){
+    base = 18000;
+    est = "2-3 Days";
+  }else if(province.includes("jawa timur")){
+    base = 22000;
+    est = "2-4 Days";
+  }else if(province.includes("bali")){
+    base = 25000;
+    est = "3-4 Days";
+  }else if(province.includes("sumatera")){
+    base = 32000;
+    est = "3-5 Days";
+  }else if(province.includes("kalimantan")){
+    base = 38000;
+    est = "4-6 Days";
+  }else if(province.includes("sulawesi")){
+    base = 42000;
+    est = "4-7 Days";
+  }else if(province.includes("papua") || province.includes("maluku")){
+    base = 65000;
+    est = "6-10 Days";
+  }
+
+  return {base, est};
+}
+
+function showShipmentOptions(){
+  const info = getShippingInfo();
+
+  // Untuk tahap awal semua kurir memakai basis ongkir yang sama.
+  // Tarif JNE/J&T/SiCepat bisa dipisahkan saat API ongkir asli dipasang.
+  document.getElementById("shipmentEmpty").style.display = "none";
+  document.getElementById("shipmentOptions").style.display = "flex";
+
+  document.getElementById("jnePrice").innerText = rupiah(info.base);
+  document.getElementById("jntPrice").innerText = rupiah(info.base);
+  document.getElementById("sicepatPrice").innerText = rupiah(info.base);
+
+  document.getElementById("jneEst").innerText = info.est;
+  document.getElementById("jntEst").innerText = info.est;
+  document.getElementById("sicepatEst").innerText = info.est;
+}
+
+function selectCourier(courier){
+  selectedCourier = courier;
+
+  const info = getShippingInfo();
+  shippingCost = info.base;
+
+  document.querySelectorAll(".shipment-option").forEach(el => {
+    el.classList.toggle("active", el.dataset.courier === courier);
+  });
+
+  updateTotal();
+}
+
+function selectPayment(payment){
+  selectedPayment = payment;
+
+  document.querySelectorAll(".payment-option").forEach((el,index) => {
+    const name = index === 0 ? "BCA" : "QRIS";
+    el.classList.toggle("active", name === payment);
+  });
+}
+
+async function openProvincePicker(){
+  document.getElementById("locationModal").classList.add("active");
+  document.getElementById("locationTitle").innerText = "1. Pick Province";
+  document.getElementById("locationSearch").value = "";
+  await loadProvinces();
+}
+
+function closeLocation(){
+  document.getElementById("locationModal").classList.remove("active");
+}
+
+async function loadProvinces(){
+  const list = document.getElementById("locationList");
+  list.innerHTML = "<div class='location-item'>Loading province...</div>";
+
+  try{
+    const res = await fetch(
+      "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+    );
+    const data = await res.json();
+    renderLocations(data, "province");
+  }catch(e){
+    list.innerHTML = "<div class='location-item'>Failed to load province.</div>";
+  }
+}
+
+function renderLocations(data,type){
+  const list = document.getElementById("locationList");
+  list.innerHTML = "";
+
+  data.forEach(item => {
+    const el = document.createElement("div");
+    el.className = "location-item";
+    el.innerText = item.name;
+    el.onclick = () => {
+      if(type === "province") selectProvince(item.id,item.name);
+      if(type === "city") selectCity(item.id,item.name);
+      if(type === "district") selectDistrict(item.id,item.name);
+    };
+    list.appendChild(el);
+  });
+
+  document.getElementById("locationSearch").oninput = function(){
+    const q = this.value.toLowerCase();
+    Array.from(list.children).forEach(el => {
+      el.style.display = el.innerText.toLowerCase().includes(q) ? "block" : "none";
+    });
+  };
+}
+
+async function selectProvince(id,name){
+  selectedProvinceId = id;
+  selectedProvinceName = name;
+
+  document.getElementById("locationTitle").innerText = "2. Pick City";
+  document.getElementById("locationSearch").value = "";
+
+  const list = document.getElementById("locationList");
+  list.innerHTML = "<div class='location-item'>Loading city...</div>";
+
+  try{
+    const res = await fetch(
+      "https://www.emsifa.com/api-wilayah-indonesia/api/regencies/" + id + ".json"
+    );
+    const data = await res.json();
+    renderLocations(data,"city");
+  }catch(e){
+    list.innerHTML = "<div class='location-item'>Failed to load city.</div>";
+  }
+}
+
+async function selectCity(id,name){
+  selectedCityId = id;
+  selectedCityName = name;
+
+  document.getElementById("locationTitle").innerText = "3. Pick District";
+  document.getElementById("locationSearch").value = "";
+
+  const list = document.getElementById("locationList");
+  list.innerHTML = "<div class='location-item'>Loading district...</div>";
+
+  try{
+    const res = await fetch(
+      "https://www.emsifa.com/api-wilayah-indonesia/api/districts/" + id + ".json"
+    );
+    const data = await res.json();
+    renderLocations(data,"district");
+  }catch(e){
+    list.innerHTML = "<div class='location-item'>Failed to load district.</div>";
+  }
+}
+
+function selectDistrict(id,name){
+  selectedDistrictId = id;
+  selectedDistrictName = name;
+
+  document.getElementById("locationText").innerText =
+    selectedDistrictName + ", " + selectedCityName;
+
+  closeLocation();
+  showShipmentOptions();
+}
+
+function deliveryMessage(){
+  const message = prompt("Message for delivery (optional):");
+  if(message !== null){
+    localStorage.setItem("herageDeliveryMessage",message);
+  }
+}
+
+function placeOrder(){
+  const fullName = document.getElementById("fullName").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+
+  if(!fullName){
+    showToast("Please enter recipient full name.");
+    return;
+  }
+
+  if(!phone){
+    showToast("Please enter recipient phone number.");
+    return;
+  }
+
+  if(!selectedDistrictId){
+    showToast("Please complete your delivery location.");
+    return;
+  }
+
+  if(!address){
+    showToast("Please enter your address.");
+    return;
+  }
+
+  if(!selectedCourier){
+    showToast("Please select a shipment method.");
+    return;
+  }
+
+  const orderData = {
+    email: document.getElementById("email").value.trim(),
+    fullName,
+    phone,
+    country:"Indonesia",
+    province:selectedProvinceName,
+    city:selectedCityName,
+    district:selectedDistrictName,
+    address,
+    dropship:document.getElementById("dropship").checked,
+    courier:selectedCourier,
+    shippingCost,
+    payment:selectedPayment,
+    deliveryMessage:localStorage.getItem("herageDeliveryMessage") || "",
+    items:cart,
+    subtotal:window.checkoutSubtotal || 0,
+    total:(window.checkoutSubtotal || 0) + shippingCost,
+    createdAt:new Date().toISOString()
+  };
+
+  localStorage.setItem("herageCheckout",JSON.stringify(orderData));
+
+  // Tahap ini baru menyimpan data checkout.
+  // Payment gateway / order database bisa disambungkan setelah UI checkout selesai.
+  showToast("Checkout data saved.");
+}
+
+renderCheckout();
+</script>
+
+</body>
+</html>
