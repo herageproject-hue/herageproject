@@ -1636,6 +1636,14 @@ function placeOrder(){
 }
 
 renderCheckout();
+
+function openPaymentModal(){
+  document.getElementById("paymentModal").classList.add("active");
+}
+
+function closePaymentModal(){
+  document.getElementById("paymentModal").classList.remove("active");
+}  
 </script>
 
 </body>
