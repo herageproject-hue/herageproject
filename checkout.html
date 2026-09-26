@@ -1084,12 +1084,19 @@ body{
 }
 
 #otherMethodsArrow{
-  font-size:25px;
-  transition:transform .25s ease;
+  display:block;
+  width:10px;
+  height:10px;
+  border-right:2.5px solid #1a2233;
+  border-bottom:2.5px solid #1a2233;
+  transform:translateY(-50%) rotate(45deg);
+  transition:transform .3s ease;
+  flex-shrink:0;
+  margin-right:4px;
 }
 
 #otherMethodsArrow.open{
-  transform:rotate(180deg);
+  transform:translateY(-50%) rotate(225deg);
 }
 
 .other-methods-grid{
