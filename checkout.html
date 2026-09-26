@@ -1089,14 +1089,13 @@ body{
   height:10px;
   border-right:2.5px solid #1a2233;
   border-bottom:2.5px solid #1a2233;
-  transform:translateY(-50%) rotate(45deg);
   transition:transform .3s ease;
   flex-shrink:0;
-  margin-right:4px;
+  transform:translateY(-50%) rotate(0deg);
 }
 
 #otherMethodsArrow.open{
-  transform:translateY(-50%) rotate(225deg);
+  transform:translateY(-50%) rotate(180deg);
 }
 
 .other-methods-grid{
@@ -1443,7 +1442,7 @@ body{
 
       <span>Other Methods</span>
 
-      <span id="otherMethodsArrow">⌄</span>
+      <span id="otherMethodsArrow"></span>
     </div>
 
 
