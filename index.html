@@ -1346,7 +1346,7 @@ html {
 
 }
 header{
-  position:fixed;
+  position:sticky;
   top:0;
   left:0;
   width:100%;
@@ -3404,11 +3404,11 @@ body.auth-open #overlay{
 
 /* HEADER SELALU DI ATAS ACCOUNT */
 header{
-  position:fixed !important;
+  position:sticky !important;
   top:0;
   left:0;
   width:100%;
-  z-index:1000 !important;
+  z-index:1002 !important;
 }
 
 #accountDrawer{
@@ -3422,11 +3422,6 @@ header{
 
 body.auth-open #accountDrawer,
 body.auth-open header{
-  filter:none !important;
-}
-
-header{
-  z-index:1002 !important;
   filter:none !important;
 }
 
