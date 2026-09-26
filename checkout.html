@@ -1071,68 +1071,218 @@ body{
 
   <div class="payment-modal-content">
 
-    <!-- BCA -->
-    <div class="payment-method-item active" onclick="selectPaymentMethod(this)">
-      <div class="payment-method-left">
-        <img src="bca.png" alt="BCA">
-        <div>
-          <div class="payment-method-name">BCA</div>
+    <!-- VIRTUAL ACCOUNT -->
+    <div class="payment-tabs">
+      <button class="payment-tab active">
+        Virtual Account
+      </button>
+    </div>
+
+    <div class="payment-method-list">
+
+      <!-- BCA -->
+      <div class="payment-method-item active"
+           data-payment="BCA"
+           data-logo="bca.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="bca.png" alt="BCA">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">BCA</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
         </div>
+
+        <span class="payment-radio checked"></span>
       </div>
 
-      <span class="payment-radio checked"></span>
+
+      <!-- MANDIRI -->
+      <div class="payment-method-item"
+           data-payment="Mandiri"
+           data-logo="mandiri.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="mandiri.png" alt="Mandiri">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">Mandiri</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- BRI -->
+      <div class="payment-method-item"
+           data-payment="BRI"
+           data-logo="bri.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="bri.png" alt="BRI">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">BRI</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- BNI -->
+      <div class="payment-method-item"
+           data-payment="BNI"
+           data-logo="bni.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="bni.png" alt="BNI">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">BNI</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- PERMATA -->
+      <div class="payment-method-item"
+           data-payment="Permata"
+           data-logo="permata.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="permata.png" alt="Permata">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">Permata</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- BSI -->
+      <div class="payment-method-item"
+           data-payment="Bank Syariah Indonesia"
+           data-logo="bsi.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="bsi.png" alt="Bank Syariah Indonesia">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">
+              Bank Syariah Indonesia
+            </div>
+
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- CIMB -->
+      <div class="payment-method-item"
+           data-payment="CIMB Niaga"
+           data-logo="cimb.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="cimb.png" alt="CIMB Niaga">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">CIMB Niaga</div>
+
+            <div class="payment-method-desc">
+              VA <span>●</span> Only receive from CIMB Niaga
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
     </div>
 
 
-    <!-- QRIS -->
-    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
-      <div class="payment-method-left">
+    <!-- OTHER METHODS -->
+    <div class="other-methods-header"
+         onclick="toggleOtherMethods()">
+
+      <span>Other Methods</span>
+
+      <span id="otherMethodsArrow">⌄</span>
+    </div>
+
+
+    <div class="other-methods-grid" id="otherMethods">
+
+      <div class="other-method"
+           data-payment="QRIS"
+           data-logo="qris.png"
+           onclick="selectOtherPayment(this)">
         <img src="qris.png" alt="QRIS">
-        <div>
-          <div class="payment-method-name">QRIS</div>
-        </div>
       </div>
 
-      <span class="payment-radio"></span>
-    </div>
-
-
-    <!-- GOPAY -->
-    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
-      <div class="payment-method-left">
-        <img src="gopay.png" alt="GoPay">
-        <div>
-          <div class="payment-method-name">GoPay</div>
-        </div>
+      <div class="other-method"
+           data-payment="OVO"
+           onclick="selectOtherPayment(this)">
+        OVO
       </div>
 
-      <span class="payment-radio"></span>
-    </div>
-
-
-    <!-- SHOPEEPAY -->
-    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
-      <div class="payment-method-left">
+      <div class="other-method"
+           data-payment="ShopeePay"
+           data-logo="spay.png"
+           onclick="selectOtherPayment(this)">
         <img src="spay.png" alt="ShopeePay">
-        <div>
-          <div class="payment-method-name">ShopeePay</div>
-        </div>
       </div>
 
-      <span class="payment-radio"></span>
-    </div>
-
-
-    <!-- DANA -->
-    <div class="payment-method-item" onclick="selectPaymentMethod(this)">
-      <div class="payment-method-left">
-        <img src="dana.png" alt="DANA">
-        <div>
-          <div class="payment-method-name">DANA</div>
-        </div>
+      <div class="other-method"
+           data-payment="Alfamart"
+           onclick="selectOtherPayment(this)">
+        Alfamart
       </div>
 
-      <span class="payment-radio"></span>
+      <div class="other-method"
+           data-payment="Akulaku"
+           onclick="selectOtherPayment(this)">
+        Akulaku
+      </div>
+
+      <div class="other-method"
+           data-payment="Credit/Debit Card"
+           onclick="selectOtherPayment(this)">
+        Credit/Debit Card
+      </div>
+
     </div>
 
   </div>
