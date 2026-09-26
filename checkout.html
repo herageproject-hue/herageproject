@@ -2034,35 +2034,83 @@ function closePaymentModal(){
 }
 
 function selectPaymentMethod(element){
-  document.querySelectorAll(".payment-method-item").forEach(item => {
-    item.classList.remove("active");
-    item.querySelector(".payment-radio").classList.remove("checked");
-  });
+
+  document.querySelectorAll(".payment-method-item")
+    .forEach(item => {
+      item.classList.remove("active");
+      item.querySelector(".payment-radio")
+        .classList.remove("checked");
+    });
 
   element.classList.add("active");
-  element.querySelector(".payment-radio").classList.add("checked");
+
+  element.querySelector(".payment-radio")
+    .classList.add("checked");
 }
 
-function confirmPaymentMethod(){
-  const selected = document.querySelector(".payment-method-item.active");
 
-  if(!selected) return;
+function selectOtherPayment(element){
 
-  const name = selected.querySelector(".payment-method-name").textContent.trim();
-  const logo = selected.querySelector(".payment-method-left img").getAttribute("src");
+  const payment = element.dataset.payment;
+  const logo = element.dataset.logo || "";
 
-  // Simpan pilihan yang sudah dikonfirmasi
   confirmedPayment = {
-    name: name,
+    name: payment,
     logo: logo
   };
 
-  // Update payment utama
-  document.getElementById("selectedPaymentName").textContent = name;
-  document.getElementById("selectedPaymentLogo").src = logo;
+  selectedPayment = payment;
+
+  document.getElementById("selectedPaymentName")
+    .textContent = payment;
+
+  if(logo){
+    document.getElementById("selectedPaymentLogo")
+      .src = logo;
+  }
 
   closePaymentModal();
-}  
+}
+
+
+function toggleOtherMethods(){
+
+  const box = document.getElementById("otherMethods");
+  const arrow = document.getElementById("otherMethodsArrow");
+
+  box.classList.toggle("open");
+  arrow.classList.toggle("open");
+}
+
+
+function confirmPaymentMethod(){
+
+  const selected =
+    document.querySelector(".payment-method-item.active");
+
+  if(!selected) return;
+
+  const name =
+    selected.dataset.payment;
+
+  const logo =
+    selected.dataset.logo;
+
+  confirmedPayment = {
+    name:name,
+    logo:logo
+  };
+
+  selectedPayment = name;
+
+  document.getElementById("selectedPaymentName")
+    .textContent = name;
+
+  document.getElementById("selectedPaymentLogo")
+    .src = logo;
+
+  closePaymentModal();
+}
 
 const countrySelect = document.getElementById("country");
 const countryArrow = document.querySelector(".country-arrow");
