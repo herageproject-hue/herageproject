@@ -4803,29 +4803,6 @@ header{
 </head>
 
 <body>
-
-<!-- MENU -->
-<div id="menuDrawer">
-  <div class="menu-close" onclick="closeAll()">✕</div>
-  <img src="search.PNG"
-     class="menu-search-icon"
-     onclick="openSearch()"
-     alt="Search">
-  <div class="menu-list">
-    <p onclick="showPage('catalog')">Catalog</p>
-    <p onclick="showPage('community')">Community</p>
-    <p onclick="showPage('archives')">Archives</p>
-    <p onclick="showPage('about')">About</p>
-  </div>
-  <div class="menu-region" onclick="openRegionSettings()">
-      <span class="country-name">
-        <img class="menu-flag" src="indonesia.png" alt="Indonesia">
-        <span class="menu-currency">IDR</span>
-      </span>
-      <span class="menu-region-arrow"></span>
-  </div>
-</div>
-
 <!-- HEADER -->
 <header>
   <div style="display:flex;align-items:center;gap:20px;">
@@ -4853,6 +4830,28 @@ header{
     <img src="user.PNG" loading="lazy" onclick="openAccount()">
   </div>
 </header>
+  
+<!-- MENU -->
+<div id="menuDrawer">
+  <div class="menu-close" onclick="closeAll()">✕</div>
+  <img src="search.PNG"
+     class="menu-search-icon"
+     onclick="openSearch()"
+     alt="Search">
+  <div class="menu-list">
+    <p onclick="showPage('catalog')">Catalog</p>
+    <p onclick="showPage('community')">Community</p>
+    <p onclick="showPage('archives')">Archives</p>
+    <p onclick="showPage('about')">About</p>
+  </div>
+  <div class="menu-region" onclick="openRegionSettings()">
+      <span class="country-name">
+        <img class="menu-flag" src="indonesia.png" alt="Indonesia">
+        <span class="menu-currency">IDR</span>
+      </span>
+      <span class="menu-region-arrow"></span>
+  </div>
+</div>
 
 <!-- SEARCH POPUP -->
 <div id="searchPopup">
