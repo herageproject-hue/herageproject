@@ -159,7 +159,7 @@ body{
 
   border:none !important;
 
-  display:block;
+  display:block !important;
 
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 
@@ -167,8 +167,14 @@ body{
   background-position:center;
   background-size:18px 18px;
 
-  transform:translateY(-50%);
+  transform:translateY(-50%) rotate(0deg);
+  transition:transform .3s ease;
+
   pointer-events:none;
+}
+
+.field .arrow.open{
+  transform:translateY(-50%) rotate(180deg);
 }
 
 .field.search-field{
@@ -335,7 +341,8 @@ body{
 
   border:none !important;
 
-  display:block;
+  display:block !important;
+  flex-shrink:0;
 
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 6 15 12 9 18'/%3E%3C/svg%3E");
 
@@ -344,7 +351,6 @@ body{
   background-size:18px 18px;
 
   transform:none !important;
-  flex-shrink:0;
 }
 
 .order-item{
@@ -700,22 +706,6 @@ body{
     height:56px;
   }
 
-  .field .arrow{
-    right:16px;
-    width:10px;
-    height:10px;
-    border-right:2.5px solid #1a2233;
-    border-bottom:2.5px solid #1a2233;
-  }
-  
-  .country-arrow{
-    transition:transform .3s ease;
-    transform:translateY(-50%) rotate(0deg);
-  }
-
-  .country-arrow.open{
-    transform:translateY(-50%) rotate(180deg);
-  }
   /* LOCATION SEARCH */
   .field.search-field{
     min-height:56px;
@@ -1083,18 +1073,27 @@ body{
 }
 
 #otherMethodsArrow{
-  display:block;
-  width:10px;
-  height:10px;
-  border-right:2.5px solid #1a2233;
-  border-bottom:2.5px solid #1a2233;
-  transition:transform .3s ease;
+  display:block !important;
+
+  width:18px !important;
+  height:18px !important;
+
+  border:none !important;
+
   flex-shrink:0;
-  transform:translateY(-50%) rotate(0deg);
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:18px 18px;
+
+  transform:rotate(0deg);
+  transition:transform .3s ease;
 }
 
 #otherMethodsArrow.open{
-  transform:translateY(-50%) rotate(180deg);
+  transform:rotate(180deg);
 }
 
 .other-methods-grid{
