@@ -1261,7 +1261,15 @@ body{
       <h3 id="locationTitle">1. Pick Province</h3>
       <button class="modal-close" onclick="closeLocation()">✕</button>
     </div>
-    <input class="location-search" id="locationSearch" placeholder="Search">
+    <p class="pickup-subtitle">
+      Send package to which address?
+    </p>
+
+    <input
+      class="location-search"
+      id="locationSearch"
+      placeholder="Search Province"
+    >
     <div class="location-list" id="locationList"></div>
   </div>
 </div>
@@ -1388,6 +1396,27 @@ body{
 
           <div class="payment-bank-info">
             <div class="payment-method-name">Permata</div>
+            <div class="payment-method-desc">
+              VA <span>●</span> Receive from all banks
+            </div>
+          </div>
+        </div>
+
+        <span class="payment-radio"></span>
+      </div>
+
+
+      <!-- PERMATA SYARIAH-->
+      <div class="payment-method-item"
+           data-payment="Permatasyariah"
+           data-logo="permatasyariah.png"
+           onclick="selectPaymentMethod(this)">
+
+        <div class="payment-method-left">
+          <img src="permatasyariah.png" alt="Permatasyariah">
+
+          <div class="payment-bank-info">
+            <div class="payment-method-name">Permata Syariah</div>
             <div class="payment-method-desc">
               VA <span>●</span> Receive from all banks
             </div>
