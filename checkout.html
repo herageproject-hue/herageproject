@@ -556,8 +556,8 @@ body{
 }
 
 .modal-close{
-  width:20px;
-  height:20px;
+  width:30px;
+  height:30px;
 
   border:none;
   background:transparent;
@@ -565,9 +565,9 @@ body{
   color:#111;
 
   font-family:Arial,sans-serif;
-  font-size:28px;
-  font-weight:300;
-  line-height:20px;
+  font-size:20px;
+  font-weight:400;
+  line-height:1;
 
   display:flex;
   align-items:center;
@@ -927,17 +927,28 @@ body{
 
 .payment-modal-close{
   position:absolute;
+
   right:16px;
   top:50%;
   transform:translateY(-50%);
+
   width:30px;
   height:30px;
+
   border:none;
   background:transparent;
+
   color:#111;
-  font-size:30px;
-  font-weight:300;
+
+  font-family:Arial,sans-serif;
+  font-size:20px;
+  font-weight:400;
   line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   padding:0;
   cursor:pointer;
 }
@@ -1172,11 +1183,6 @@ body{
     font-size:21px;
   }
 
-  .payment-modal-close{
-    right:14px;
-    font-size:29px;
-  }
-
   .payment-modal-content{
     padding:18px 18px 95px;
   }
@@ -1247,7 +1253,7 @@ body{
   <div class="modal-card">
     <div class="modal-head">
       <h3 id="locationTitle">1. Pick Province</h3>
-      <button class="modal-close" onclick="closeLocation()">×</button>
+      <button class="modal-close" onclick="closeLocation()">✕</button>
     </div>
     <input class="location-search" id="locationSearch" placeholder="Search">
     <div class="location-list" id="locationList"></div>
@@ -1266,7 +1272,7 @@ body{
       type="button"
       class="payment-modal-close"
       onclick="closePaymentModal()">
-      ×
+      ✕
     </button>
   </div>
 
