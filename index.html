@@ -9050,14 +9050,18 @@ function openRegionSettings(){
     .getElementById("regionSettings")
     .classList.add("active");
 
-  /* tutup menu hamburger */
+  // Tutup menu hamburger
   document
     .getElementById("menuDrawer")
     .style.left = "-90%";
 
+  // SAMAKAN DENGAN FILTER & SORT
   document
-  .getElementById("popupBackdrop")
-  .classList.add("active");
+    .getElementById("overlay")
+    .style.display = "block";
+
+  // Kunci scroll
+  document.body.classList.add("no-scroll");
 }
 
 
@@ -9067,10 +9071,12 @@ function closeRegionSettings(){
     .getElementById("regionSettings")
     .classList.remove("active");
 
+  // SAMAKAN DENGAN FILTER & SORT
   document
-    .getElementById("popupBackdrop")
-    .classList.remove("active");
+    .getElementById("overlay")
+    .style.display = "none";
 
+  document.body.classList.remove("no-scroll");
 }
 
 
@@ -9100,26 +9106,24 @@ document.querySelectorAll('.birthday-select select').forEach(select => {
 
 function openSearch(){
 
-    // TUTUP MENU HAMBURGER
+  // Tutup menu hamburger
   document.getElementById('menuDrawer').style.left = '-90%';
-  document
-  .getElementById("popupBackdrop")
-  .classList.add("active");
 
-  const popup =
-    document.getElementById("searchPopup");
-
+  // Tampilkan search
+  const popup = document.getElementById("searchPopup");
   popup.classList.add("active");
 
+  // SAMAKAN DENGAN FILTER & SORT
+  document.getElementById('overlay').style.display = 'block';
+
+  // Kunci scroll
   document.body.classList.add("no-scroll");
 
-  const input =
-    document.getElementById("mainSearchInput");
+  const input = document.getElementById("mainSearchInput");
 
   input.value = "";
 
-  document.getElementById("searchClear")
-    .style.display = "none";
+  document.getElementById("searchClear").style.display = "none";
 
   document.getElementById("searchResults")
     .classList.remove("active");
@@ -9133,23 +9137,25 @@ function openSearch(){
     input.focus();
   },150);
 }
- 
+
+
 function closeSearch(){
 
   document.getElementById("searchPopup")
     .classList.remove("active");
 
-  document
-    .getElementById("popupBackdrop")
-    .classList.remove("active");
+  // SAMAKAN DENGAN FILTER & SORT
+  document.getElementById('overlay').style.display = 'none';
 
   document.body.classList.remove("no-scroll");
-
 }
 
-document.getElementById("popupBackdrop").addEventListener("click", function(){
+document.getElementById("overlay").addEventListener("click", function(){
+
   closeSearch();
   closeRegionSettings();
+  closeSheet();
+
 });
 
 function clearSearch(){
