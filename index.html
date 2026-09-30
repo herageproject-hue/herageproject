@@ -4936,6 +4936,64 @@ body.auth-open header{
 
   cursor:pointer;
 }
+
+/* =================================
+   SAMAKAN BACKDROP SEMUA POPUP
+================================= */
+
+/* BACKDROP UTAMA */
+#overlay{
+  z-index:1005 !important;
+  background:rgba(0,0,0,.3) !important;
+}
+
+/* BACKDROP SEARCH & CURRENCY */
+#popupBackdrop{
+  z-index:1005 !important;
+  background:rgba(0,0,0,.3) !important;
+}
+
+/* HEADER TETAP DI BAWAH BACKDROP */
+header{
+  z-index:1002 !important;
+}
+
+/* DRAWER MENU & CART DI ATAS BACKDROP */
+#menuDrawer,
+#cartDrawer{
+  z-index:1010 !important;
+}
+
+/* ACCOUNT DI ATAS BACKDROP */
+#accountDrawer{
+  z-index:1010 !important;
+}
+
+/* BOTTOM SHEET FILTER / SORT / PICKUP / REGION */
+.bottom-sheet,
+#regionSettings{
+  z-index:2000 !important;
+}
+
+/* SEARCH */
+#searchPopup{
+  z-index:11000 !important;
+}
+
+/* AUTH */
+#authModal{
+  z-index:2000 !important;
+}
+
+/* SIZE GUIDE */
+.size-guide-modal{
+  z-index:2000 !important;
+}
+
+/* CHAT */
+.chat-overlay{
+  z-index:2000 !important;
+}
 </style>
 </head>
 
