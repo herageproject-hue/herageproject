@@ -2993,7 +2993,20 @@ body.auth-open #overlay{
 }
 
 /* REGION SETTINGS - SAMAKAN DENGAN POPUP FILTER */
+/* BACKDROP SEARCH & REGION */
+#popupBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.25);
+  display:none;
+  z-index:1999;
+}
 
+#popupBackdrop.active{
+  display:block;
+}
+
+  
 #regionSettings {
   position: fixed;
   left: 0;
@@ -4927,6 +4940,8 @@ body.auth-open header{
 </head>
 
 <body>
+
+<div id="popupBackdrop"></div>
 <!-- HEADER -->
 <header>
   <div style="display:flex;align-items:center;gap:10px;">
@@ -8983,8 +8998,8 @@ function openRegionSettings(){
     .style.left = "-90%";
 
   document
-    .getElementById("overlay")
-    .style.display = "none";
+    .getElementById("popupBackdrop")
+    .style.display = "active";
 }
 
 
@@ -8992,6 +9007,10 @@ function closeRegionSettings(){
 
   document
     .getElementById("regionSettings")
+    .classList.remove("active");
+
+  document
+    .getElementById("popupBackdrop")
     .classList.remove("active");
 
 }
@@ -9025,7 +9044,9 @@ function openSearch(){
 
     // TUTUP MENU HAMBURGER
   document.getElementById('menuDrawer').style.left = '-90%';
-  document.getElementById('overlay').style.display = 'none';
+  document
+  .getElementById("popupBackdrop")
+  .classList.add("active");
 
   const popup =
     document.getElementById("searchPopup");
@@ -9058,6 +9079,10 @@ function openSearch(){
 function closeSearch(){
 
   document.getElementById("searchPopup")
+    .classList.remove("active");
+
+  document
+    .getElementById("popupBackdrop")
     .classList.remove("active");
 
   document.body.classList.remove("no-scroll");
