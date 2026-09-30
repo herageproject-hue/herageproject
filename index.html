@@ -8998,8 +8998,8 @@ function openRegionSettings(){
     .style.left = "-90%";
 
   document
-    .getElementById("popupBackdrop")
-    .style.display = "active";
+  .getElementById("popupBackdrop")
+  .classList.add("active");
 }
 
 
@@ -9089,6 +9089,10 @@ function closeSearch(){
 
 }
 
+document.getElementById("popupBackdrop").addEventListener("click", function(){
+  closeSearch();
+  closeRegionSettings();
+});
 
 function clearSearch(){
 
