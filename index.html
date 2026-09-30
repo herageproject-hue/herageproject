@@ -3479,14 +3479,13 @@ body.auth-open #overlay{
   z-index:999 !important;
   overflow-y:auto;
 
-  transform:translateX(100%);
-  transition:transform .35s ease;
+  transform:translateX(0);
+  transition:none !important;
 }
 
 #accountDrawer.active{
   transform:translateX(0);
 }
-
 /* HEADER SELALU DI ATAS ACCOUNT */
 header{
   position:fixed !important;
