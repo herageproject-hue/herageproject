@@ -6114,6 +6114,7 @@ function openAuth(type = "login"){
 
   document.body.classList.add("no-scroll");
   document.body.classList.add("auth-open");
+  document.getElementById("overlay").style.display = "block";
 
   if(type === "register"){
     showRegister();
@@ -6135,6 +6136,7 @@ function closeAuth(){
   // Kembalikan scroll halaman
   document.body.classList.remove("auth-open");
   document.body.classList.remove("no-scroll");
+  document.getElementById("overlay").style.display = "none";
 
   // Pastikan overflow body kembali normal
   document.body.style.overflow = "";
