@@ -140,15 +140,12 @@ header{
 /* HERO */
 .hero{
   width:100%;
-  min-height:calc(100dvh - 60px);
-
+  min-height:100dvh;
   background:url('foto1.PNG') center center/cover no-repeat;
   background-color:#0b1017;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
   position:relative;
   overflow:hidden;
 }
@@ -4997,28 +4994,32 @@ header{
 }
 
 /* =========================
-   HEADER — SAME SCROLL BEHAVIOR AS CHECKOUT
+   HEADER — CHECKOUT BEHAVIOR
 ========================= */
 
 header{
-  position:sticky !important;
-  top:0 !important;
+  position: -webkit-sticky !important;
+  position: sticky !important;
 
-  width:100% !important;
-  height:60px !important;
+  top: 0 !important;
 
-  z-index:1000 !important;
+  width: 100% !important;
+  height: 60px !important;
 
-  background:#fff !important;
-  border-bottom:1px solid #e5e5e5 !important;
+  z-index: 9999 !important;
 
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
+  background: #fff !important;
+  border-bottom: 1px solid #e5e5e5 !important;
 
-  padding:0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 
-  margin:0 !important;
+  padding: 0 16px !important;
+
+  margin: 0 !important;
+
+  transform: none !important;
 }
 </style>
 </head>
