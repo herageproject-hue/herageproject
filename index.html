@@ -4993,34 +4993,37 @@ header{
   z-index:2000 !important;
 }
 
-/* =========================
-   HEADER — CHECKOUT BEHAVIOR
-========================= */
 
-header{
+/* =====================================
+   HERAGE HEADER — CHECKOUT SCROLL STYLE
+===================================== */
+
+body > header {
   position: -webkit-sticky !important;
   position: sticky !important;
 
   top: 0 !important;
+  left: auto !important;
 
   width: 100% !important;
   height: 60px !important;
+  min-height: 60px !important;
 
-  z-index: 9999 !important;
-
-  background: #fff !important;
-  border-bottom: 1px solid #e5e5e5 !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
 
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
 
-  padding: 0 16px !important;
+  background: #fff !important;
+  border-bottom: 1px solid #e5e5e5 !important;
 
-  margin: 0 !important;
+  z-index: 1000 !important;
 
   transform: none !important;
 }
+
 </style>
 </head>
 
