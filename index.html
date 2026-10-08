@@ -5021,6 +5021,168 @@ header{
 
   transform: none !important;
 }
+
+/* ===== HEADER BARU ===== */
+
+.site-header{
+  position:sticky !important;
+  top:0 !important;
+  left:0;
+  width:100%;
+  height:64px !important;
+  padding:0 32px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+
+  background:rgba(255,255,255,.96) !important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  border-bottom:1px solid #eaeaea !important;
+  box-sizing:border-box;
+  z-index:9999 !important;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  height:100%;
+}
+
+.site-header .menu-icon,
+.site-header #backBtn{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.site-header .menu-icon img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+
+.site-header #backBtn img{
+  width:24px !important;
+  height:24px;
+  object-fit:contain;
+}
+
+.site-header .logo-img{
+  width:28px;
+  height:28px;
+  object-fit:contain;
+}
+
+.site-header .icons{
+  display:flex !important;
+  align-items:center !important;
+  gap:16px !important;
+}
+
+.site-header .icons > img,
+.site-header .cart-icon-wrapper{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  cursor:pointer;
+  position:relative;
+}
+
+.site-header .icons > img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+
+.site-header .cart-icon-wrapper > img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  cursor:pointer;
+}
+
+.site-header .menu-icon:hover,
+.site-header .icons > img:hover,
+.site-header .cart-icon-wrapper:hover{
+  background:#f5f5f5;
+}
+
+.site-header #cartBadge{
+  position:absolute;
+  top:0;
+  right:0;
+
+  min-width:15px;
+  height:15px;
+  padding:0 3px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#000;
+  color:#fff;
+
+  border-radius:50%;
+  font-size:9px;
+  line-height:1;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .site-header{
+    height:58px !important;
+    padding:0 14px !important;
+  }
+
+  .header-left{
+    gap:5px;
+  }
+
+  .site-header .menu-icon,
+  .site-header #backBtn{
+    width:34px;
+    height:34px;
+  }
+
+  .site-header .menu-icon img{
+    width:19px;
+    height:19px;
+  }
+
+  .site-header .logo-img{
+    width:26px;
+    height:26px;
+  }
+
+  .site-header .icons{
+    gap:8px !important;
+  }
+
+  .site-header .icons > img,
+  .site-header .cart-icon-wrapper{
+    width:34px;
+    height:34px;
+  }
+
+}
 </style>
 </head>
 
@@ -5028,30 +5190,30 @@ header{
 
 <div id="popupBackdrop"></div>
 <!-- HEADER -->
-<header>
-  <div style="display:flex;align-items:center;gap:5px;">
+<header class="site-header">
+  <div class="header-left">
 
-<!-- NAVIGATION BUTTON -->
+    <div id="backBtn" onclick="goHome()" style="display:none;cursor:pointer;">
+      <img src="back.png" loading="lazy" style="width:24px;" alt="Back">
+    </div>
 
-<!-- BACK BUTTON -->
-<div id="backBtn" onclick="goHome()" style="display:none;cursor:pointer;">
-  <img src="back.png" loading="lazy" style="width:24px;">
-</div>
+    <div id="menuBtn" class="menu-icon" onclick="openMenu()" aria-label="Open menu">
+      <img src="hamburger.PNG" loading="lazy" alt="Menu">
+    </div>
 
-<!-- MENU BUTTON -->
-<div id="menuBtn" class="menu-icon" onclick="openMenu()">
-  <img src="hamburger.PNG" loading="lazy" alt="Menu">
-</div>
+    <img src="logo.png" loading="lazy" class="logo-img" alt="Herage Project">
 
-<img src="logo.png" loading="lazy" class="logo-img">
-</div>
+  </div>
 
   <div class="icons">
+
     <div class="cart-icon-wrapper">
-      <img src="cart.PNG" loading="lazy" onclick="openCart()">
+      <img src="cart.PNG" loading="lazy" onclick="openCart()" alt="Cart">
       <span id="cartBadge">0</span>
     </div>
-    <img src="user.PNG" loading="lazy" onclick="openAccount()">
+
+    <img src="user.PNG" loading="lazy" onclick="openAccount()" alt="Account">
+
   </div>
 </header>
   
